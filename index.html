@@ -62,6 +62,13 @@
       --nav-underline: #fff;
       --node-bg: #fafafa;
       --node-border: #0a0a0a;
+      --intro-bg: var(--bg);
+      --intro-text: var(--text);
+      --intro-glow: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 80%);
+      --intro-title-shadow: 0 0 20px rgba(255, 255, 255, 0.35), 
+                            0 0 45px rgba(200, 200, 200, 0.2), 
+                            0 0 90px rgba(180, 180, 180, 0.1);
+      --intro-scroll-hover: #ffffff;
     }
     [data-theme="light"] {
       --void: #f5f5f4;
@@ -90,6 +97,13 @@
       --nav-underline: #0a0a0a;
       --node-bg: #0a0a0a;
       --node-border: #f5f5f4;
+      --intro-bg: var(--bg);
+      --intro-text: var(--text);
+      --intro-glow: radial-gradient(circle, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.02) 50%, transparent 80%);
+      --intro-title-shadow: 0 0 20px rgba(0, 0, 0, 0.08), 
+                            0 0 45px rgba(0, 0, 0, 0.04), 
+                            0 0 90px rgba(0, 0, 0, 0.02);
+      --intro-scroll-hover: #000000;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; color-scheme: dark; }
@@ -199,6 +213,11 @@
       border-radius: 14px;
       border: 1px solid var(--border);
       box-shadow: 0 26px 64px rgba(0, 0, 0, 0.35);
+      filter: grayscale(100%) contrast(1.02);
+      transition: filter 0.4s ease;
+    }
+    .hero-side-image img:hover {
+      filter: grayscale(0%) contrast(1);
     }
 
     .magnetic-wrap {
@@ -263,13 +282,77 @@
     .sticker-5 { --r: -10deg; background: #67e8f9; color: #083344; animation-delay: -1.5s; }
     .sticker-6 { --r: 4deg; background: #bef264; color: #1a2e05; animation-delay: -2.5s; border-radius: 999px; padding: 0.75rem 1.1rem; }
 
+    /* Intro Splash Screen */
+    #intro-screen {
+      background-color: var(--intro-bg);
+      transition: background-color 0.35s ease;
+    }
+    .intro-title {
+      font-family: "Bebas Neue", Anton, sans-serif;
+      font-size: clamp(3rem, 15vw, 10.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--intro-text);
+      text-shadow: var(--intro-title-shadow);
+      transition: color 0.35s ease, text-shadow 0.35s ease;
+    }
+    .intro-title-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s,
+                  transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+    }
+    .intro-name-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.65s,
+                  transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.65s,
+                  color 0.35s ease;
+      color: var(--text-secondary);
+    }
+    .intro-scroll-indicator {
+      color: var(--text-muted);
+      transition: color 0.35s ease;
+    }
+    .intro-scroll-indicator:hover {
+      color: var(--intro-scroll-hover);
+    }
+    .intro-scroll-reveal {
+      opacity: 0;
+      transition: opacity 1.2s ease 1.1s;
+    }
+    body.loaded .intro-title-reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    body.loaded .intro-name-reveal {
+      opacity: 0.7;
+      transform: translateY(0);
+    }
+    body.loaded .intro-scroll-reveal {
+      opacity: 1;
+    }
+
     /* Header */
     .site-header {
-      background: var(--header-bg);
-      transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      background: transparent;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-20px);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                  background 0.35s ease, 
+                  box-shadow 0.35s ease, 
+                  border-color 0.35s ease;
+    }
+    .site-header.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
     .site-header.scrolled {
-      background: var(--header-scrolled);
+      background: transparent;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -714,6 +797,17 @@
       .sticker { animation: none !important; }
       .portrait-wrap { transform: none !important; }
       .mouse-glow { display: none; }
+      .site-header {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        pointer-events: auto !important;
+      }
+      .intro-title-reveal, .intro-name-reveal, .intro-scroll-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
     }
 
     /* Light theme — Tailwind section overrides */
@@ -766,6 +860,30 @@
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
+  <!-- Intro Splash Screen -->
+  <section id="intro-screen" class="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden z-40">
+    <!-- Theme-aware Glow Accent (behind text) with slight rotation for organic feel -->
+    <div class="absolute w-[320px] sm:w-[680px] h-[140px] sm:h-[200px] rounded-full blur-[80px] sm:blur-[110px] pointer-events-none select-none z-0" style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-5deg); background: var(--intro-glow);"></div>
+    
+    <!-- Content container -->
+    <div class="relative z-10 text-center flex flex-col items-center justify-center">
+      <h1 class="intro-title intro-title-reveal" id="introTitle">
+        Portfolio.
+      </h1>
+      <p class="mt-4 sm:mt-6 text-xs sm:text-sm md:text-base font-semibold tracking-[0.3em] sm:tracking-[0.4em] uppercase select-none intro-name-reveal" id="introName">
+        Nirnay Pratap Singh
+      </p>
+    </div>
+
+    <!-- Scroll down indicator -->
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 intro-scroll-indicator intro-scroll-reveal cursor-pointer z-10" id="scrollIndicator" aria-label="Scroll to explore website">
+      <span class="text-[9px] font-bold tracking-[0.25em] uppercase">Scroll to explore</span>
+      <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </section>
+
   <!-- Navbar -->
   <header class="site-header fixed top-0 left-0 right-0 z-50 px-5 md:px-10 lg:px-14 py-6" id="siteHeader">
     <nav class="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
@@ -798,12 +916,23 @@
 
   <main>
     <!-- Hero typography -->
-    <section class="relative z-10 pt-28 md:pt-32 lg:pt-36 px-5 md:px-10 lg:px-14 max-w-[1440px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
-        <h1 class="hero-title reveal text-white uppercase font-display font-bold lg:col-span-8">
-          Software<br class="hidden sm:block" /> Engineer
-        </h1>
-        <div class="hidden lg:block lg:col-span-4 reveal reveal-d1">
+    <section id="hero-section" class="relative z-10 min-h-screen flex flex-col justify-between pt-28 pb-10 px-5 md:px-10 lg:px-14 max-w-[1440px] mx-auto">
+      <!-- Main Content Block (Centered Vertically) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto w-full">
+        <div class="lg:col-span-8 flex flex-col items-start gap-6 sm:gap-8">
+          <h1 class="hero-title reveal text-[var(--text)] uppercase font-display font-bold leading-[0.88] sm:leading-[0.85]">
+            Software<br class="hidden sm:block" /> Engineer
+          </h1>
+          <div class="reveal reveal-d1">
+            <a href="resume.docx" download class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-[var(--text)]/20 hover:border-[var(--text)] bg-[var(--text)]/[0.03] hover:bg-[var(--text)] text-[var(--text)] hover:text-[var(--bg)] text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer">
+              <span>Download CV</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div class="hidden lg:block lg:col-span-4 reveal reveal-d1 justify-self-end">
           <div class="hero-side-image">
             <img
               src="meatlaptop.png"
@@ -817,7 +946,8 @@
         </div>
       </div>
 
-      <div class="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end reveal reveal-d1">
+      <!-- Footer Info Block (Pushed to bottom) -->
+      <div class="mt-8 lg:mt-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end reveal reveal-d1 w-full">
         <p class="lg:col-span-4 text-sm md:text-base text-neutral-400 leading-relaxed max-w-md">
           Exploring cloud computing, full-stack development, and data analytics.
         </p>
@@ -870,13 +1000,31 @@
 
     <!-- About -->
     <section id="about" class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5">
-      <div class="grid md:grid-cols-12 gap-10 items-start">
-        <h2 class="md:col-span-4 font-display text-5xl md:text-6xl uppercase tracking-wide text-white">About Me</h2>
+      <div class="grid md:grid-cols-12 gap-10 md:items-stretch items-start">
+        <!-- Left column: Heading + Image -->
+        <div class="md:col-span-4 flex flex-col gap-8">
+          <h2 class="font-display text-5xl md:text-6xl uppercase tracking-wide text-white">About Me</h2>
+          <div class="relative group md:mt-auto" style="max-width: 280px;">
+            <!-- Grey-to-white radial glow behind the image -->
+            <div class="absolute inset-0 rounded-2xl" style="background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.07) 50%, transparent 80%); filter: blur(25px); transform: scale(1.15);"></div>
+            <img
+              src="myimg.png"
+              alt="Nirnay Pratap Singh — Profile photo"
+              width="280"
+              height="280"
+              loading="lazy"
+              decoding="async"
+              class="relative rounded-2xl w-full h-auto object-cover"
+              style="aspect-ratio: 1 / 1; object-position: center top;"
+            />
+          </div>
+        </div>
+        <!-- Right column: Bio Text -->
         <div class="md:col-span-8 space-y-5 text-neutral-400 text-sm md:text-base leading-relaxed">
-          <p>I’m <strong class="text-white font-medium">Nirnay Pratap Singh</strong>, a Computer Science Engineering student at Bennett University passionate about building impactful digital products and solving real-world problems through technology. I enjoy working across full-stack development, cloud computing, AI/ML, and data analytics, constantly exploring new tools and pushing myself beyond the classroom.</p>
-          <p>I’ve built and deployed multiple end-to-end projects ranging from AI-powered systems and real-time analytics platforms to scalable web applications. My experience includes developing a reinforcement learning environment for the Meta PyTorch OpenEnv Hackathon, creating responsive full-stack platforms using React, Node.js, and MongoDB, and working with real-world business datasets during my Data Analyst internship at Lysandra Group.</p>
+          <p>I'm <strong class="text-white font-medium">Nirnay Pratap Singh</strong>, a Computer Science Engineering student at Bennett University passionate about building impactful digital products and solving real-world problems through technology. I enjoy working across full-stack development, cloud computing, AI/ML, and data analytics, constantly exploring new tools and pushing myself beyond the classroom.</p>
+          <p>I've built and deployed multiple end-to-end projects ranging from AI-powered systems and real-time analytics platforms to scalable web applications. My experience includes developing a reinforcement learning environment for the Meta PyTorch OpenEnv Hackathon, creating responsive full-stack platforms using React, Node.js, and MongoDB, and working with real-world business datasets during my Data Analyst internship at Lysandra Group.</p>
           <p>Beyond technical skills, I enjoy collaborating with teams, managing events, and leading initiatives. As Management Head of Alt Reality Club, I coordinated technical events, workshops, and hackathon activities that helped grow the community significantly.</p>
-          <p>Currently, I’m focused on expanding my expertise in software engineering, cloud technologies, and intelligent systems while looking for opportunities where I can learn fast, build meaningful products, and contribute to innovative teams.</p>
+          <p>Currently, I'm focused on expanding my expertise in software engineering, cloud technologies, and intelligent systems while looking for opportunities where I can learn fast, build meaningful products, and contribute to innovative teams.</p>
         </div>
       </div>
     </section>
@@ -1265,9 +1413,15 @@
           <form
             id="contactForm"
             class="connect-form space-y-5"
-            novalidate
-            data-endpoint="https://formspree.io/f/your-form-id"
+            action="https://formsubmit.co/nirnaysingh7@gmail.com"
+            method="POST"
           >
+            <!-- FormSubmit Options -->
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="New Portfolio Message">
+            <input type="hidden" name="_next" value="thankyou.html">
+
             <div class="connect-field">
               <label for="contactName">Full Name</label>
               <input type="text" id="contactName" name="name" required placeholder="John Doe" autocomplete="name" />
@@ -1284,7 +1438,7 @@
               <label for="contactMessage">Message</label>
               <textarea id="contactMessage" name="message" required placeholder="Tell me about the opportunity or project..."></textarea>
             </div>
-            <button type="submit" class="connect-submit magnetic-wrap" id="contactSubmit">Send Message</button>
+            <button type="submit" class="connect-submit magnetic-wrap" id="contactSubmit">SEND MESSAGE</button>
           </form>
         </div>
       </div>
@@ -1323,13 +1477,53 @@
         });
       }
 
-      // Header scroll state
+      // Header scroll state and Intro fadeout
       const siteHeader = document.getElementById("siteHeader");
+      const introTitle = document.getElementById("introTitle");
+      const introName = document.getElementById("introName");
+      const scrollIndicator = document.getElementById("scrollIndicator");
+      const introScreen = document.getElementById("intro-screen");
+      const heroSection = document.getElementById("hero-section");
+      const htmlEl = document.documentElement;
+
       const onScroll = () => {
-        if (siteHeader) siteHeader.classList.toggle("scrolled", window.scrollY > 24);
+        const scrollY = window.scrollY;
+        const vh = window.innerHeight;
+        const isPastIntro = scrollY > vh * 0.75;
+
+        if (siteHeader) {
+          siteHeader.classList.toggle("visible", isPastIntro);
+          siteHeader.classList.toggle("scrolled", isPastIntro && scrollY > (vh * 0.75 + 24));
+        }
+
+        // Fade out intro elements as user scrolls down
+        const fadeEnd = vh * 0.6;
+        if (scrollY <= fadeEnd) {
+          const progress = scrollY / fadeEnd;
+          const opacity = Math.max(0, 1 - progress);
+          if (introTitle) introTitle.style.opacity = opacity;
+          if (introName) introName.style.opacity = opacity * 0.7;
+          if (scrollIndicator) scrollIndicator.style.opacity = opacity;
+        } else {
+          if (introTitle) introTitle.style.opacity = 0;
+          if (introName) introName.style.opacity = 0;
+          if (scrollIndicator) scrollIndicator.style.opacity = 0;
+        }
       };
       window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll);
       onScroll();
+
+
+      // Scroll indicator click handler
+      if (scrollIndicator) {
+        scrollIndicator.addEventListener("click", () => {
+          window.scrollTo({
+            top: window.innerHeight,
+            behavior: "smooth"
+          });
+        });
+      }
 
       // Mobile menu
       const menuBtn = document.getElementById("menuBtn");
@@ -1370,7 +1564,7 @@
           requestAnimationFrame(animRing);
         };
         animRing();
-        document.querySelectorAll("a, button").forEach((el) => {
+        document.querySelectorAll("a, button, #scrollIndicator, .cursor-pointer").forEach((el) => {
           el.addEventListener("mouseenter", () => ring.classList.add("hover"));
           el.addEventListener("mouseleave", () => ring.classList.remove("hover"));
         });
@@ -1411,64 +1605,48 @@
       );
       journeyEls.forEach((el) => journeyObserver.observe(el));
 
-      // Contact form – posts to external email endpoint
+      // Contact form – FormSubmit integration (Asynchronous background post)
       const contactForm = document.getElementById("contactForm");
       const contactSubmit = document.getElementById("contactSubmit");
-      const SEND_LABEL = "Send Message";
-      const SENDING_LABEL = "Sending...";
-      const SUCCESS_LABEL = "Message Sent!";
-      const ERROR_LABEL = "Try Again";
+      const SEND_LABEL = "SEND MESSAGE";
+      const SENDING_LABEL = "SENDING...";
 
       if (contactForm && contactSubmit) {
-        const endpoint = contactForm.dataset.endpoint;
-
         contactForm.addEventListener("submit", async (e) => {
-          e.preventDefault();
+          e.preventDefault(); // Prevent standard browser redirect
+
           if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
             return;
           }
-          if (!endpoint) {
-            console.error("Contact form endpoint is not configured.");
-            alert("Contact form endpoint is not configured yet.");
-            return;
-          }
 
-          contactSubmit.disabled = true;
+          // Show sending loading state on button
           contactSubmit.textContent = SENDING_LABEL;
+          contactSubmit.style.pointerEvents = "none";
+          contactSubmit.style.opacity = "0.7";
 
+          const action = contactForm.getAttribute("action");
           const formData = new FormData(contactForm);
 
           try {
-            const res = await fetch(endpoint, {
+            const response = await fetch(action, {
               method: "POST",
               body: formData,
               headers: {
-                Accept: "application/json",
-              },
+                'Accept': 'application/json'
+              }
             });
 
-            if (res.ok) {
-              contactForm.classList.add("sent");
-              contactSubmit.classList.add("success");
-              contactSubmit.textContent = SUCCESS_LABEL;
-              setTimeout(() => {
-                contactForm.reset();
-                contactForm.classList.remove("sent");
-                contactSubmit.classList.remove("success");
-                contactSubmit.textContent = SEND_LABEL;
-                contactSubmit.disabled = false;
-              }, 4000);
+            if (response.ok) {
+              // Redirect directly to your custom thankyou.html page
+              window.location.href = "thankyou.html";
             } else {
-              throw new Error("Request failed");
+              throw new Error("FormSubmit response not ok.");
             }
-          } catch (err) {
-            console.error(err);
-            contactSubmit.textContent = ERROR_LABEL;
-            setTimeout(() => {
-              contactSubmit.textContent = SEND_LABEL;
-              contactSubmit.disabled = false;
-            }, 2500);
+          } catch (error) {
+            console.warn("Background submission issue, falling back to native post...", error);
+            // Fallback: If background POST fails, submit natively
+            contactForm.submit();
           }
         });
       }
