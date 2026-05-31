@@ -23,10 +23,17 @@
     };
   </script>
   <style>
+    :root {
+      --bg: #070708;
+      --text: #fafafa;
+      --border: rgba(255, 255, 255, 0.1);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --accent-gradient: linear-gradient(135deg, #22d3ee 0%, #818cf8 50%, #c084fc 100%);
+    }
     body {
       font-family: Inter, system-ui, sans-serif;
-      background: #0a0a0a;
-      color: #fafafa;
+      background: var(--bg);
+      color: var(--text);
       overflow: hidden;
     }
     .grain {
@@ -34,21 +41,62 @@
       position: fixed;
       inset: 0;
       z-index: 9998;
-      opacity: 0.04;
+      opacity: 0.045;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .dot-grid {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .success-card {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .success-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: var(--accent-gradient);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .success-icon {
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(129, 140, 248, 0.15));
+      box-shadow: 0 0 32px rgba(34, 211, 238, 0.2);
+    }
+    .home-btn {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+    }
+    .home-btn:hover {
+      box-shadow: 0 12px 40px rgba(34, 211, 238, 0.25);
     }
   </style>
 </head>
 <body class="relative flex items-center justify-center min-h-screen px-5">
+  <div class="dot-grid" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- Background Blur Accents -->
-  <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-[120px]" aria-hidden="true"></div>
+  <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-cyan-500/12 rounded-full blur-[120px]" aria-hidden="true"></div>
   <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-[140px]" aria-hidden="true"></div>
 
-  <!-- Main Card -->
-  <div class="relative z-10 max-w-md w-full border border-white/10 bg-white/[0.02] backdrop-blur-xl rounded-3xl p-8 md:p-10 text-center shadow-2xl">
-    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/[0.04] border border-white/10 text-cyan-400 mb-6">
+  <div class="success-card relative z-10 max-w-md w-full rounded-3xl p-8 md:p-10 text-center">
+    <div class="success-icon inline-flex items-center justify-center w-16 h-16 rounded-full border border-white/10 text-cyan-400 mb-6">
       <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
@@ -58,14 +106,14 @@
       Message Sent!
     </h1>
     <p class="text-sm md:text-base text-neutral-400 leading-relaxed mb-8">
-      Thank you for reaching out, Nirnay. Your message has been safely delivered, and I'll get back to you as soon as possible!
+      Thank you for reaching out! Your message has been safely delivered — I'll get back to you as soon as possible.
     </p>
 
-    <a href="index.html" class="inline-flex items-center justify-center w-full gap-3 px-6 py-4 rounded-full border border-white/20 hover:border-white bg-white/[0.03] hover:bg-white text-white hover:text-black text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-300">
+    <a href="index.html" class="home-btn inline-flex items-center justify-center w-full gap-3 px-6 py-4 rounded-full text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-300 hover:-translate-y-0.5">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
       </svg>
-      <span>HOME</span>
+      <span>Back Home</span>
     </a>
   </div>
 </body>
