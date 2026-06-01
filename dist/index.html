@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap"
     rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -43,17 +43,17 @@
 
     :root,
     [data-theme="dark"] {
-      --void: #0a0a0a;
-      --bg: #0a0a0a;
+      --void: #070708;
+      --bg: #070708;
       --text: #fafafa;
       --text-secondary: #a3a3a3;
       --text-muted: #737373;
       --text-faint: #525252;
       --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.18);
-      --card-bg: rgba(255, 255, 255, 0.02);
-      --card-bg-hover: rgba(255, 255, 255, 0.04);
-      --input-bg: rgba(0, 0, 0, 0.35);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --card-bg: rgba(255, 255, 255, 0.025);
+      --card-bg-hover: rgba(255, 255, 255, 0.055);
+      --input-bg: rgba(0, 0, 0, 0.4);
       --nav-text: #d4d4d4;
       --nav-logo-muted: #a3a3a3;
       --header-bg: transparent;
@@ -61,9 +61,11 @@
       --mobile-menu-bg: rgba(10, 10, 10, 0.95);
       --cursor-dot: #fff;
       --cursor-ring: rgba(255, 255, 255, 0.35);
-      --mouse-glow-color: rgba(120, 180, 255, 0.07);
-      --grain-opacity: 0.04;
-      --accent-label: #22d3ee;
+      --mouse-glow-color: rgba(255, 255, 255, 0.06);
+      --grain-opacity: 0.045;
+      --accent-label: #d4d4d4;
+      --accent-violet: #a3a3a3;
+      --accent-gradient: linear-gradient(135deg, #fafafa 0%, #d4d4d4 50%, #a3a3a3 100%);
       --btn-primary-bg: #fafafa;
       --btn-primary-text: #0a0a0a;
       --nav-underline: #fff;
@@ -71,11 +73,17 @@
       --node-border: #0a0a0a;
       --intro-bg: var(--bg);
       --intro-text: var(--text);
-      --intro-glow: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 80%);
+      --intro-glow: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 75%);
       --intro-title-shadow: 0 0 20px rgba(255, 255, 255, 0.35),
         0 0 45px rgba(200, 200, 200, 0.2),
         0 0 90px rgba(180, 180, 180, 0.1);
       --intro-scroll-hover: #ffffff;
+      --orb-1: rgba(255, 255, 255, 0.06);
+      --orb-2: rgba(255, 255, 255, 0.04);
+      --orb-3: rgba(255, 255, 255, 0.03);
+      --dot-grid: rgba(255, 255, 255, 0.035);
+      --card-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+      --card-shadow-hover: 0 32px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
     }
 
     [data-theme="light"] {
@@ -97,9 +105,11 @@
       --mobile-menu-bg: rgba(245, 245, 244, 0.98);
       --cursor-dot: #0a0a0a;
       --cursor-ring: rgba(0, 0, 0, 0.25);
-      --mouse-glow-color: rgba(79, 142, 247, 0.09);
+      --mouse-glow-color: rgba(0, 0, 0, 0.04);
       --grain-opacity: 0.03;
-      --accent-label: #0891b2;
+      --accent-label: #525252;
+      --accent-violet: #737373;
+      --accent-gradient: linear-gradient(135deg, #0a0a0a 0%, #525252 50%, #a3a3a3 100%);
       --btn-primary-bg: #0a0a0a;
       --btn-primary-text: #fafafa;
       --nav-underline: #0a0a0a;
@@ -112,6 +122,12 @@
         0 0 45px rgba(0, 0, 0, 0.04),
         0 0 90px rgba(0, 0, 0, 0.02);
       --intro-scroll-hover: #000000;
+      --orb-1: rgba(0, 0, 0, 0.04);
+      --orb-2: rgba(0, 0, 0, 0.03);
+      --orb-3: rgba(0, 0, 0, 0.02);
+      --dot-grid: rgba(0, 0, 0, 0.04);
+      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+      --card-shadow-hover: 0 28px 64px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
     }
 
     * {
@@ -133,6 +149,95 @@
       color: var(--text);
       overflow-x: hidden;
       transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    /* Ambient depth layers */
+    .ambient-bg {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orb-drift 22s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      background: var(--orb-1);
+      top: -8%;
+      right: -6%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 440px;
+      height: 440px;
+      background: var(--orb-2);
+      bottom: 15%;
+      left: -10%;
+      animation-delay: -7s;
+    }
+
+    .orb-3 {
+      width: 360px;
+      height: 360px;
+      background: var(--orb-3);
+      top: 42%;
+      left: 38%;
+      animation-delay: -14s;
+    }
+
+    @keyframes orb-drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -24px) scale(1.06);
+      }
+
+      66% {
+        transform: translate(-20px, 18px) scale(0.94);
+      }
+    }
+
+    .dot-grid {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      z-index: 10000;
+      background: var(--text);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+      transition: width 0.08s linear;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+      margin: 0 auto;
+      max-width: 1440px;
     }
 
     body.preload {
@@ -227,6 +332,10 @@
       .cursor-ring {
         display: none;
       }
+
+      .mouse-glow {
+        display: none;
+      }
     }
 
     .hero-title {
@@ -234,6 +343,161 @@
       font-size: clamp(3.5rem, 14vw, 11.5rem);
       line-height: 0.88;
       letter-spacing: -0.02em;
+    }
+
+    .hero-title-accent {
+      background: linear-gradient(180deg, var(--text) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.12));
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 1rem 0.45rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--text);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 0 12px rgba(255, 255, 255, 0.35);
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.7;
+        transform: scale(0.85);
+      }
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem 2rem;
+      padding-top: 0.5rem;
+      width: 100%;
+      max-width: 32rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-stats {
+        max-width: 36rem;
+        gap: 1.5rem 2.5rem;
+      }
+    }
+
+    .hero-stat {
+      position: relative;
+    }
+
+    .hero-desc {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 100%;
+      max-width: 32rem;
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        gap: 1.25rem;
+      }
+
+      .hero-stat {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+      }
+
+      .hero-stat-value {
+        min-width: 4.5rem;
+      }
+
+      .hero-stat-label {
+        margin-top: 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero-desc {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem 2.5rem;
+        max-width: 36rem;
+      }
+    }
+
+    .hero-stat-value {
+      font-family: "Bebas Neue", Anton, sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .hero-stat-label {
+      margin-top: 0.25rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--text-secondary);
+    }
+
+    .section-number {
+      font-family: "Bebas Neue", Anton, sans-serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      line-height: 0.85;
+      letter-spacing: 0.02em;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border-hover);
+      opacity: 0.35;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+              user-select: none;
     }
 
     .hero-side-image {
@@ -252,6 +516,18 @@
       pointer-events: none;
     }
 
+    .hero-side-image::after {
+      content: "";
+      position: absolute;
+      inset: -28px;
+      border-radius: 24px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 70%);
+      opacity: 0.35;
+      filter: blur(28px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .hero-side-image img {
       width: 100%;
       height: auto;
@@ -265,7 +541,7 @@
     }
 
     .hero-side-image img:hover {
-      filter: grayscale(0%) contrast(1);
+      filter: grayscale(100%) contrast(1.08);
     }
 
     .magnetic-wrap {
@@ -276,10 +552,20 @@
     /* Showcase panel */
     .showcase-panel {
       position: relative;
-      background: #f0f0eb;
+      background: linear-gradient(145deg, #f2f2ed 0%, #e8e8e2 100%);
       border-radius: 0 120px 120px 0;
       overflow: hidden;
       min-height: clamp(380px, 52vh, 560px);
+      box-shadow: var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .showcase-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
     }
 
     .showcase-grid {
@@ -315,7 +601,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       animation: float 5s ease-in-out infinite;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s, background 0.3s ease, color 0.3s ease;
     }
 
     .sticker:hover {
@@ -338,52 +624,111 @@
 
     .sticker-1 {
       --r: -8deg;
-      background: #5eead4;
-      color: #042f2e;
+      background: #fafafa;
+      color: #171717;
       animation-delay: 0s;
+    }
+    .sticker-1:hover {
+      background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-2 {
       --r: 6deg;
-      background: #fde047;
-      color: #422006;
+      background: #e5e5e5;
+      color: #262626;
       animation-delay: -1s;
+    }
+    .sticker-2:hover {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-3 {
       --r: -4deg;
-      background: #fb923c;
-      color: #431407;
+      background: #d4d4d4;
+      color: #404040;
       animation-delay: -2s;
+    }
+    .sticker-3:hover {
+      background: linear-gradient(135deg, #7F00FF 0%, #E100FF 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-4 {
       --r: 12deg;
-      background: #f472b6;
-      color: #500724;
+      background: #a3a3a3;
+      color: #fafafa;
       animation-delay: -0.5s;
+    }
+    .sticker-4:hover {
+      background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-5 {
       --r: -10deg;
-      background: #67e8f9;
-      color: #083344;
+      background: #737373;
+      color: #fafafa;
       animation-delay: -1.5s;
+    }
+    .sticker-5:hover {
+      background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-6 {
       --r: 4deg;
-      background: #bef264;
-      color: #1a2e05;
+      background: #262626;
+      color: #fafafa;
       animation-delay: -2.5s;
       border-radius: 999px;
       padding: 0.75rem 1.1rem;
+    }
+    .sticker-6:hover {
+      background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%) !important;
+      color: #ffffff !important;
     }
 
     /* Intro Splash Screen */
     #intro-screen {
       background-color: var(--intro-bg);
       transition: background-color 0.35s ease;
+    }
+
+    .intro-grid-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 70%);
+    }
+
+    .intro-corner {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-color: var(--border-hover);
+      opacity: 0.5;
+    }
+
+    .intro-corner-tl {
+      top: 2rem;
+      left: 2rem;
+      border-top: 1px solid;
+      border-left: 1px solid;
+    }
+
+    .intro-corner-br {
+      bottom: 2rem;
+      right: 2rem;
+      border-bottom: 1px solid;
+      border-right: 1px solid;
     }
 
     .intro-title {
@@ -465,6 +810,64 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+    }
+
+    .site-header.scrolled nav {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 1023px) {
+      .site-header {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        padding-top: max(1rem, env(safe-area-inset-top));
+      }
+    }
+
+    @media (max-width: 767px) {
+      .site-header.scrolled nav {
+        max-width: none;
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+
+      .site-header {
+        padding-bottom: 0.75rem;
+      }
+
+      #mobileMenu {
+        background: var(--mobile-menu-bg);
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+      }
+
+      #menuBtn {
+        min-width: 44px;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-nav {
+        display: block;
+        padding: 0.65rem 0;
+        font-size: 0.72rem;
+      }
     }
 
     .nav-logo {
@@ -554,16 +957,193 @@
       color: var(--text);
     }
 
-    .tool-card {
+    /* Project cards */
+    .project-card {
+      position: relative;
       border: 1px solid var(--border);
       background: var(--card-bg);
-      transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 1.5rem 1.75rem;
+      transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .project-card {
+        padding: 2rem;
+      }
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(180deg, var(--border-hover), var(--text-muted));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .project-card:hover {
+      border-color: transparent;
+      background: var(--card-bg-hover);
+      transform: translateY(-8px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card-glow {
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .project-card:hover .project-card-glow {
+      opacity: 1;
+    }
+
+    .project-index {
+      font-family: "Bebas Neue", Anton, sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--border-hover);
+      opacity: 0.25;
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+              user-select: none;
+    }
+
+    .project-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, var(--card-bg-hover), var(--card-bg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .project-card-featured {
+      grid-column: 1 / -1;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .project-card-featured {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .project-card-featured {
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) 1.2fr;
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .project-card-featured .project-img-wrap {
+        margin-bottom: 0;
+      }
+    }
+
+    /* Marquee */
+    .marquee-wrap {
+      overflow: hidden;
+      border-block: 1px solid var(--border);
+      padding: 1.25rem 0;
+      margin: 0 -5px;
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      width: -moz-max-content;
+      width: max-content;
+      animation: marquee 35s linear infinite;
+    }
+
+    .marquee-item {
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      white-space: nowrap;
+    }
+
+    .marquee-item span {
+      color: var(--text-secondary);
+      margin-right: 0.5rem;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .tool-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+
+    .tool-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--text);
+      opacity: 0;
+      transition: opacity 0.35s ease;
     }
 
     .tool-card:hover {
       border-color: var(--border-hover);
       background: var(--card-bg-hover);
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .tool-card:hover::after {
+      opacity: 1;
     }
 
     .tool-pill {
@@ -610,7 +1190,7 @@
       right: -5%;
       width: 45%;
       height: 40%;
-      background: radial-gradient(circle, rgba(120, 180, 255, 0.04) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -991,20 +1571,50 @@
     }
 
     .connect-submit:hover {
-      opacity: 0.9;
+      opacity: 0.95;
       transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     }
 
     .connect-submit.success {
-      background: #22c55e;
-      color: #fff;
+      background: var(--text-secondary);
+      color: var(--bg);
       pointer-events: none;
     }
 
     .connect-form.sent .connect-field input,
     .connect-form.sent .connect-field textarea {
       opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .connect-form-status {
+      min-height: 1.25rem;
+      font-size: 0.72rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .connect-form-status.is-error {
+      color: #f87171;
+    }
+
+    .connect-form-status.is-success {
+      color: var(--text-secondary);
+    }
+
+    .connect-submit:disabled {
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .connect-form input[name="_honey"] {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
       pointer-events: none;
     }
 
@@ -1027,7 +1637,9 @@
 
       .journey-card:hover,
       .journey-grid-card:hover,
-      .connect-info-card:hover {
+      .connect-info-card:hover,
+      .project-card:hover,
+      .tool-card:hover {
         transform: none !important;
       }
 
@@ -1039,8 +1651,14 @@
         transform: none !important;
       }
 
-      .mouse-glow {
+      .mouse-glow,
+      .ambient-bg .orb,
+      .marquee-track {
         display: none;
+      }
+
+      .marquee-track {
+        animation: none !important;
       }
 
       .site-header {
@@ -1080,8 +1698,12 @@
       color: var(--text-faint) !important;
     }
 
+    [data-theme="light"] .hero-title-accent {
+      filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.08));
+    }
+
     [data-theme="light"] .text-cyan-400 {
-      color: var(--accent-label) !important;
+      color: var(--text-secondary) !important;
     }
 
     [data-theme="light"] .border-white\/5,
@@ -1137,24 +1759,184 @@
     }
 
     [data-theme="light"] #journey::after {
-      background: radial-gradient(circle, rgba(79, 142, 247, 0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.04) 0%, transparent 70%);
     }
 
     @media (max-width: 768px) {
       .showcase-panel {
         border-radius: 0 48px 48px 0;
-        min-height: 340px;
+        min-height: auto;
       }
 
-      .sticker {
-        font-size: 0.58rem;
-        padding: 0.45rem 0.7rem;
+      .showcase-inner {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 2rem 1.25rem 1.5rem;
+        gap: 1rem;
+      }
+
+      .showcase-panel .sticker {
+        display: none;
+      }
+
+      .showcase-panel .sticker-6 {
+        display: inline-block;
+        position: relative;
+        top: auto;
+        left: auto;
+        bottom: auto;
+        margin-bottom: 0.25rem;
+        animation: none;
+        transform: none !important;
+      }
+
+      .portrait-wrap {
+        max-width: min(280px, 78vw) !important;
+      }
+
+      .portrait-img {
+        max-height: min(48vh, 320px) !important;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1023px) {
+      .showcase-panel {
+        min-height: 420px;
+      }
+
+      .portrait-wrap {
+        max-width: 340px !important;
+      }
+
+      .portrait-img {
+        max-height: min(60vh, 420px) !important;
+      }
+
+      .showcase-panel .sticker-1,
+      .showcase-panel .sticker-3,
+      .showcase-panel .sticker-5 {
+        display: none;
       }
     }
 
     @media (max-width: 480px) {
       .hero-title {
         font-size: clamp(2.8rem, 18vw, 4.5rem);
+      }
+    }
+
+    /* Responsive layout utilities */
+    .viewport-min {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    .section-title {
+      font-size: clamp(2.25rem, 7vw, 3.75rem);
+      line-height: 0.95;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: clamp(2.75rem, 5vw, 4.5rem);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .section-title {
+        font-size: clamp(3rem, 4vw, 4.75rem);
+      }
+    }
+
+    .about-spline-wrap {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 1 / 1;
+      height: auto;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 1024px) {
+      .about-spline-wrap {
+        margin-inline: 0;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .journey-date {
+        white-space: normal;
+        text-align: left;
+      }
+
+      .journey-card-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .connect-field input,
+      .connect-field textarea {
+        font-size: 1rem;
+      }
+
+      .skill-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.65rem;
+      }
+
+      .skill-item {
+        padding: 1rem 0.75rem;
+      }
+
+      .project-card {
+        padding: 1.25rem;
+      }
+
+      .project-index {
+        font-size: 2.5rem;
+        top: 0.75rem;
+        right: 0.85rem;
+      }
+
+      .loader-orbit {
+        width: 140px;
+        height: 140px;
+      }
+
+      @keyframes loaderOrbit {
+        from { transform: rotate(0deg) translateX(62px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(62px) rotate(-360deg); }
+      }
+
+      #intro-screen,
+      #hero-section {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
+      }
+
+      #hero-section {
+        padding-top: max(6.5rem, calc(env(safe-area-inset-top) + 5rem));
+      }
+
+      footer {
+        padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+      }
+
+      .intro-scroll-indicator {
+        bottom: max(2.5rem, env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .hero-stats {
+        max-width: 100%;
+      }
+
+      .hero-desc {
+        max-width: 100%;
       }
     }
 
@@ -1225,12 +2007,424 @@
         offset-distance: 100%;
       }
     }
+    /* Loading Screen */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 0.35s ease;
+    }
+
+    #loadingScreen.dismiss {
+      animation: loaderExit 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    }
+
+    @keyframes loaderExit {
+      to {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+
+    .loader-grid {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 72%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 72%);
+    }
+
+    .loader-glow {
+      position: absolute;
+      width: min(70vw, 520px);
+      height: min(40vw, 280px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .loader-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      width: min(92vw, 420px);
+    }
+
+    .loader-monogram {
+      font-family: "Bebas Neue", Anton, sans-serif;
+      font-size: clamp(4.5rem, 18vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      text-shadow: 0 0 40px rgba(255, 255, 255, 0.12);
+      animation: loaderPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.82; transform: scale(0.98); }
+    }
+
+    .loader-tagline {
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      animation: loaderFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    }
+
+    .loader-name-full {
+      margin-top: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      animation: loaderFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+    }
+
+    @keyframes loaderFadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .loader-progress-wrap {
+      width: 100%;
+      margin-top: 2.25rem;
+      animation: loaderFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+    }
+
+    .loader-progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.65rem;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .loader-progress-track {
+      position: relative;
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .loader-progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--text-muted), var(--text));
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+      transition: width 0.25s ease;
+    }
+
+    .loader-orbit {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-top: 2rem;
+      animation: loaderFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.65s both;
+    }
+
+    .loader-orbit-ring {
+      position: absolute;
+      inset: 0;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      animation: loaderSpin 18s linear infinite;
+    }
+
+    .loader-orbit-ring::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      margin-left: -3px;
+      border-radius: 50%;
+      background: var(--text);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
+    }
+
+    @keyframes loaderSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loader-orbit-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 28px;
+      height: 28px;
+      margin: -14px;
+      -o-object-fit: contain;
+         object-fit: contain;
+      filter: grayscale(100%) brightness(0.9);
+      opacity: 0.55;
+      animation: loaderOrbit 8s linear infinite;
+    }
+
+    .loader-orbit-icon:nth-child(2) { animation-delay: -1.3s; width: 24px; height: 24px; margin: -12px; }
+    .loader-orbit-icon:nth-child(3) { animation-delay: -2.6s; width: 26px; height: 26px; margin: -13px; }
+    .loader-orbit-icon:nth-child(4) { animation-delay: -3.9s; width: 22px; height: 22px; margin: -11px; }
+    .loader-orbit-icon:nth-child(5) { animation-delay: -5.2s; width: 25px; height: 25px; margin: -12.5px; }
+    .loader-orbit-icon:nth-child(6) { animation-delay: -6.5s; width: 23px; height: 23px; margin: -11.5px; }
+
+    @keyframes loaderOrbit {
+      from { transform: rotate(0deg) translateX(78px) rotate(0deg); }
+      to { transform: rotate(360deg) translateX(78px) rotate(-360deg); }
+    }
+
+    /* Scroll Reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Project Card Images */
+    .project-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      padding: 0.85rem;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-card-img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: contain;
+         object-fit: contain;
+      display: block;
+      filter: grayscale(100%) brightness(0.88) contrast(1.05);
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    }
+
+    .project-img-wrap:hover .project-card-img {
+      filter: none;
+      transform: scale(1.03);
+    }
+
+    [data-theme="light"] .project-card-img {
+      filter: grayscale(100%) brightness(0.35) contrast(1.1);
+    }
+
+    [data-theme="light"] .project-img-wrap:hover .project-card-img {
+      filter: none;
+    }
+
+    /* Skill Items */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .skill-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    }
+
+    .skill-item {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      transition: border-color 0.3s, background 0.3s, transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .skill-item::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--text);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--border-hover);
+      background: var(--card-bg-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--card-shadow);
+    }
+
+    .skill-item:hover::after { opacity: 1; }
+
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      -o-object-fit: contain;
+         object-fit: contain;
+      filter: grayscale(100%) brightness(0.88) contrast(1.05);
+      transition: filter 0.35s ease, transform 0.3s ease;
+    }
+
+    .skill-item:hover .skill-icon {
+      filter: none;
+      transform: scale(1.12);
+    }
+
+    [data-theme="light"] .skill-icon {
+      filter: grayscale(100%) brightness(0.35) contrast(1.1);
+    }
+
+    [data-theme="light"] .skill-item:hover .skill-icon {
+      filter: none;
+    }
+
+    .skill-item .skill-emoji { font-size: 28px; transition: transform 0.3s, filter 0.35s ease; filter: grayscale(100%); }
+    .skill-item:hover .skill-emoji { transform: scale(1.15); filter: grayscale(0%); }
+
+    .skill-item-name {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .skill-bar-wrap {
+      width: 100%;
+      height: 3px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--text);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+    }
+
+    .skill-item.is-visible .skill-bar-fill {
+      width: var(--skill-level);
+    }
+
+    .skill-level-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .skill-category-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .skill-category-title span { font-size: 1.25rem; filter: grayscale(100%); }
+
+    .project-list-dot {
+      background: var(--text-muted);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .skill-bar-fill { transition: none !important; }
+      #loadingScreen { display: none !important; }
+      .loader-orbit,
+      .loader-orbit-ring,
+      .loader-orbit-icon,
+      .loader-monogram { animation: none !important; }
+    }
   </style>
-  <script type="module" crossorigin src="/assets/index-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="/assets/index-CjGZ50g3.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-C1n_TnSu.css">
 </head>
 
 <body class="preload">
 
+  <!-- Loading Screen -->
+  <div id="loadingScreen" aria-live="polite" aria-label="Loading portfolio">
+    <div class="loader-grid" aria-hidden="true"></div>
+    <div class="loader-glow" aria-hidden="true"></div>
+    <div class="loader-content">
+      <div class="loader-monogram" aria-hidden="true">NP</div>
+      <p class="loader-tagline">Software Engineer</p>
+      <p class="loader-name-full">Nirnay Pratap Singh</p>
+      <div class="loader-progress-wrap">
+        <div class="loader-progress-meta">
+          <span>Loading</span>
+          <span id="loaderPercent">0%</span>
+        </div>
+        <div class="loader-progress-track">
+          <div class="loader-progress-fill" id="loaderProgressFill"></div>
+        </div>
+      </div>
+      <div class="loader-orbit" aria-hidden="true">
+        <div class="loader-orbit-ring"></div>
+        <img class="loader-orbit-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20512%20512'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(97,%20218,%20251);'%3e%3cpath%20d='M418.2%20177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7%201.7-7.4%202.5-11.1%2012.3-59.6%204.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6%2038.4-4.3%203.7-8.5%207.6-12.5%2011.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2%2015.2-34%2060.3-23%20116.7%201.1%205.6%202.3%2011.1%203.7%2016.7-6.4%201.8-12.7%203.8-18.6%205.9C38.3%20196.2%200%20225.4%200%20255.6c0%2031.2%2040.8%2062.5%2096.3%2081.5%204.5%201.5%209%203%2013.6%204.3-1.5%206-2.8%2011.9-4%2018-10.5%2055.5-2.3%2099.5%2023.9%20114.6%2027%2015.6%2072.4-.4%20116.6-39.1%203.5-3.1%207-6.3%2010.5-9.7%204.4%204.3%209%208.4%2013.6%2012.4%2042.8%2036.8%2085.1%2051.7%20111.2%2036.6%2027-15.6%2035.8-62.9%2024.4-120.5-.9-4.4-1.9-8.9-3-13.5%203.2-.9%206.3-1.9%209.4-2.9%2057.7-19.1%2099.5-50%2099.5-81.7%200-30.3-39.4-59.7-93.8-78.4zM282.9%2092.3c37.2-32.4%2071.9-45.1%2087.7-36%2016.9%209.7%2023.4%2048.9%2012.8%20100.4-.7%203.4-1.4%206.7-2.3%2010-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1%203.9-3.7%207.7-7.2%2011.7-10.7zM167.2%20307.5c5.1%208.7%2010.3%2017.4%2015.8%2025.9-15.6-1.7-31.1-4.2-46.4-7.5%204.4-14.4%209.9-29.3%2016.3-44.5%204.6%208.8%209.3%2017.5%2014.3%2026.1zm-30.3-120.3c14.4-3.2%2029.7-5.8%2045.6-7.8-5.3%208.3-10.5%2016.8-15.4%2025.4-4.9%208.5-9.7%2017.2-14.2%2026-6.3-14.9-11.6-29.5-16-43.6zm27.4%2068.9c6.6-13.8%2013.8-27.3%2021.4-40.6s15.8-26.2%2024.4-38.9c15-1.1%2030.3-1.7%2045.9-1.7s31%20.6%2045.9%201.7c8.5%2012.6%2016.6%2025.5%2024.3%2038.7s14.9%2026.7%2021.7%2040.4c-6.7%2013.8-13.9%2027.4-21.6%2040.8-7.6%2013.3-15.7%2026.2-24.2%2039-14.9%201.1-30.4%201.6-46.1%201.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6%2051.2c5.1-8.8%209.9-17.7%2014.6-26.7%206.4%2014.5%2012%2029.2%2016.9%2044.3-15.5%203.5-31.2%206.2-47%208%205.4-8.4%2010.5-17%2015.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2%2016.1%202%2031.5%204.7%2045.9%208-4.6%2014.8-10%2029.2-16.1%2043.4zM256.2%20118.3c10.5%2011.4%2020.4%2023.4%2029.6%2035.8-19.8-.9-39.7-.9-59.5%200%209.8-12.9%2019.9-24.9%2029.9-35.8zM140.2%2057c16.8-9.8%2054.1%204.2%2093.4%2039%202.5%202.2%205%204.6%207.6%207-15.5%2016.7-29.8%2034.5-42.9%2053.1-22.6%202-45%205.5-67.2%2010.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9%2012.6-94zm-24.5%20263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9%200-18.3%2031.6-41.7%2077.2-57.6%205.7-2%2011.5-3.8%2017.3-5.5%206.8%2021.7%2015%2043%2024.5%2063.6-9.6%2020.9-17.9%2042.5-24.8%2064.5zm116.6%2098c-16.5%2015.1-35.6%2027.1-56.4%2035.3-11.1%205.3-23.9%205.8-35.3%201.3-15.9-9.2-22.5-44.5-13.5-92%201.1-5.6%202.3-11.2%203.7-16.7%2022.4%204.8%2045%208.1%2067.9%209.8%2013.2%2018.7%2027.7%2036.6%2043.2%2053.4-3.2%203.1-6.4%206.1-9.6%208.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3%209.6.4%2019.5.6%2029.5.6%2010.3%200%2020.4-.2%2030.4-.7-9.2%2012.7-19.1%2024.8-29.6%2036.4zm130.7%2030c-.9%2012.2-6.9%2023.6-16.5%2031.3-15.9%209.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5%2015.3-16.9%2029.4-34.8%2042.2-53.6%2022.9-1.9%2045.7-5.4%2068.2-10.5%201%204.1%201.9%208.2%202.7%2012.2%204.9%2021.6%205.7%2044.1%202.5%2066.3zm18.2-107.5c-2.8.9-5.6%201.8-8.5%202.6-7-21.8-15.6-43.1-25.5-63.8%209.6-20.4%2017.7-41.4%2024.5-62.9%205.2%201.5%2010.2%203.1%2015%204.7%2046.6%2016%2079.3%2039.8%2079.3%2058%200%2019.6-34.9%2044.9-84.8%2061.4zm-149.7-15c25.3%200%2045.8-20.5%2045.8-45.8s-20.5-45.8-45.8-45.8c-25.3%200-45.8%2020.5-45.8%2045.8s20.5%2045.8%2045.8%2045.8z'%3e%3c/path%3e%3c/svg%3e" alt="" width="28" height="28" />
+        <img class="loader-orbit-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20448%20512'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(55,%20118,%20171);'%3e%3cpath%20d='M439.8%20200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0%2036.8-31.2%2067.8-66.8%2067.8H172.7c-29.2%200-53.4%2025-53.4%2054.3v101.8c0%2029%2025.2%2046%2053.4%2054.3%2033.8%209.9%2066.3%2011.7%20106.8%200%2026.9-7.8%2053.4-23.5%2053.4-54.3v-40.7H226.2v-13.6h160.2c31.1%200%2042.6-21.7%2053.4-54.2%2011.2-33.5%2010.7-65.7%200-108.6zM286.2%20404c11.1%200%2020.1%209.1%2020.1%2020.3%200%2011.3-9%2020.4-20.1%2020.4-11%200-20.1-9.2-20.1-20.4.1-11.3%209.1-20.3%2020.1-20.3zM167.8%20248.1h106.8c29.7%200%2053.4-24.5%2053.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2%208-53.4%2024.7-53.4%2055.6v40.7h106.9v13.6h-147c-31.1%200-58.3%2018.7-66.8%2054.2-9.8%2040.7-10.2%2066.1%200%20108.6%207.6%2031.6%2025.7%2054.2%2056.8%2054.2H101v-48.8c0-35.3%2030.5-66.4%2066.8-66.4zm-6.7-142.6c-11.1%200-20.1-9.1-20.1-20.3.1-11.3%209-20.4%2020.1-20.4%2011%200%2020.1%209.2%2020.1%2020.4s-9%2020.3-20.1%2020.3z'%3e%3c/path%3e%3c/svg%3e" alt="" width="28" height="28" />
+        <img class="loader-orbit-icon" src="/assets/nodejs-BdPFpv2v.png" alt="" width="28" height="28" />
+        <img class="loader-orbit-icon" src="/assets/aws-Bhg4Stzb.png" alt="" width="28" height="28" />
+        <img class="loader-orbit-icon" src="/assets/docker-D4feuazP.png" alt="" width="28" height="28" />
+        <img class="loader-orbit-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20role='img'%20viewBox='0%200%2024%2024'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(71,%20162,%2072);'%3e%3cpath%20d='M17.193%209.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523%201.184-.723.566-4.438%203.682-4.74%2010.02-.282%205.912%204.27%209.435%204.888%209.884l.07.05A73.49%2073.49%200%200111.91%2024h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342%2011.342%200%20003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336%208.195s0-8.291.275-8.29c.213%200%20.49%2010.695.49%2010.695-.381-.045-.765-1.76-.765-2.405z'%3e%3c/path%3e%3c/svg%3e" alt="" width="28" height="28" />
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="dot-grid" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="mouse-glow" id="mouseGlow" aria-hidden="true"></div>
   <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
@@ -1238,7 +2432,10 @@
 
   <!-- Intro Splash Screen -->
   <section id="intro-screen"
-    class="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden z-40">
+    class="relative w-full viewport-min flex flex-col items-center justify-center overflow-hidden z-40">
+    <div class="intro-grid-lines" aria-hidden="true"></div>
+    <span class="intro-corner intro-corner-tl" aria-hidden="true"></span>
+    <span class="intro-corner intro-corner-br" aria-hidden="true"></span>
     <!-- Theme-aware Glow Accent (behind text) with slight rotation for organic feel -->
     <div
       class="absolute w-[320px] sm:w-[680px] h-[140px] sm:h-[200px] rounded-full blur-[80px] sm:blur-[110px] pointer-events-none select-none z-0"
@@ -1247,7 +2444,7 @@
     <!-- Content container -->
     <div class="relative z-10 text-center flex flex-col items-center justify-center">
       <h1 class="intro-title intro-title-reveal" id="introTitle">
-        Portfolio.
+        <span class="hero-title-accent">Portfolio</span>.
       </h1>
       <p class="mt-4 sm:mt-6 text-xs sm:text-sm md:text-base font-semibold tracking-[0.3em] sm:tracking-[0.4em] uppercase select-none intro-name-reveal"
         id="introName">
@@ -1312,14 +2509,34 @@
   <main>
     <!-- Hero typography -->
     <section id="hero-section"
-      class="relative z-10 min-h-screen flex flex-col justify-between pt-28 pb-10 px-5 md:px-10 lg:px-14 max-w-[1440px] mx-auto">
+      class="relative z-10 viewport-min flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-10 px-5 md:px-10 lg:px-14 max-w-[1440px] mx-auto">
       <!-- Main Content Block (Centered Vertically) -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto w-full">
         <div class="lg:col-span-8 flex flex-col items-start gap-6 sm:gap-8">
+          <div class="reveal">
+            <span class="hero-badge">
+              <span class="status-dot" aria-hidden="true"></span>
+              Open to Internships · 2026
+            </span>
+          </div>
           <h1
             class="hero-title reveal text-[var(--text)] uppercase font-display font-bold leading-[0.88] sm:leading-[0.85]">
-            Software<br class="hidden sm:block" /> Engineer
+            Software<br class="hidden sm:block" /><span class="hero-title-accent">Engineer</span>
           </h1>
+          <div class="reveal reveal-d1 hero-stats">
+            <div class="hero-stat">
+              <p class="hero-stat-value">3+</p>
+              <p class="hero-stat-label">Projects Shipped</p>
+            </div>
+            <div class="hero-stat">
+              <p class="hero-stat-value">93%</p>
+              <p class="hero-stat-label">AI Baseline Score</p>
+            </div>
+            <div class="hero-stat">
+              <p class="hero-stat-value">150+</p>
+              <p class="hero-stat-label">Community Led</p>
+            </div>
+          </div>
           <div class="reveal reveal-d1">
             <a href="resume.docx" download
               class="inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-[var(--text)]/20 hover:border-[var(--text)] bg-[var(--text)]/[0.03] hover:bg-[var(--text)] text-[var(--text)] hover:text-[var(--bg)] text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-300 cursor-pointer">
@@ -1331,6 +2548,14 @@
               </svg>
             </a>
           </div>
+          <div class="reveal reveal-d2 hero-desc">
+            <p class="text-sm md:text-base text-neutral-400 leading-relaxed">
+              Exploring cloud computing, full-stack development, and data analytics.
+            </p>
+            <p class="text-sm md:text-base text-neutral-400 leading-relaxed">
+              I build scalable digital experiences with clean design and modern technologies.
+            </p>
+          </div>
         </div>
         <div class="hidden lg:block lg:col-span-4 reveal reveal-d1 justify-self-end">
           <div class="hero-side-image">
@@ -1340,15 +2565,10 @@
         </div>
       </div>
 
-      <!-- Footer Info Block (Pushed to bottom) -->
-      <div class="mt-8 lg:mt-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-end reveal reveal-d1 w-full">
-        <p class="lg:col-span-4 text-sm md:text-base text-neutral-400 leading-relaxed max-w-md">
-          Exploring cloud computing, full-stack development, and data analytics.
-        </p>
-        <p class="lg:col-span-5 text-sm md:text-base text-neutral-400 leading-relaxed max-w-lg lg:mx-auto">
-          I build scalable digital experiences with clean design and modern technologies.
-        </p>
-        <div class="lg:col-span-3 flex lg:justify-end">
+      <!-- Footer CTA (Pushed to bottom) -->
+      <div class="mt-8 lg:mt-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-end reveal reveal-d2 w-full">
+        <div class="hidden lg:block lg:col-span-8" aria-hidden="true"></div>
+        <div class="lg:col-span-4 flex lg:justify-end">
           <div class="magnetic-wrap" id="magneticCta">
             <a href="#contact"
               class="inline-flex items-center gap-2 text-xs md:text-sm font-semibold tracking-[0.18em] uppercase text-white border-b border-white pb-1 hover:text-neutral-300 hover:border-neutral-300 transition-colors duration-300">
@@ -1359,19 +2579,44 @@
       </div>
     </section>
 
+    <!-- Skill marquee -->
+    <div class="relative z-10 max-w-[1440px] mx-auto px-5 md:px-10 lg:px-14 reveal reveal-d2">
+      <div class="marquee-wrap" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="marquee-item"><span>◆</span>React</span>
+          <span class="marquee-item"><span>◆</span>Python</span>
+          <span class="marquee-item"><span>◆</span>AWS</span>
+          <span class="marquee-item"><span>◆</span>FastAPI</span>
+          <span class="marquee-item"><span>◆</span>MongoDB</span>
+          <span class="marquee-item"><span>◆</span>PyTorch</span>
+          <span class="marquee-item"><span>◆</span>Docker</span>
+          <span class="marquee-item"><span>◆</span>Node.js</span>
+          <span class="marquee-item"><span>◆</span>Figma</span>
+          <span class="marquee-item"><span>◆</span>React</span>
+          <span class="marquee-item"><span>◆</span>Python</span>
+          <span class="marquee-item"><span>◆</span>AWS</span>
+          <span class="marquee-item"><span>◆</span>FastAPI</span>
+          <span class="marquee-item"><span>◆</span>MongoDB</span>
+          <span class="marquee-item"><span>◆</span>PyTorch</span>
+          <span class="marquee-item"><span>◆</span>Docker</span>
+          <span class="marquee-item"><span>◆</span>Node.js</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Visual showcase -->
     <section class="relative z-10 mt-12 md:mt-16 lg:mt-20 px-0 reveal reveal-d2" id="showcase">
       <div class="max-w-[1440px] mx-auto pl-5 md:pl-10 lg:pl-14">
         <div class="showcase-panel w-full md:w-[92%] lg:w-[88%] ml-0">
           <div class="showcase-grid" aria-hidden="true"></div>
           <!-- blur accents -->
-          <div class="absolute top-1/4 -left-20 w-64 h-64 bg-cyan-400/20 rounded-full blur-[100px]" aria-hidden="true">
+          <div class="absolute top-1/4 -left-20 w-64 h-64 bg-white/10 rounded-full blur-[100px]" aria-hidden="true">
           </div>
-          <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-violet-500/15 rounded-full blur-[120px]"
+          <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-white/5 rounded-full blur-[120px]"
             aria-hidden="true"></div>
 
           <div
-            class="relative flex items-end justify-center md:justify-end min-h-[inherit] px-6 md:pr-16 lg:pr-24 pb-0 pt-8 md:pt-12">
+            class="showcase-inner relative flex items-end justify-center md:justify-end min-h-[inherit] px-6 md:pr-16 lg:pr-24 pb-0 pt-8 md:pt-12">
             <!-- Stickers (all grouped on the left) -->
             <span class="sticker sticker-1 top-[8%] left-[3%] md:left-[6%]">Cloud Computing</span>
             <span class="sticker sticker-4 top-[20%] left-[16%] md:left-[20%] hidden sm:inline-block">UI/UX +
@@ -1395,11 +2640,17 @@
     <!-- About -->
     <section id="about"
       class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5">
-      <div class="grid md:grid-cols-12 gap-10 md:items-stretch items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:items-stretch items-start">
         <!-- Left column: Heading + Image -->
-        <div class="md:col-span-4 flex flex-col gap-8">
-          <h2 class="font-display text-5xl md:text-6xl uppercase tracking-wide text-white">About Me</h2>
-          <div class="relative group md:mt-auto" style="max-width: 380px; width: 380px; height: 380px;">
+        <div class="lg:col-span-4 flex flex-col gap-8">
+          <div>
+            <p class="section-eyebrow">About</p>
+            <div class="flex items-end gap-4">
+              <h2 class="section-title font-display uppercase tracking-wide text-white">About Me</h2>
+              <span class="section-number hidden sm:block">01</span>
+            </div>
+          </div>
+          <div class="relative group lg:mt-auto about-spline-wrap">
             <!-- Grey-to-white radial glow behind the image -->
             <div class="absolute inset-0 rounded-2xl"
               style="background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.07) 50%, transparent 80%); filter: blur(25px); transform: scale(1.15);">
@@ -1409,7 +2660,7 @@
           </div>
         </div>
         <!-- Right column: Bio Text -->
-        <div class="md:col-span-8 space-y-5 text-neutral-400 text-sm md:text-base leading-relaxed">
+        <div class="lg:col-span-8 space-y-5 text-neutral-400 text-sm md:text-base leading-relaxed">
           <p>I'm <strong class="text-white font-medium">Nirnay Pratap Singh</strong>, a Computer Science Engineering
             student at Bennett University passionate about building impactful digital products and solving real-world
             problems through technology. I enjoy working across full-stack development, cloud computing, AI/ML, and data
@@ -1432,12 +2683,26 @@
     <!-- Projects -->
     <section id="projects"
       class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5">
-      <h2 class="font-display text-5xl md:text-6xl uppercase tracking-wide text-white mb-12 md:mb-16">Projects</h2>
-      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-        <article
-          class="group border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300 flex flex-col">
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+        <div>
+          <p class="section-eyebrow">Work</p>
+          <div class="flex items-end gap-4">
+            <h2 class="section-title font-display uppercase tracking-wide text-white">Projects</h2>
+            <span class="section-number hidden sm:block">02</span>
+          </div>
+        </div>
+        <p class="text-sm text-neutral-500 max-w-xs leading-relaxed">Selected builds spanning AI, full-stack, and data systems.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <article class="project-card project-card-featured group flex flex-col md:col-span-2">
+          <div class="project-card-glow" aria-hidden="true"></div>
+          <span class="project-index" aria-hidden="true">01</span>
+          <div class="project-img-wrap">
+            <img src="/assets/open%20env-DZSKtUKU.png" alt="OpenEnv Code Review Agent" class="project-card-img" loading="lazy" />
+          </div>
+          <div class="relative z-10 flex flex-col flex-1">
           <div class="flex items-start justify-between gap-4">
-            <div class="w-11 h-11 rounded-xl border border-white/10 bg-white/[0.03] flex items-center justify-center">
+            <div class="project-icon-wrap">
               <span class="text-lg" aria-hidden="true">🤖</span>
             </div>
             <a href="https://github.com/nirnayyy" target="_blank" rel="noopener noreferrer"
@@ -1457,13 +2722,13 @@
           </p>
           <ul class="mt-5 space-y-2 text-sm text-neutral-400">
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>3-tier benchmark covering
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>3-tier benchmark covering
                 bug detection, logic errors &amp; SQL injection</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>Partial-credit reward
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>Partial-credit reward
                 shaping for nuanced agent training</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>Dockerized with clean
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>Dockerized with clean
                 REST API (FastAPI) endpoints</span></li>
           </ul>
           <div class="mt-6 flex flex-wrap gap-2">
@@ -1478,12 +2743,17 @@
             <span
               class="px-2.5 py-1 rounded-lg text-[11px] font-semibold tracking-wide border border-white/10 bg-white/[0.02] text-neutral-300">PyTorch</span>
           </div>
+          </div>
         </article>
 
-        <article
-          class="group border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300 flex flex-col">
+        <article class="project-card group flex flex-col">
+          <div class="project-card-glow" aria-hidden="true"></div>
+          <span class="project-index" aria-hidden="true">02</span>
+          <div class="project-img-wrap">
+            <img src="/assets/elevare-slG3FemX.png" alt="Elevare — Mental Health Platform" class="project-card-img" loading="lazy" />
+          </div>
           <div class="flex items-start justify-between gap-4">
-            <div class="w-11 h-11 rounded-xl border border-white/10 bg-white/[0.03] flex items-center justify-center">
+            <div class="project-icon-wrap">
               <span class="text-lg" aria-hidden="true">💚</span>
             </div>
             <a href="https://github.com/nirnayyy" target="_blank" rel="noopener noreferrer"
@@ -1503,13 +2773,13 @@
           </p>
           <ul class="mt-5 space-y-2 text-sm text-neutral-400">
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>JWT-based auth with
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>JWT-based auth with
                 role-based access control</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>12+ RESTful endpoints
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>12+ RESTful endpoints
                 with optimized MongoDB schemas</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>Fully responsive React
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>Fully responsive React
                 frontend — zero layout breakage</span></li>
           </ul>
           <div class="mt-6 flex flex-wrap gap-2">
@@ -1528,10 +2798,14 @@
           </div>
         </article>
 
-        <article
-          class="group border border-white/10 rounded-2xl p-6 md:p-8 hover:border-white/25 hover:bg-white/[0.03] transition-all duration-300 flex flex-col">
+        <article class="project-card group flex flex-col">
+          <div class="project-card-glow" aria-hidden="true"></div>
+          <span class="project-index" aria-hidden="true">03</span>
+          <div class="project-img-wrap">
+            <img src="/assets/airsentinel-DTGUiMIT.png" alt="Air Sentinel AI — AQI Monitor" class="project-card-img" loading="lazy" />
+          </div>
           <div class="flex items-start justify-between gap-4">
-            <div class="w-11 h-11 rounded-xl border border-white/10 bg-white/[0.03] flex items-center justify-center">
+            <div class="project-icon-wrap">
               <span class="text-lg" aria-hidden="true">🌍</span>
             </div>
             <a href="https://github.com/nirnayyy" target="_blank" rel="noopener noreferrer"
@@ -1551,13 +2825,13 @@
           </p>
           <ul class="mt-5 space-y-2 text-sm text-neutral-400">
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>Real-time sensor data
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>Real-time sensor data
                 every 5 min with live charts</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>MongoDB backend handles
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>MongoDB backend handles
                 10,000+ time-series records</span></li>
             <li class="flex gap-2"><span
-                class="mt-[6px] w-1.5 h-1.5 rounded-full bg-cyan-400/70 shrink-0"></span><span>Self-contained:
+                class="mt-[6px] w-1.5 h-1.5 rounded-full project-list-dot shrink-0"></span><span>Self-contained:
                 ingestion, inference &amp; frontend in one package</span></li>
           </ul>
           <div class="mt-6 flex flex-wrap gap-2">
@@ -1581,99 +2855,84 @@
     <section id="toolbox"
       class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5">
       <div class="mb-12 md:mb-16 max-w-2xl">
-        <p class="text-[10px] font-bold tracking-[0.3em] uppercase text-cyan-400 mb-3">Stack</p>
-        <h2 class="font-display text-5xl md:text-6xl uppercase tracking-wide text-white">My Toolbox</h2>
+        <p class="section-eyebrow">Stack</p>
+        <div class="flex items-end gap-4">
+          <h2 class="section-title font-display uppercase tracking-wide text-white">My Toolbox</h2>
+          <span class="section-number hidden sm:block">03</span>
+        </div>
         <p class="mt-4 text-sm md:text-base text-neutral-500 leading-relaxed">
           Technologies and tools I work with to bring ideas to life.
         </p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">💻</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">Languages</h3>
+      <div class="space-y-8">
+        <!-- Languages -->
+        <div>
+          <h3 class="skill-category-title"><span>💻</span> Languages</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="/assets/javascript-Bu6ZFjaT.png" alt="JavaScript" width="36" height="36" loading="lazy" /><span class="skill-item-name">JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
+            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20448%20512'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(55,%20118,%20171);'%3e%3cpath%20d='M439.8%20200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0%2036.8-31.2%2067.8-66.8%2067.8H172.7c-29.2%200-53.4%2025-53.4%2054.3v101.8c0%2029%2025.2%2046%2053.4%2054.3%2033.8%209.9%2066.3%2011.7%20106.8%200%2026.9-7.8%2053.4-23.5%2053.4-54.3v-40.7H226.2v-13.6h160.2c31.1%200%2042.6-21.7%2053.4-54.2%2011.2-33.5%2010.7-65.7%200-108.6zM286.2%20404c11.1%200%2020.1%209.1%2020.1%2020.3%200%2011.3-9%2020.4-20.1%2020.4-11%200-20.1-9.2-20.1-20.4.1-11.3%209.1-20.3%2020.1-20.3zM167.8%20248.1h106.8c29.7%200%2053.4-24.5%2053.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2%208-53.4%2024.7-53.4%2055.6v40.7h106.9v13.6h-147c-31.1%200-58.3%2018.7-66.8%2054.2-9.8%2040.7-10.2%2066.1%200%20108.6%207.6%2031.6%2025.7%2054.2%2056.8%2054.2H101v-48.8c0-35.3%2030.5-66.4%2066.8-66.4zm-6.7-142.6c-11.1%200-20.1-9.1-20.1-20.3.1-11.3%209-20.4%2020.1-20.4%2011%200%2020.1%209.2%2020.1%2020.4s-9%2020.3-20.1%2020.3z'%3e%3c/path%3e%3c/svg%3e" alt="Python" width="36" height="36" loading="lazy" /><span class="skill-item-name">Python</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
+            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="/assets/java-BBPE-Brq.png" alt="Java" width="36" height="36" loading="lazy" /><span class="skill-item-name">Java</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
+            <div class="skill-item" style="--skill-level:90%"><img class="skill-icon" src="/assets/html5-B08JmjYx.png" alt="HTML5" width="36" height="36" loading="lazy" /><span class="skill-item-name">HTML5</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">90%</span></div>
+            <div class="skill-item" style="--skill-level:88%"><img class="skill-icon" src="/assets/css3-Bf40O0Fw.png" alt="CSS3" width="36" height="36" loading="lazy" /><span class="skill-item-name">CSS3</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">88%</span></div>
+            <div class="skill-item" style="--skill-level:75%"><img class="skill-icon" src="/assets/sql-BB_shgiF.png" alt="SQL" width="36" height="36" loading="lazy" /><span class="skill-item-name">SQL</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">75%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">JavaScript (ES6+)</span>
-            <span class="tool-pill">Python</span>
-            <span class="tool-pill">Java</span>
-            <span class="tool-pill">SQL</span>
-            <span class="tool-pill">HTML5</span>
-            <span class="tool-pill">CSS3</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">🎨</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">Frontend</h3>
+        <!-- Frontend -->
+        <div>
+          <h3 class="skill-category-title"><span>🎨</span> Frontend</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:82%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20512%20512'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(97,%20218,%20251);'%3e%3cpath%20d='M418.2%20177.2c-5.4-1.8-10.8-3.5-16.2-5.1.9-3.7%201.7-7.4%202.5-11.1%2012.3-59.6%204.2-107.5-23.1-123.3-26.3-15.1-69.2.6-112.6%2038.4-4.3%203.7-8.5%207.6-12.5%2011.5-2.7-2.6-5.5-5.2-8.3-7.7-45.5-40.4-91.1-57.4-118.4-41.5-26.2%2015.2-34%2060.3-23%20116.7%201.1%205.6%202.3%2011.1%203.7%2016.7-6.4%201.8-12.7%203.8-18.6%205.9C38.3%20196.2%200%20225.4%200%20255.6c0%2031.2%2040.8%2062.5%2096.3%2081.5%204.5%201.5%209%203%2013.6%204.3-1.5%206-2.8%2011.9-4%2018-10.5%2055.5-2.3%2099.5%2023.9%20114.6%2027%2015.6%2072.4-.4%20116.6-39.1%203.5-3.1%207-6.3%2010.5-9.7%204.4%204.3%209%208.4%2013.6%2012.4%2042.8%2036.8%2085.1%2051.7%20111.2%2036.6%2027-15.6%2035.8-62.9%2024.4-120.5-.9-4.4-1.9-8.9-3-13.5%203.2-.9%206.3-1.9%209.4-2.9%2057.7-19.1%2099.5-50%2099.5-81.7%200-30.3-39.4-59.7-93.8-78.4zM282.9%2092.3c37.2-32.4%2071.9-45.1%2087.7-36%2016.9%209.7%2023.4%2048.9%2012.8%20100.4-.7%203.4-1.4%206.7-2.3%2010-22.2-5-44.7-8.6-67.3-10.6-13-18.6-27.2-36.4-42.6-53.1%203.9-3.7%207.7-7.2%2011.7-10.7zM167.2%20307.5c5.1%208.7%2010.3%2017.4%2015.8%2025.9-15.6-1.7-31.1-4.2-46.4-7.5%204.4-14.4%209.9-29.3%2016.3-44.5%204.6%208.8%209.3%2017.5%2014.3%2026.1zm-30.3-120.3c14.4-3.2%2029.7-5.8%2045.6-7.8-5.3%208.3-10.5%2016.8-15.4%2025.4-4.9%208.5-9.7%2017.2-14.2%2026-6.3-14.9-11.6-29.5-16-43.6zm27.4%2068.9c6.6-13.8%2013.8-27.3%2021.4-40.6s15.8-26.2%2024.4-38.9c15-1.1%2030.3-1.7%2045.9-1.7s31%20.6%2045.9%201.7c8.5%2012.6%2016.6%2025.5%2024.3%2038.7s14.9%2026.7%2021.7%2040.4c-6.7%2013.8-13.9%2027.4-21.6%2040.8-7.6%2013.3-15.7%2026.2-24.2%2039-14.9%201.1-30.4%201.6-46.1%201.6s-30.9-.5-45.6-1.4c-8.7-12.7-16.9-25.7-24.6-39s-14.8-26.8-21.5-40.6zm180.6%2051.2c5.1-8.8%209.9-17.7%2014.6-26.7%206.4%2014.5%2012%2029.2%2016.9%2044.3-15.5%203.5-31.2%206.2-47%208%205.4-8.4%2010.5-17%2015.5-25.6zm14.4-76.5c-4.7-8.8-9.5-17.6-14.5-26.2-4.9-8.5-10-16.9-15.3-25.2%2016.1%202%2031.5%204.7%2045.9%208-4.6%2014.8-10%2029.2-16.1%2043.4zM256.2%20118.3c10.5%2011.4%2020.4%2023.4%2029.6%2035.8-19.8-.9-39.7-.9-59.5%200%209.8-12.9%2019.9-24.9%2029.9-35.8zM140.2%2057c16.8-9.8%2054.1%204.2%2093.4%2039%202.5%202.2%205%204.6%207.6%207-15.5%2016.7-29.8%2034.5-42.9%2053.1-22.6%202-45%205.5-67.2%2010.4-1.3-5.1-2.4-10.3-3.5-15.5-9.4-48.4-3.2-84.9%2012.6-94zm-24.5%20263.6c-4.2-1.2-8.3-2.5-12.4-3.9-21.3-6.7-45.5-17.3-63-31.2-10.1-7-16.9-17.8-18.8-29.9%200-18.3%2031.6-41.7%2077.2-57.6%205.7-2%2011.5-3.8%2017.3-5.5%206.8%2021.7%2015%2043%2024.5%2063.6-9.6%2020.9-17.9%2042.5-24.8%2064.5zm116.6%2098c-16.5%2015.1-35.6%2027.1-56.4%2035.3-11.1%205.3-23.9%205.8-35.3%201.3-15.9-9.2-22.5-44.5-13.5-92%201.1-5.6%202.3-11.2%203.7-16.7%2022.4%204.8%2045%208.1%2067.9%209.8%2013.2%2018.7%2027.7%2036.6%2043.2%2053.4-3.2%203.1-6.4%206.1-9.6%208.9zm24.5-24.3c-10.2-11-20.4-23.2-30.3-36.3%209.6.4%2019.5.6%2029.5.6%2010.3%200%2020.4-.2%2030.4-.7-9.2%2012.7-19.1%2024.8-29.6%2036.4zm130.7%2030c-.9%2012.2-6.9%2023.6-16.5%2031.3-15.9%209.2-49.8-2.8-86.4-34.2-4.2-3.6-8.4-7.5-12.7-11.5%2015.3-16.9%2029.4-34.8%2042.2-53.6%2022.9-1.9%2045.7-5.4%2068.2-10.5%201%204.1%201.9%208.2%202.7%2012.2%204.9%2021.6%205.7%2044.1%202.5%2066.3zm18.2-107.5c-2.8.9-5.6%201.8-8.5%202.6-7-21.8-15.6-43.1-25.5-63.8%209.6-20.4%2017.7-41.4%2024.5-62.9%205.2%201.5%2010.2%203.1%2015%204.7%2046.6%2016%2079.3%2039.8%2079.3%2058%200%2019.6-34.9%2044.9-84.8%2061.4zm-149.7-15c25.3%200%2045.8-20.5%2045.8-45.8s-20.5-45.8-45.8-45.8c-25.3%200-45.8%2020.5-45.8%2045.8s20.5%2045.8%2045.8%2045.8z'%3e%3c/path%3e%3c/svg%3e" alt="React.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">React.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">82%</span></div>
+            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="/assets/tailwind-DPqQWdik.png" alt="Tailwind CSS" width="36" height="36" loading="lazy" /><span class="skill-item-name">Tailwind CSS</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
+            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="/assets/docker-D4feuazP.png" alt="Bootstrap" width="36" height="36" loading="lazy" /><span class="skill-item-name">Bootstrap</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
+            <div class="skill-item" style="--skill-level:65%"><img class="skill-icon" src="/assets/figma-CCcFopil.png" alt="Figma" width="36" height="36" loading="lazy" /><span class="skill-item-name">Figma</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">65%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">React.js</span>
-            <span class="tool-pill">Tailwind CSS</span>
-            <span class="tool-pill">Bootstrap</span>
-            <span class="tool-pill">Responsive Design</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">⚙️</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">Backend</h3>
+        <!-- Backend -->
+        <div>
+          <h3 class="skill-category-title"><span>⚙️</span> Backend</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:78%"><img class="skill-icon" src="/assets/nodejs-BdPFpv2v.png" alt="Node.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">Node.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">78%</span></div>
+            <div class="skill-item" style="--skill-level:75%"><img class="skill-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIUlEQVR4nO2YTYhNYRjHf9c1RilMimsMjexsKAtszE5KiGxm7XPB1pRQFoMFRY2arFhZkEmEEqGMRhSKBWZofDSaxndmwczoqf/VO+eec895771zZzTnV6dpzn2e//l6nud9nhdSUlJSUlJSJg9Tgc3AKeAR8B0YAb4AXUA7sAHIMkGpAfYCb3TjccdbYCeQidBrBn4CF4CGCt1jA3BRuqZfwCKg07nJJ8ABYCUwH5gG1AOrgIPAU8f2NrAg4sKnZfMKqCvzIeqkMyLdApYDA84FLazisK+wBXgtvx5gcYhdLfBQNpeLfL04MvIfkZ7pjqIR+CiDa8As/DD7606ozQmxaXReVAul0SL/AemNwpL1sfMQ2TKKww3pdETYrAeGgd9Ak6d+k/yGpVPADiecfL9EkNlAt/SiQvOIfrcIyCXUzTkRY/6hFaov5sK+bJWelewwsioM+QIRFwHZJPZrnepUagIGMZ1n0rXqFveGW2P0WpN8wTMyshJbSQ5J93A5MY9HTnXpgrZOVJLV0r1XRhVq9KlyH2SYNOmSUi9d6w7iwvBSyLpQ4yzMV5KE/R8ZV7pfykr3V8KV2hZSd6XOdwI9STuBfHsxFvhorwAGZX9Wfwd1vuIX88VXe3egGd1VysXG8kjKDKBfPv36/798kHMBv/OlPMh4kw+rH8Am4JtveOUTrKAdriJuojfrXLNvwufXEav744FbetsCv7X5lOC7Ml5H9Ykbkmp9hrGjMjxG9dlXbEgKaVPMPrYnelfl3ZA1CRrGsMbR/CJ5rofZTmVYopDtjigi8zxa+LBW3vyLDkJ9xYw8JsSXRUqn71Dl7XdTRneA6ZSGbRVdlU6nOtiShqRyhrG5yhMzuqU368NMZxflU8RGnMX6UIkbD8FhbKhYbi0F3utmeoGNCeaAjGb9XvmZ/7Ix2gpKtCWUx36477QuNnvv1+ydU7jkVO3s/AvH9gGwMETTXQ86KrA3kJFO1PrzD0ukPc5bjjusO9gGTInQa1O4HS8j/4KYzgnpBjuCAmoUXie1gWdV7SvwWcncrl2YCbsbn5KSkpKSMqn4C7OqTrF1asWzAAAAAElFTkSuQmCC" alt="Express.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">Express.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">75%</span></div>
+            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20448%20512'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(55,%20118,%20171);'%3e%3cpath%20d='M439.8%20200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0%2036.8-31.2%2067.8-66.8%2067.8H172.7c-29.2%200-53.4%2025-53.4%2054.3v101.8c0%2029%2025.2%2046%2053.4%2054.3%2033.8%209.9%2066.3%2011.7%20106.8%200%2026.9-7.8%2053.4-23.5%2053.4-54.3v-40.7H226.2v-13.6h160.2c31.1%200%2042.6-21.7%2053.4-54.2%2011.2-33.5%2010.7-65.7%200-108.6zM286.2%20404c11.1%200%2020.1%209.1%2020.1%2020.3%200%2011.3-9%2020.4-20.1%2020.4-11%200-20.1-9.2-20.1-20.4.1-11.3%209.1-20.3%2020.1-20.3zM167.8%20248.1h106.8c29.7%200%2053.4-24.5%2053.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2%208-53.4%2024.7-53.4%2055.6v40.7h106.9v13.6h-147c-31.1%200-58.3%2018.7-66.8%2054.2-9.8%2040.7-10.2%2066.1%200%20108.6%207.6%2031.6%2025.7%2054.2%2056.8%2054.2H101v-48.8c0-35.3%2030.5-66.4%2066.8-66.4zm-6.7-142.6c-11.1%200-20.1-9.1-20.1-20.3.1-11.3%209-20.4%2020.1-20.4%2011%200%2020.1%209.2%2020.1%2020.4s-9%2020.3-20.1%2020.3z'%3e%3c/path%3e%3c/svg%3e" alt="FastAPI" width="36" height="36" loading="lazy" /><span class="skill-item-name">FastAPI</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
+            <div class="skill-item" style="--skill-level:80%"><img class="skill-icon" src="/assets/rest-DEAdAp2u.png" alt="REST APIs" width="36" height="36" loading="lazy" /><span class="skill-item-name">REST APIs</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">80%</span></div>
+            <div class="skill-item" style="--skill-level:68%"><img class="skill-icon" src="/assets/jwt-WSU1n6ys.png" alt="JWT Auth" width="36" height="36" loading="lazy" /><span class="skill-item-name">JWT Auth</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">68%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">Node.js</span>
-            <span class="tool-pill">Express.js</span>
-            <span class="tool-pill">FastAPI</span>
-            <span class="tool-pill">REST APIs</span>
-            <span class="tool-pill">JWT Auth</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">🗄️</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">Databases</h3>
+        <!-- Databases -->
+        <div>
+          <h3 class="skill-category-title"><span>🗄️</span> Databases</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:80%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20role='img'%20viewBox='0%200%2024%2024'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(71,%20162,%2072);'%3e%3cpath%20d='M17.193%209.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523%201.184-.723.566-4.438%203.682-4.74%2010.02-.282%205.912%204.27%209.435%204.888%209.884l.07.05A73.49%2073.49%200%200111.91%2024h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342%2011.342%200%20003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336%208.195s0-8.291.275-8.29c.213%200%20.49%2010.695.49%2010.695-.381-.045-.765-1.76-.765-2.405z'%3e%3c/path%3e%3c/svg%3e" alt="MongoDB" width="36" height="36" loading="lazy" /><span class="skill-item-name">MongoDB</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">80%</span></div>
+            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20role='img'%20viewBox='0%200%2024%2024'%20class='w-6%20h-6%20text-gray-400%20transition-colors%20duration-200'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%20style='color:%20rgb(51,%20103,%20145);'%3e%3cpath%20d='M16.405%205.501c-.115%200-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.153zM5.77%2018.695h-.927a50.854%2050.854%200%2000-.27-4.41h-.008l-1.41%204.41H2.45l-1.4-4.41h-.01a72.892%2072.892%200%2000-.195%204.41H0c.055-1.966.192-3.81.41-5.53h1.15l1.335%204.064h.008l1.347-4.064h1.095c.242%202.015.384%203.86.428%205.53zm4.017-4.08c-.378%202.045-.876%203.533-1.492%204.46-.482.716-1.01%201.073-1.583%201.073-.153%200-.34-.046-.566-.138v-.494c.11.017.24.026.386.026.268%200%20.483-.075.647-.222.197-.18.295-.382.295-.605%200-.155-.077-.47-.23-.944L6.23%2014.615h.91l.727%202.36c.164.536.233.91.205%201.123.4-1.064.678-2.227.835-3.483zm12.325%204.08h-2.63v-5.53h.885v4.85h1.745zm-3.32.135l-1.016-.5c.09-.076.177-.158.255-.25.433-.506.648-1.258.648-2.253%200-1.83-.718-2.746-2.155-2.746-.704%200-1.254.232-1.65.697-.43.508-.646%201.256-.646%202.245%200%20.972.19%201.686.574%202.14.35.41.877.615%201.583.615.264%200%20.506-.033.725-.098l1.325.772.36-.622zM15.5%2017.588c-.225-.36-.337-.94-.337-1.736%200-1.393.424-2.09%201.27-2.09.443%200%20.77.167.977.5.224.362.336.936.336%201.723%200%201.404-.424%202.108-1.27%202.108-.445%200-.77-.167-.978-.5zm-1.658-.425c0%20.47-.172.856-.516%201.156-.344.3-.803.45-1.384.45-.543%200-1.064-.172-1.573-.515l.237-.476c.438.22.833.328%201.19.328.332%200%20.593-.073.783-.22a.754.754%200%2000.3-.615c0-.33-.23-.61-.648-.845-.388-.213-1.163-.657-1.163-.657-.422-.307-.632-.636-.632-1.177%200-.45.157-.81.47-1.085.315-.278.72-.415%201.22-.415.512%200%20.98.136%201.4.41l-.213.476a2.726%202.726%200%2000-1.064-.23c-.283%200-.502.068-.654.206a.685.685%200%2000-.248.524c0%20.328.234.61.666.85.393.215%201.187.67%201.187.67.433.305.648.63.648%201.168zm9.382-5.852c-.535-.014-.95.04-1.297.188-.1.04-.26.04-.274.167.055.053.063.14.11.214.08.134.218.313.346.407.14.11.28.216.427.31.26.16.555.255.81.416.145.094.293.213.44.313.073.05.12.14.214.172v-.02c-.046-.06-.06-.147-.105-.214-.067-.067-.134-.127-.2-.193a3.223%203.223%200%2000-.695-.675c-.214-.146-.682-.35-.77-.595l-.013-.014c.146-.013.32-.066.46-.106.227-.06.435-.047.67-.106.106-.027.213-.06.32-.094v-.06c-.12-.12-.21-.283-.334-.395a8.867%208.867%200%2000-1.104-.823c-.21-.134-.476-.22-.697-.334-.08-.04-.214-.06-.26-.127-.12-.146-.19-.34-.275-.514a17.69%2017.69%200%2001-.547-1.163c-.12-.262-.193-.523-.34-.763-.69-1.137-1.437-1.826-2.586-2.5-.247-.14-.543-.2-.856-.274-.167-.008-.334-.02-.5-.027-.11-.047-.216-.174-.31-.235-.38-.24-1.364-.76-1.644-.072-.18.434.267.862.422%201.082.115.153.26.328.34.5.047.116.06.235.107.356.106.294.207.622.347.897.073.14.153.287.247.413.054.073.146.107.167.227-.094.136-.1.334-.154.5-.24.757-.146%201.693.194%202.25.107.166.362.534.703.393.3-.12.234-.5.32-.835.02-.08.007-.133.048-.187v.015c.094.188.188.367.274.555.206.328.566.668.867.895.16.12.287.328.487.402v-.02h-.015c-.043-.058-.1-.086-.154-.133a3.445%203.445%200%2001-.35-.4%208.76%208.76%200%2001-.747-1.218c-.11-.21-.202-.436-.29-.643-.04-.08-.04-.2-.107-.24-.1.146-.247.273-.32.453-.127.288-.14.642-.188%201.01-.027.007-.014%200-.027.014-.214-.052-.287-.274-.367-.46-.2-.475-.233-1.238-.06-1.785.047-.14.247-.582.167-.716-.042-.127-.174-.2-.247-.303a2.478%202.478%200%2001-.24-.427c-.16-.374-.24-.788-.414-1.162-.08-.173-.22-.354-.334-.513-.127-.18-.267-.307-.368-.52-.033-.073-.08-.194-.027-.274.014-.054.042-.075.094-.09.088-.072.335.022.422.062.247.1.455.194.662.334.094.066.195.193.315.226h.14c.214.047.455.014.655.073.355.114.675.28.962.46a5.953%205.953%200%20012.085%202.286c.08.154.115.295.188.455.14.33.313.663.455.982.14.315.275.636.476.897.1.14.502.213.682.286.133.06.34.115.46.188.23.14.454.3.67.454.11.076.443.243.463.378z'%3e%3c/path%3e%3c/svg%3e" alt="MySQL" width="36" height="36" loading="lazy" /><span class="skill-item-name">MySQL</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">MongoDB</span>
-            <span class="tool-pill">MySQL</span>
-            <span class="tool-pill">NoSQL Design</span>
-            <span class="tool-pill">Time-series Data</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">☁️</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">Cloud &amp; DevOps</h3>
+        <!-- Cloud & DevOps -->
+        <div>
+          <h3 class="skill-category-title"><span>☁️</span> Cloud &amp; DevOps</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="/assets/aws-Bhg4Stzb.png" alt="AWS" width="36" height="36" loading="lazy" /><span class="skill-item-name">AWS</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
+            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="/assets/docker-D4feuazP.png" alt="Docker" width="36" height="36" loading="lazy" /><span class="skill-item-name">Docker</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
+            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="data:image/svg+xml,%3csvg%20stroke='currentColor'%20fill='currentColor'%20stroke-width='0'%20viewBox='0%200%20496%20512'%20class='w-4%20h-4%20mr-2'%20height='1em'%20width='1em'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M165.9%20397.4c0%202-2.3%203.6-5.2%203.6-3.3.3-5.6-1.3-5.6-3.6%200-2%202.3-3.6%205.2-3.6%203-.3%205.6%201.3%205.6%203.6zm-31.1-4.5c-.7%202%201.3%204.3%204.3%204.9%202.6%201%205.6%200%206.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2%202.3zm44.2-1.7c-2.9.7-4.9%202.6-4.6%204.9.3%202%202.9%203.3%205.9%202.6%202.9-.7%204.9-2.6%204.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8%208C106.1%208%200%20113.3%200%20252c0%20110.9%2069.8%20205.8%20169.5%20239.2%2012.8%202.3%2017.3-5.6%2017.3-12.1%200-6.2-.3-40.4-.3-61.4%200%200-70%2015-84.7-29.8%200%200-11.4-29.1-27.8-36.6%200%200-22.9-15.7%201.6-15.4%200%200%2024.9%202%2038.6%2025.8%2021.9%2038.6%2058.6%2027.5%2072.9%2020.9%202.3-16%208.8-27.1%2016-33.7-55.9-6.2-112.3-14.3-112.3-110.5%200-27.5%207.6-41.3%2023.6-58.9-2.6-6.5-11.1-33.3%202.6-67.9%2020.9-6.5%2069%2027%2069%2027%2020-5.6%2041.5-8.5%2062.8-8.5s42.8%202.9%2062.8%208.5c0%200%2048.1-33.6%2069-27%2013.7%2034.7%205.2%2061.4%202.6%2067.9%2016%2017.7%2025.8%2031.5%2025.8%2058.9%200%2096.5-58.9%20104.2-114.8%20110.5%209.2%207.9%2017%2022.9%2017%2046.4%200%2033.7-.3%2075.4-.3%2083.6%200%206.5%204.6%2014.4%2017.3%2012.1C428.2%20457.8%20496%20362.9%20496%20252%20496%20113.3%20383.5%208%20244.8%208zM97.2%20352.9c-1.3%201-1%203.3.7%205.2%201.6%201.6%203.9%202.3%205.2%201%201.3-1%201-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7%201.3.3%202.9%202.3%203.9%201.6%201%203.6.7%204.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4%2035.6c-1.6%201.3-1%204.3%201.3%206.2%202.3%202.3%205.2%202.6%206.5%201%201.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6%201-1.6%203.6%200%205.9%201.6%202.3%204.3%203.3%205.6%202.3%201.6-1.3%201.6-3.9%200-6.2-1.4-2.3-4-3.3-5.6-2z'%3e%3c/path%3e%3c/svg%3e" alt="Git" width="36" height="36" loading="lazy" /><span class="skill-item-name">Git</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
+            <div class="skill-item" style="--skill-level:82%"><img class="skill-icon" src="/assets/github-DO6xZ_gw.png" alt="GitHub" width="36" height="36" loading="lazy" /><span class="skill-item-name">GitHub</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">82%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">AWS EC2</span>
-            <span class="tool-pill">S3</span>
-            <span class="tool-pill">IAM</span>
-            <span class="tool-pill">Lambda</span>
-            <span class="tool-pill">Docker</span>
-            <span class="tool-pill">Git / GitHub</span>
-            <span class="tool-pill">CI/CD</span>
-          </div>
-        </article>
+        </div>
 
-        <article class="tool-card rounded-2xl p-6 md:p-7">
-          <div class="flex items-center gap-3 mb-5">
-            <span class="text-2xl" aria-hidden="true">🧠</span>
-            <h3 class="text-sm font-bold tracking-[0.15em] uppercase text-white">AI / Data</h3>
+        <!-- AI / Data -->
+        <div>
+          <h3 class="skill-category-title"><span>🧠</span> AI / Data</h3>
+          <div class="skill-grid">
+            <div class="skill-item" style="--skill-level:78%"><img class="skill-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAkklEQVR4nO3VMQrDMBBEUZ1j2q19B58skJvlXinWkFLNEsZCtvU/bCWE9rlxa0S/FK/sp90pzQa4CwiAGYAA4AUgAHhVC7jnl19QswHufQFYHfD9bNkPgDMDEAC8Rj8gAKsDVJzn/s5+GoA/ArAD8Br9IxKAouUBGvwByh4PqBq+YBWAAOAFIAB4LQ+YngDQMzsA0xwgh/tQWf8AAAAASUVORK5CYII=" alt="pandas" width="36" height="36" loading="lazy" /><span class="skill-item-name">pandas</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">78%</span></div>
+            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="/assets/sklearn-DETc67oS.png" alt="scikit-learn" width="36" height="36" loading="lazy" /><span class="skill-item-name">scikit-learn</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
+            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFSElEQVR4nO2XyW8bVRzHHz1wYj1Qbo0dr1m97/vusT3jJN4tRClXFvXABahEr7RI/AcUISFxbOCIEBckpLaoF8ShvbWexeOxxzN2oYlJHnrPdnAiCtSZaRspX+lz8/vN50nv/X7PAJzmNKdRJRCA5wbFxmVwEgMrlecHVOOrYbEJwUlLP998dUg1fkTyJ24DfxRrmiHV/G0qf6I2MNx8wzIoNlqz8idmA8ONZmFQbAyPyg+pxg/gWc+AatQHxeZoRhojk42v0WU++nspV8/LuWpLylXvS0SNAE8zw2LzrQHV/HMqPSARdcQV1Eb/aQ0Sl3MVKBMVKBHle+BpZUjV3x6Q9b0ZaSjna3uDfO3df1snEZX7MlGGcrYMpWzp6WxAouqUTNZHWLyAqCH5HTlfL//nWqJESOnSfSlTutdPb2afjPGsAFn1yvn6AyQ9yI+Rc9UdmahugGc9vxcq5wa5mjAWryJxKOUqu1K2SipRvx/b0PXj1DtAtedBvvIzkh6DLmFlXyLKbypRvx/bcIgxiuvFqP1uhKoDpSMTlc+n3QOTLUM5U/5Qidr9OJkSY+RAjJFQjJJQjJCSGCK1QKmImapdypb2sDSmBPvp0vajWuVj148WEr0oORKjBShGxnRDuW3FnsVSpvwTkpYyUzbv9pKVl4GCESOFD3rhPDwglIO9QDZ47ML9TKk6lt6CUnqMnNoKA4UDwSdnuiHiNhYPEphuIHv92IWl9NYtLJ7aHJPc+AaolK4/m+sFsDjs+rNQ8GVGrC91du6CYmbTPhXvJzegmCju9RNbi0DFdP2ZO11fBnZ9aYzgTZ2fu5iYKF5G4v0EoohQ/XUpeFOfCV4sDgVPCnbciS/mLtaPF7/H4nEEBcUYdQGoHMGdSgueJBTciAQUXPEbcxfrx0h6Ig5xj44X7EDl8K6EUXAlYAfhjCP4uYv1ouRDPFgwqD8XXwEqp70ceQGLO2IY3h7ZmbtYL5LfmQ4WMZKHHT/1IlA5gjv7UscehQjeFoG8Lfxw7mK9cK4zO1j4IGEEKqezFjNhcSsiDPn18PxHqBvK3cSDZTJchGAmCVRO2xJK85Yw5C0h2F4PwfZacP5L3A0SX04mIkbwpT8FKodbC15trweROIZbCVybu5jgS1/o+jMQg4dL6i5QOdxq4E57NQAxK37ILAfmH2ScJ/664E2PurODxZVMAJXSXvGnkTSHWPZBdsm3y+iDrx2rqOBObf89WJJQcCZuKfWMng0E4Ay75L2NxLklL4Y1e4//mOt5ksEjgwW2HbH3gMLhzN6LWNyMxD2YtsnpV6R4xxn7bjpYOvYY5G3REWeLKnaUOLMnxZjcIyxucmMYg0uZPzQo7HpIy9uiMm+bDBdrBLatIZGzBRNKyLMmt4jFjS4MY3BKrMmjAUqGt0XqbWt4f9qjEdxacMSvB99H5/dx66E1tNF9kTE4R1jcgMUhrXfuszp7VVH5g01YQpfwcDno05N2t+r7lV3xFf5vHc7gTLJG1y9TaUaPcEBG54C0zv6RKvIHH18LXOJWA/vt1Um7m7Q83PbM3juc2XMFHQva6DOjhxmCMXiWaL07zepdVxmD8+5RaUZnh/SifZ/R2j4GTyLsir/GLnvl2ZbHTToHa5pcROPkTBsQU+HD0swiwgZbGqvU0qh0bB65CaNby5nd384rTWsnLFi22QWLshf2cUIbHQHU8hi9a/eQtO6wNH1Yere1YLneOmdVps8rEXZx/Syz6DhP6xzXaK39JqO1dWitbYfW2HZaGmuntWC5QWus11oa63lGbz3e8+A0pzkNmOYv0NHVTAJhqkQAAAAASUVORK5CYII=" alt="PyTorch" width="36" height="36" loading="lazy" /><span class="skill-item-name">PyTorch</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
+            <div class="skill-item" style="--skill-level:60%"><img class="skill-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAMGklEQVR4nO1ZCVCV1xVmpsu0makW3vq/lbfzEERQCSYuiEui4oJJjFtijNa4ZLPT2NbJJE3aTKNRk7jUJjFVY2JSDMt7LLK5ICAoAgoiO6JZ1CTKAx4IPN7/dc79fxBNjfCStJ2OZ+aMz/+/99zvO/fcc8798fO7K3flrtyV/wtxOWRmV4JkTUuyZH9Liqy0NVV2tTVN0S2o7Bt6Ru9cSZLVrkSZye9/QXDE76euBMkil0N6vO2gAu3ZKnQcVuP6UQ06c7XoPCZqrpY9o3c0hsa6nNICV5JkIeL9fvJfAe9K8H+w1SmrdWdyDBgB7S7Qw1MUiJ6TBvQUG+E9ZWJKv+kZvesq0LOxNMedyaE1RVbtSgyY+h8D/oWTu8eVLNnVdlCJjkMEXIfuwkABcKkJfJkZ/GmLoGdE7f1/mZmNobE0p/OYjtlgO5IkefdivOaXPyr4tgSFvMUhKyHPUUiQx3tOEnABNM5YgXIbUBEMVIQAZ0MFpd/0jN6JhBiRk0Zmg2yRzRanrLg1Xin70cC7nLLq9iwVi2nyoLdE8DiBQkWQCDgcqBwNnLsXODdG1HvhrRiNfRuHYeFsMx6ebsRrz5tQlWxmIcZ2I1eL9iwOtMYPToLChjxPC3wLfLkVqBgmAo8Ezt0PVE0AqmOA6slM+aoYPLd0GAwGw01qMhrw17VGZqs/CdoJ7Nb/4gcjQDHvzlAKYXP8VvAhQGWE4GkGfDJQMw2onQnUzma6e+MYBnjuNDsy3h+FK/mRcBWFoykrGNcKrOBLTPCeMKA7T4frdLgzlGhODvj7DwM+MWBqW7qCZY2ufD07gELY9Hq+H/iaqUBtLFA3F6h/FGhYCE/NAoyOsGLrn8bAWz0dqJ4ijD0XJexaiQ04Hgg+VwfvYQ26s9W4nsmB1mxJ9J/2/fO8Q1ZLuZtSn6fIwA5fW6EF775qwTOPW/HS08HI/Mdo9FROvgG+YQHQ+ARw/jfA+eVozHsUqJ8P1MUBtTOEXaoaB5RGAMdtwGEd+CwV+AwOPQc5dFGGO6iEyyGr+l51oiVRspg8cf2ImHFOGXH1mAlTJxi/Fc/jxlhx5cR0wfONjwvgm9YATauB88uAhsVA/SNCWNU8CJybABRHALlWIEMLOOTgk2XwpsrhSVOgM12JtjQ5XAnS+T4TcCVLC3sPLhUh8v7i2QL4ZfMsSHsnDPVZUajNHI/098ehu2qO4OnGJczzaFopKBEgUkSOdqFmOnA2GigKBw5ZgBQ1EC8B/hkAPkmGnlQFutKV6MhQwpUsyfcNvENmbk2Vs0LTladjOTthixn2IAMy37MJ8Uupsmq8ENcUGiz25wMNjwGNSwUSpPSb7YBIgMaenQgURQCHbECKBjggBeIFAt50BbozOHRkqdCSIuebHUMNgyeQIFlDFbJ/+Fw6ZMLZJEu/wxslZp5eAnFA/Tx2eJnH6RzQbjQ+JjyjEKqbA9ROB87FoCp+ODYvVwKZgYCTE8IoXQlvJofuHDXLSGKVfmrQBKhzdGfeLnX2JzBeTJ3Thfiue6gvA6FhkagLRO8/BNTOYmm25VQ0HoiSY+8fA4GjFiBHB2Srweeo4T2iRbfYALKUmiT9cPAEHJKymwoXpc9iI1BKKTS4XwiNA6onCQeTZaE5Iol5Amim5PmHRO/Hoq1sMmZO1sFmlqM5Lwo4EQwUmIB8PfgCPbyFgTcXNof01KAJuJzSb/rahmNaePN0LFfTIiiyAKUhNypvdbQQRr0FrI52Ik44E0zpNxW1WFwqmITYSTooFRJ8unMK+PJIoDwMKAsCSsxCUbulMrsc0q8GvwMpsi7K/105aniyVeBJMzm2zTiiF/J36QixiFEYxQiFjJGYIVbiWaLOBF8zA46dkbBblAz8C6ui4C6MAipHAWfDgAq70OiV3dofqdDilHb6RiBTia5MDp40JfhUIU/zDjmQoQKOGPHeH3R47VkTyh0j4a3s7X9oJx4QiFCsl0zBvk2jET1Gz4ArFVKsWz0G1/Kj0VVEHWsEUBHKOlXWepeZWcKgc3ejN/KBAIUQ5eHONAU8Tjm8CVLwnwSwXA2nnB268wdMWDhNw4CZDTLMnqLDivkmrJhvxpKHLYiK0ECpJNASKBRShA/XI3nXbFzNGw9XjknooZj3qdW2im22Wbgv9GuzfQshOsTpCnSmKuBxyOH9VAL+E3+BAO1CtgYooDtAOLJ3j8fKxeEw6OV9XiYl0Bq1AnHThuHj7bFwVy5FU6IeX6fr4C0LB86OEJrB8qAb4VNigueEgfVdlMIpC/l0iJuTpR+xNoKKSoocPQ4Z+ESZEEbpSuCwBiiitEoXlnB0FY/EtcJJKEudi9wD85Dz8cMoz3oMHdVPwV06ExeSDKjZMwTXsgzwnh4hZLGzNNfe532+VIh/D8V/3o3bWnOydN+gCdDXg7Y0BSvnVNYL3pQhfBiHuBgdLn+qAvJ0wCmzsP3sIjMC3tIwtB0x40qaDp8lcDj/iRS1e4fgYrwMVzP06CwU0y/zfOiN0On1fqkJX2YYMGeynq11dLvYD/lSyOjTR4tTxlMMdmapEButh9ORhB3bNmHmRB34k0bhJnbTFTJMAHcmHD2lw+EpDoWnOET0OMU7/TtcvGIKnkffFZO8b8SMiTr8bftmttb0CTq63PDNSUMDB02AkUgWPpcU7+IwZpQVXq8XPM9jfJQd5xIN4j2YSNBdOOiWu/BwkVCY+Lv/3TjoJvA8gS8xoSJex2zTGrRW1CgrsjcElPkEnhFIkiykhm7FXA12bNuCXombcT8KP9CzhXu/OAgXeivaT9rQWtRLpr+Sx4PQWmhB+4kbXyl4ETw1i/m7NJgbO7ZvnR3bNiM6Ul3iMwG6TGxeLbsyJXok3G43M3rl8mWE2Di05Ql3Wdr6ioRAbHpBh6njAhFkVsJu5bB/o0HcGVHPWPHRhkD2jsbQ2E2/06H8gPBlgwqX65AOoTYVLl++xNaiNcfdN8pt0MvX+kRAy/mPHRak7fz888/6vPLbZ5cjdoIcbzyvwpI4I0KDOIy9145XXl6H4uIT6OnpQcmpYla4+r4HiRodpUdpySk2hsa+8vI6jI0MYjaWzDFg4zMcZoyTYe0zy/rWo7WDrLp2jvO/f1DgOY67x2JSX8nJzuwz1tx8DWufXYH1v1+Dja+/CkdyAi5eaEJ/6erqxKoVi/DSKuHu3KelZry40ojVTy1mY/rLxQtNzBbZXL9uDVuD1uoVwmAxqS8TpgETsBi4V558YlE7Bij19XV4a8tGhIdZoeH8ERWuQeo2oQ0nTXlbz57Ru4gRNrz95htszkBl2dLF7YRpwARsZu2lysqKOxpuaKjHju1vYeeOrUhPc6K2tgbt7e0oPJ6PMLuKVVXS4UEcigoL2DsaQ2N37tjK5pKNOwlhsZm1Xw6YgFYVwFMq80UoDe7/aC/GR2rYx1zSsaO0+Hj/B+ydL9LT0wPCNGACtNUDESLZ2FiPFGcyNm54DUuXLMToEVaEBSlQ+oFa+Mx+VIuSPSr2bPQIC5Y+vgAbXv8Lm0PeH6ijCNOACejUUs+th+3fSe7Rw3hn53Z8uG8PnI5EZGWms98RoTqU7+HQkaNGR44Kp3dz7Bm9ozE09sN9e9jco0cO3XGdzs5O6DVSz4AJ2G36i+Xlp+GLeDwePBgzCoffkoM+w1M1z9kiw7TJkeydL3LmdCnsNv2FARMwG7g/P716RcedDJ8oOo5tW7fgxfXrsHrlMsydFdMdHqL3PjFT033NIe1yOaVdrmTJ11cTJSVzYzRfDLfru2bOmOSmsS+uX8fmko07yZpVyygLvTpwAgEBQ6wmzZd797z/nQF6/fp11NZUo/xMGfLzcjFp4n1uNffr525nV80NfZ7G0NjyM2VsLtn4Ltm7e5fXatJ8IZFIfuU3GNHKhpisZk3To4/MaqPukLaRFiWltHah6TxrLVyuZnYQv/7qK8yfN8etVvrftv1VKf1XLpgX56axXq+XzSUbZIts9tqnteic0No2s6ZRJx9q9PNFgoP9fq7TSJeH2I2HQ+zGutBgUwNpSJCxyWbRXrEYVS2mQGWHhvPnjXpFe7BNn6zR3P5PRVRN7Va9g8ZqVQFemmsxqVxki2z22bcb60LspkMaVcCTI/38fuYT+LtyV/zuKP8CGMQx6YF4eTMAAAAASUVORK5CYII=" alt="HuggingFace" width="36" height="36" loading="lazy" /><span class="skill-item-name">HuggingFace</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">60%</span></div>
+            <div class="skill-item" style="--skill-level:68%"><img class="skill-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABeElEQVR4nO2ZzUrDQBCAv5M9VVBQUcG8kiCK+gpK30+bc9WLehTUi4+gOZhTZGECIXSzCflxtswHOZSZtvN1O7thAoZhGIYSZsACeAQyoFBwZVLPLbDVRuIYeFVQeNFwvUidjStRSnwBZ8AcHcyBU+BN6ntuWplFRWIXnexIfa7OG1/SkyS4ldDMudT54Ev4kQQtfycf21Lnty+hbKYYKJpqNZGBSIBUzowlcBKriJOonhf3sYrkNRH3OkqRdad4KLd7cAJMxPeLTLHrqF6RtMOuo1ok77DrqBYpOhQStUgS6KFoREI9FI1IqIeiEekbr2IiQzSrGpG0Z7OqEcl7NutkIpkE9wJvHqvQtiL7oeFDOQ66UC5yGRoHlQO6d7HWKHIAfEjMzYGDI1OXfKVM5Br4rMx/Xb1ejmpDbE0iRUXikBbMZNlWykRWMu9t9Vihif8WGYyNEclrX/I7cXwwloFblLHjg5HIh7vHD3drbhrHjhuGYbA5/AEsz1wswIZzZQAAAABJRU5ErkJggg==" alt="Power BI" width="36" height="36" loading="lazy" /><span class="skill-item-name">Power BI</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">68%</span></div>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="tool-pill">pandas</span>
-            <span class="tool-pill">scikit-learn</span>
-            <span class="tool-pill">Reinforcement Learning</span>
-            <span class="tool-pill">SQL Analytics</span>
-            <span class="tool-pill">HuggingFace</span>
-            <span class="tool-pill">Power BI</span>
-          </div>
-        </article>
+        </div>
       </div>
     </section>
 
@@ -1683,11 +2942,14 @@
       aria-labelledby="journey-heading">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-12 md:mb-20">
         <div class="lg:col-span-7 journey-reveal">
-          <p class="text-[10px] font-bold tracking-[0.3em] uppercase text-cyan-400 mb-3">Journey</p>
-          <h2 id="journey-heading"
-            class="font-display text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-white leading-none">
-            Education &amp;<br class="hidden sm:block" /> Experience
-          </h2>
+          <p class="section-eyebrow">Journey</p>
+          <div class="flex items-end gap-4 flex-wrap">
+            <h2 id="journey-heading"
+              class="section-title font-display lg:text-7xl uppercase tracking-wide text-white leading-none">
+              Education &amp;<br class="hidden sm:block" /> Experience
+            </h2>
+            <span class="section-number hidden sm:block">04</span>
+          </div>
           <p class="mt-4 text-sm md:text-base text-neutral-500 leading-relaxed max-w-xl">
             My professional journey and academic milestones so far.
           </p>
@@ -1804,18 +3066,18 @@
                 </mask>
                 {/* Gradients */}
                 <radialGradient id="cpu-blue-grad" fx="1">
-                  <stop offset="0%" stopColor="#00E8ED" />
-                  <stop offset="50%" stopColor="#08F" />
+                  <stop offset="0%" stopColor="#fafafa" />
+                  <stop offset="50%" stopColor="#d4d4d4" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-yellow-grad" fx="1">
-                  <stop offset="0%" stopColor="#FFD800" />
-                  <stop offset="50%" stopColor="#FFD800" />
+                  <stop offset="0%" stopColor="#e5e5e5" />
+                  <stop offset="50%" stopColor="#a3a3a3" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-pinkish-grad" fx="1">
-                  <stop offset="0%" stopColor="#830CD1" />
-                  <stop offset="50%" stopColor="#FF008B" />
+                  <stop offset="0%" stopColor="#d4d4d4" />
+                  <stop offset="50%" stopColor="#737373" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-white-grad" fx="1">
@@ -1823,19 +3085,19 @@
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-green-grad" fx="1">
-                  <stop offset="0%" stopColor="#22c55e" />
+                  <stop offset="0%" stopColor="#a3a3a3" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-orange-grad" fx="1">
-                  <stop offset="0%" stopColor="#f97316" />
+                  <stop offset="0%" stopColor="#737373" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-cyan-grad" fx="1">
-                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="0%" stopColor="#e5e5e5" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <radialGradient id="cpu-rose-grad" fx="1">
-                  <stop offset="0%" stopColor="#f43f5e" />
+                  <stop offset="0%" stopColor="#525252" />
                   <stop offset="100%" stopColor="transparent" />
                 </radialGradient>
                 <filter id="cpu-light-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -1990,11 +3252,14 @@
       class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5 mb-12"
       aria-labelledby="contact-heading">
       <div class="mb-12 md:mb-16 max-w-3xl journey-reveal">
-        <p class="text-[10px] font-bold tracking-[0.3em] uppercase text-cyan-400 mb-3">Contact</p>
-        <h2 id="contact-heading"
-          class="font-display text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-white leading-none">
-          Let's Connect
-        </h2>
+        <p class="section-eyebrow">Contact</p>
+        <div class="flex items-end gap-4 flex-wrap">
+          <h2 id="contact-heading"
+            class="section-title font-display uppercase tracking-wide text-white leading-none">
+            Let's Connect
+          </h2>
+          <span class="section-number hidden sm:block">05</span>
+        </div>
         <p class="mt-4 text-sm md:text-base text-neutral-500 leading-relaxed max-w-2xl">
           Have an opportunity, project idea, or just want to say hi? I'd love to hear from you.
         </p>
@@ -2065,13 +3330,11 @@
 
         <!-- Right: form -->
         <div class="connect-form-panel journey-reveal">
-          <form id="contactForm" class="connect-form space-y-5" action="https://formsubmit.co/nirnaysingh7@gmail.com"
-            method="POST">
-            <!-- FormSubmit Options -->
+          <form id="contactForm" class="connect-form space-y-5"
+            action="https://formsubmit.co/ajax/nirnaysingh7@gmail.com" method="POST" novalidate>
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_subject" value="New Portfolio Message">
-            <input type="hidden" name="_next" value="thankyou.html">
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
 
             <div class="connect-field">
               <label for="contactName">Full Name</label>
@@ -2092,6 +3355,7 @@
                 placeholder="Tell me about the opportunity or project..."></textarea>
             </div>
             <button type="submit" class="connect-submit magnetic-wrap" id="contactSubmit">SEND MESSAGE</button>
+            <p id="contactFormStatus" class="connect-form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -2099,33 +3363,102 @@
   </main>
 
   <footer
-    class="px-5 md:px-10 py-8 border-t border-white/5 text-center text-[10px] tracking-[0.25em] uppercase text-neutral-600">
-    © <span id="year"></span> Nirnay Pratap Singh — Designed &amp; Built
+    class="relative z-10 px-5 md:px-10 py-10 border-t border-white/5 text-center">
+    <div class="section-divider mb-8 max-w-xs mx-auto opacity-60" aria-hidden="true"></div>
+    <p class="text-[10px] tracking-[0.25em] uppercase text-neutral-600">
+      © <span id="year"></span> Nirnay Pratap Singh
+    </p>
+    <p class="mt-2 text-[10px] tracking-[0.2em] uppercase text-neutral-600/70">Designed & Built with care</p>
   </footer>
+
+  <!-- 8-Bit AI Chatbot Mount Point -->
+  <div id="chatbot-root"></div>
 
   <script>
     (function () {
       const body = document.body;
-      const reveal = () => {
-        body.classList.remove("preload");
-        body.classList.add("loaded");
+      const loadingScreen = document.getElementById('loadingScreen');
+      const loaderProgressFill = document.getElementById('loaderProgressFill');
+      const loaderPercent = document.getElementById('loaderPercent');
+      let loadProgress = 0;
+      let progressTimer = null;
+
+      const setLoadProgress = (value) => {
+        loadProgress = Math.max(0, Math.min(100, value));
+        if (loaderProgressFill) loaderProgressFill.style.width = loadProgress + '%';
+        if (loaderPercent) loaderPercent.textContent = Math.round(loadProgress) + '%';
       };
-      window.addEventListener("load", reveal);
-      if (document.readyState === "complete") reveal();
+
+      const dismissLoader = () => {
+        if (body.dataset.loaderDismissed === "true") return;
+        body.dataset.loaderDismissed = "true";
+        if (progressTimer) clearInterval(progressTimer);
+        setLoadProgress(100);
+        setTimeout(() => {
+          if (loadingScreen) {
+            loadingScreen.classList.add("dismiss");
+            loadingScreen.addEventListener("transitionend", () => loadingScreen.remove(), { once: true });
+            setTimeout(() => loadingScreen.remove(), 1200);
+          }
+          body.classList.remove("preload");
+          body.classList.add("loaded");
+        }, 350);
+      };
+
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        progressTimer = setInterval(() => {
+          if (loadProgress >= 92) return;
+          setLoadProgress(loadProgress + Math.random() * 8 + 2);
+        }, 180);
+      } else {
+        setLoadProgress(100);
+      }
+
+      window.addEventListener("load", dismissLoader);
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(dismissLoader, 1200);
+      });
+      setTimeout(dismissLoader, 4500);
+      if (document.readyState === "complete") dismissLoader();
 
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Theme toggle
+      // Theme toggle with Easter Egg detection
       const html = document.documentElement;
       const themeToggle = document.getElementById("themeToggle");
       const savedTheme = localStorage.getItem("portfolio-theme");
-      if (savedTheme === "light" || savedTheme === "dark") {
+      if (savedTheme === "light" || savedTheme === "dark" || savedTheme === "retro") {
         html.setAttribute("data-theme", savedTheme);
       }
       if (themeToggle) {
+        let clickCount = 0;
+        let clickTimer = null;
+
         themeToggle.addEventListener("click", () => {
-          const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          clickCount++;
+          
+          if (clickTimer) {
+            clearTimeout(clickTimer);
+          }
+          
+          clickTimer = setTimeout(() => {
+            clickCount = 0;
+          }, 1500); // Reset click count if no click within 1.5 seconds
+
+          if (clickCount >= 3) {
+            clickCount = 0;
+            clearTimeout(clickTimer);
+            
+            // Dispatch Easter Egg loader event
+            const event = new CustomEvent("trigger-retro-loading");
+            window.dispatchEvent(event);
+            return;
+          }
+
+          // Normal single/double click: Toggle light and dark theme
+          const currentTheme = html.getAttribute("data-theme");
+          const next = currentTheme === "light" ? "dark" : "light";
           html.setAttribute("data-theme", next);
           localStorage.setItem("portfolio-theme", next);
         });
@@ -2143,11 +3476,19 @@
       const onScroll = () => {
         const scrollY = window.scrollY;
         const vh = window.innerHeight;
-        const isPastIntro = scrollY > vh * 0.75;
+        const compactNav = window.matchMedia("(max-width: 1023px)").matches;
+        const isPastIntro = compactNav ? scrollY > 24 : scrollY > vh * 0.75;
+
+        // Scroll progress bar
+        const scrollProgress = document.getElementById("scrollProgress");
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollProgress && docHeight > 0) {
+          scrollProgress.style.width = Math.min(100, (scrollY / docHeight) * 100) + "%";
+        }
 
         if (siteHeader) {
           siteHeader.classList.toggle("visible", isPastIntro);
-          siteHeader.classList.toggle("scrolled", isPastIntro && scrollY > (vh * 0.75 + 24));
+          siteHeader.classList.toggle("scrolled", isPastIntro && scrollY > (compactNav ? 80 : vh * 0.75 + 24));
         }
 
         // Fade out intro elements as user scrolls down
@@ -2182,25 +3523,35 @@
       // Mobile menu
       const menuBtn = document.getElementById("menuBtn");
       const mobileMenu = document.getElementById("mobileMenu");
-      menuBtn.addEventListener("click", () => {
-        const open = mobileMenu.classList.toggle("hidden") === false;
-        menuBtn.setAttribute("aria-expanded", open);
-      });
-      document.querySelectorAll(".mobile-nav").forEach((link) => {
-        link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
-      });
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+          const open = mobileMenu.classList.toggle("hidden") === false;
+          menuBtn.setAttribute("aria-expanded", open);
+          document.body.style.overflow = open ? "hidden" : "";
+        });
+        document.querySelectorAll(".mobile-nav").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            menuBtn.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+          });
+        });
+      }
 
-      // Mouse glow
+      // Mouse glow (fine pointer only)
       const root = document.documentElement;
-      document.addEventListener("mousemove", (e) => {
-        root.style.setProperty("--glow-x", e.clientX + "px");
-        root.style.setProperty("--glow-y", e.clientY + "px");
-      });
+      const finePointer = window.matchMedia("(pointer: fine)").matches;
+      if (finePointer) {
+        document.addEventListener("mousemove", (e) => {
+          root.style.setProperty("--glow-x", e.clientX + "px");
+          root.style.setProperty("--glow-y", e.clientY + "px");
+        });
+      }
 
       // Custom cursor
       const dot = document.getElementById("cursorDot");
       const ring = document.getElementById("cursorRing");
-      const fine = window.matchMedia("(pointer: fine)").matches;
+      const fine = finePointer;
       let mx = 0, my = 0, rx = 0, ry = 0;
 
       if (fine && dot && ring) {
@@ -2259,65 +3610,172 @@
       );
       journeyEls.forEach((el) => journeyObserver.observe(el));
 
-      // Contact form – FormSubmit integration (Asynchronous background post)
+      // Scroll reveal for all sections
+      document.querySelectorAll(
+        '#about > .grid > div, #projects > .flex, #projects .project-card, #toolbox > .mb-12, .skill-category-title, .skill-grid'
+      ).forEach((el, i) => {
+        el.classList.add('scroll-reveal');
+        el.style.transitionDelay = `${(i % 6) * 80}ms`;
+      });
+      const scrollRevealEls = document.querySelectorAll('.scroll-reveal');
+      const scrollRevealObs = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); scrollRevealObs.unobserve(e.target); }
+        }),
+        { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+      );
+      scrollRevealEls.forEach((el) => scrollRevealObs.observe(el));
+
+      // Skill items animation observer
+      const skillObs = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); skillObs.unobserve(e.target); }
+        }),
+        { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.skill-item').forEach((el) => skillObs.observe(el));
+
+      // Contact form – FormSubmit AJAX integration
       const contactForm = document.getElementById("contactForm");
       const contactSubmit = document.getElementById("contactSubmit");
+      const contactFormStatus = document.getElementById("contactFormStatus");
+      const FORM_ENDPOINT = "https://formsubmit.co/ajax/nirnaysingh7@gmail.com";
       const SEND_LABEL = "SEND MESSAGE";
       const SENDING_LABEL = "SENDING...";
 
+      const setFormStatus = (message, type = "") => {
+        if (!contactFormStatus) return;
+        contactFormStatus.textContent = message;
+        contactFormStatus.classList.remove("is-error", "is-success");
+        if (type) contactFormStatus.classList.add(type === "error" ? "is-error" : "is-success");
+      };
+
       if (contactForm && contactSubmit) {
+        let useNativeSubmit = false;
+
         contactForm.addEventListener("submit", async (e) => {
-          e.preventDefault(); // Prevent standard browser redirect
+          if (useNativeSubmit) return;
+
+          e.preventDefault();
+          setFormStatus("");
 
           if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
             return;
           }
 
-          // Show sending loading state on button
+          contactSubmit.disabled = true;
           contactSubmit.textContent = SENDING_LABEL;
-          contactSubmit.style.pointerEvents = "none";
           contactSubmit.style.opacity = "0.7";
 
-          const action = contactForm.getAttribute("action");
           const formData = new FormData(contactForm);
+          const userSubject = String(formData.get("subject") || "").trim();
+
+          const payload = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            subject: userSubject,
+            message: formData.get("message"),
+            _captcha: "false",
+            _template: "table",
+            _subject: userSubject ? `Portfolio: ${userSubject}` : "New Portfolio Message",
+          };
+
+          const submitNativeFallback = () => {
+            useNativeSubmit = true;
+            contactForm.action = "https://formsubmit.co/nirnaysingh7@gmail.com";
+            contactForm.method = "POST";
+
+            let nextInput = contactForm.querySelector('input[name="_next"]');
+            if (!nextInput) {
+              nextInput = document.createElement("input");
+              nextInput.type = "hidden";
+              nextInput.name = "_next";
+              contactForm.appendChild(nextInput);
+            }
+            nextInput.value = new URL("thankyou.html", window.location.href).href;
+
+            let subjectInput = contactForm.querySelector('input[name="_subject"]');
+            if (!subjectInput) {
+              subjectInput = document.createElement("input");
+              subjectInput.type = "hidden";
+              subjectInput.name = "_subject";
+              contactForm.appendChild(subjectInput);
+            }
+            subjectInput.value = payload._subject;
+
+            setFormStatus("Redirecting to secure mail delivery...", "success");
+            contactForm.submit();
+          };
 
           try {
-            const response = await fetch(action, {
+            const response = await fetch(FORM_ENDPOINT, {
               method: "POST",
-              body: formData,
               headers: {
-                'Accept': 'application/json'
-              }
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify(payload),
             });
 
-            if (response.ok) {
-              // Redirect directly to your custom thankyou.html page
-              window.location.href = "thankyou.html";
-            } else {
-              throw new Error("FormSubmit response not ok.");
+            let data = {};
+            try {
+              data = await response.json();
+            } catch {
+              throw new Error("Unexpected response from mail service.");
             }
+
+            const failed = !response.ok || data.success === "false" || data.success === false;
+            if (failed) {
+              throw new Error(data.message || "Unable to send message right now.");
+            }
+
+            contactForm.classList.add("sent");
+            contactSubmit.textContent = "SENT ✓";
+            contactSubmit.classList.add("success");
+            setFormStatus("Message delivered. Redirecting...", "success");
+
+            setTimeout(() => {
+              window.location.href = "thankyou.html";
+            }, 700);
           } catch (error) {
-            console.warn("Background submission issue, falling back to native post...", error);
-            // Fallback: If background POST fails, submit natively
-            contactForm.submit();
+            console.warn("AJAX send failed, using native FormSubmit fallback:", error);
+            submitNativeFallback();
           }
         });
       }
 
-      // Magnetic buttons
-      document.querySelectorAll(".magnetic-wrap").forEach((wrap) => {
-        const strength = 18;
-        wrap.addEventListener("mousemove", (e) => {
-          const rect = wrap.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          wrap.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+      // Project card subtle tilt
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (finePointer && !reducedMotion) {
+        document.querySelectorAll(".project-card").forEach((card) => {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) translateY(-8px)`;
+          });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "";
+          });
         });
-        wrap.addEventListener("mouseleave", () => {
-          wrap.style.transform = "translate(0, 0)";
+      }
+
+      // Magnetic buttons (fine pointer only)
+      if (finePointer) {
+        document.querySelectorAll(".magnetic-wrap").forEach((wrap) => {
+          const strength = 18;
+          wrap.addEventListener("mousemove", (e) => {
+            const rect = wrap.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            wrap.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+          });
+          wrap.addEventListener("mouseleave", () => {
+            wrap.style.transform = "translate(0, 0)";
+          });
         });
-      });
+      }
 
       // Hide Spline watermark logo from shadow DOM
       const removeSplineLogo = () => {

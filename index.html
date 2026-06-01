@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Press+Start+2P&family=Share+Tech+Mono&display=swap"
     rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -598,7 +598,7 @@
       border-radius: 12px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       animation: float 5s ease-in-out infinite;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s, background 0.3s ease, color 0.3s ease;
     }
 
     .sticker:hover {
@@ -625,12 +625,20 @@
       color: #171717;
       animation-delay: 0s;
     }
+    .sticker-1:hover {
+      background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%) !important;
+      color: #ffffff !important;
+    }
 
     .sticker-2 {
       --r: 6deg;
       background: #e5e5e5;
       color: #262626;
       animation-delay: -1s;
+    }
+    .sticker-2:hover {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-3 {
@@ -639,6 +647,10 @@
       color: #404040;
       animation-delay: -2s;
     }
+    .sticker-3:hover {
+      background: linear-gradient(135deg, #7F00FF 0%, #E100FF 100%) !important;
+      color: #ffffff !important;
+    }
 
     .sticker-4 {
       --r: 12deg;
@@ -646,12 +658,20 @@
       color: #fafafa;
       animation-delay: -0.5s;
     }
+    .sticker-4:hover {
+      background: linear-gradient(135deg, #f857a6 0%, #ff5858 100%) !important;
+      color: #ffffff !important;
+    }
 
     .sticker-5 {
       --r: -10deg;
       background: #737373;
       color: #fafafa;
       animation-delay: -1.5s;
+    }
+    .sticker-5:hover {
+      background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%) !important;
+      color: #ffffff !important;
     }
 
     .sticker-6 {
@@ -661,6 +681,10 @@
       animation-delay: -2.5s;
       border-radius: 999px;
       padding: 0.75rem 1.1rem;
+    }
+    .sticker-6:hover {
+      background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%) !important;
+      color: #ffffff !important;
     }
 
     /* Intro Splash Screen */
@@ -3329,8 +3353,12 @@
     <p class="text-[10px] tracking-[0.25em] uppercase text-neutral-600">
       © <span id="year"></span> Nirnay Pratap Singh
     </p>
-    <p class="mt-2 text-[10px] tracking-[0.2em] uppercase text-neutral-600/70">Designed &amp; Built with care</p>
+    <p class="mt-2 text-[10px] tracking-[0.2em] uppercase text-neutral-600/70">Designed & Built with care</p>
   </footer>
+
+  <!-- 8-Bit AI Chatbot Mount Point -->
+  <div id="chatbot-root"></div>
+  <script type="module" src="/main.tsx"></script>
 
   <script>
     (function () {
@@ -3382,16 +3410,41 @@
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Theme toggle
+      // Theme toggle with Easter Egg detection
       const html = document.documentElement;
       const themeToggle = document.getElementById("themeToggle");
       const savedTheme = localStorage.getItem("portfolio-theme");
-      if (savedTheme === "light" || savedTheme === "dark") {
+      if (savedTheme === "light" || savedTheme === "dark" || savedTheme === "retro") {
         html.setAttribute("data-theme", savedTheme);
       }
       if (themeToggle) {
+        let clickCount = 0;
+        let clickTimer = null;
+
         themeToggle.addEventListener("click", () => {
-          const next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          clickCount++;
+          
+          if (clickTimer) {
+            clearTimeout(clickTimer);
+          }
+          
+          clickTimer = setTimeout(() => {
+            clickCount = 0;
+          }, 1500); // Reset click count if no click within 1.5 seconds
+
+          if (clickCount >= 3) {
+            clickCount = 0;
+            clearTimeout(clickTimer);
+            
+            // Dispatch Easter Egg loader event
+            const event = new CustomEvent("trigger-retro-loading");
+            window.dispatchEvent(event);
+            return;
+          }
+
+          // Normal single/double click: Toggle light and dark theme
+          const currentTheme = html.getAttribute("data-theme");
+          const next = currentTheme === "light" ? "dark" : "light";
           html.setAttribute("data-theme", next);
           localStorage.setItem("portfolio-theme", next);
         });

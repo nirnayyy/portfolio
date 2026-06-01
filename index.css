@@ -1,0 +1,350 @@
+@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 0.5rem;
+  --bg-retro-black: #000000;
+  --bg-retro-white: #ffffff;
+}
+
+.dark {
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+/* 8-bit theme layout rules */
+.retro-body {
+  font-family: 'Share Tech Mono', monospace;
+  image-rendering: pixelated;
+}
+
+.retro-title {
+  font-family: 'Press Start 2P', cursive;
+  line-height: 1.6;
+}
+
+/* 8-bit double border stylings */
+.border-8bit-black {
+  border: 4px solid #000000;
+  box-shadow: 4px 4px 0px 0px #000000;
+  border-radius: 0px !important;
+}
+
+.border-8bit-white {
+  border: 4px solid #ffffff;
+  box-shadow: 4px 4px 0px 0px #ffffff;
+  border-radius: 0px !important;
+}
+
+.border-8bit-double {
+  border: 4px solid #000000;
+  outline: 2px solid #ffffff;
+  outline-offset: -6px;
+  box-shadow: 4px 4px 0px 0px #000000;
+  border-radius: 0px !important;
+}
+
+.border-8bit-double-dark {
+  border: 4px solid #ffffff;
+  outline: 2px solid #000000;
+  outline-offset: -6px;
+  box-shadow: 4px 4px 0px 0px #ffffff;
+  border-radius: 0px !important;
+}
+
+/* Custom terminal scanline & blink animations */
+.terminal-blink {
+  animation: terminal-blink 1s steps(2, start) infinite;
+}
+
+@keyframes terminal-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Scrollbar for 8bit windows */
+.retro-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.retro-scrollbar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-left: 2px solid #000000;
+}
+
+.retro-scrollbar::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 1px solid #ffffff;
+}
+
+.retro-scrollbar-dark::-webkit-scrollbar-track {
+  background: #111111;
+  border-left: 2px solid #ffffff;
+}
+
+.retro-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border: 1px solid #000000;
+}
+
+/* ==========================================
+   EASTER EGG RETRO THEME OVERRIDES [8-BIT]
+   ========================================== */
+html[data-theme="retro"] {
+  color-scheme: dark;
+}
+
+html[data-theme="retro"] body {
+  font-family: 'Share Tech Mono', monospace !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  image-rendering: pixelated;
+}
+
+/* Typography Overrides */
+html[data-theme="retro"] h1,
+html[data-theme="retro"] h2,
+html[data-theme="retro"] h3,
+html[data-theme="retro"] h4,
+html[data-theme="retro"] h5,
+html[data-theme="retro"] h6,
+html[data-theme="retro"] .hero-title,
+html[data-theme="retro"] .intro-title,
+html[data-theme="retro"] .section-title,
+html[data-theme="retro"] .journey-subtitle,
+html[data-theme="retro"] .section-number {
+  font-family: 'Press Start 2P', cursive !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0px !important;
+  letter-spacing: -0.05em !important;
+  background: transparent !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+html[data-theme="retro"] .intro-title {
+  font-size: clamp(1.8rem, 8vw, 4.5rem) !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.05em !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 90vw !important;
+  display: block !important;
+}
+
+html[data-theme="retro"] .hero-title-accent {
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="retro"] .hero-title {
+  font-size: clamp(1.8rem, 6vw, 3.5rem) !important;
+  line-height: 1.4 !important;
+}
+
+html[data-theme="retro"] .section-title {
+  font-size: clamp(1.2rem, 4vw, 2rem) !important;
+}
+
+html[data-theme="retro"] .journey-subtitle {
+  font-size: 1rem !important;
+}
+
+/* Remove modern radial glows, grids and scroll indicators */
+html[data-theme="retro"] .orb,
+html[data-theme="retro"] .mouse-glow,
+html[data-theme="retro"] .dot-grid,
+html[data-theme="retro"] .project-card-glow,
+html[data-theme="retro"] .hero-side-image::after,
+html[data-theme="retro"] .scroll-progress {
+  display: none !important;
+}
+
+/* Convert all background grids to retro grids */
+html[data-theme="retro"] .showcase-panel {
+  background: #050505 !important;
+  border: 4px solid #ffffff !important;
+  border-radius: 0px !important;
+  box-shadow: 8px 8px 0px 0px #ffffff !important;
+}
+
+html[data-theme="retro"] .showcase-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+}
+
+/* Grayscale and pixelate all images */
+html[data-theme="retro"] img {
+  filter: grayscale(100%) contrast(1.5) brightness(0.9) !important;
+  border-radius: 0px !important;
+  image-rendering: pixelated !important;
+}
+
+/* Floating stickers */
+html[data-theme="retro"] .sticker {
+  font-family: 'Share Tech Mono', monospace !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 3px solid #ffffff !important;
+  box-shadow: 4px 4px 0px 0px #ffffff !important;
+  border-radius: 0px !important;
+  transform: rotate(var(--r, 0deg)) !important;
+}
+
+html[data-theme="retro"] .sticker:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 6px 6px 0px 0px #ffffff !important;
+  transform: rotate(0deg) scale(1.05) !important;
+}
+
+/* Cards (Projects, Journey, Contact Form) styling overrides */
+html[data-theme="retro"] .project-card,
+html[data-theme="retro"] .journey-card,
+html[data-theme="retro"] .journey-grid-card,
+html[data-theme="retro"] .connect-info-card,
+html[data-theme="retro"] .connect-form-panel {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 4px solid #ffffff !important;
+  outline: 2px solid #000000 !important;
+  outline-offset: -6px !important;
+  box-shadow: 6px 6px 0px 0px #ffffff !important;
+  border-radius: 0px !important;
+  transform: none !important;
+}
+
+html[data-theme="retro"] .project-card:hover,
+html[data-theme="retro"] .journey-card:hover,
+html[data-theme="retro"] .connect-info-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0px 0px #ffffff !important;
+}
+
+html[data-theme="retro"] .project-img-wrap,
+html[data-theme="retro"] .project-card img {
+  border-radius: 0px !important;
+  border-bottom: 4px solid #ffffff !important;
+}
+
+/* Inputs & Forms styling overrides */
+html[data-theme="retro"] input,
+html[data-theme="retro"] textarea {
+  background: #050505 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  border-radius: 0px !important;
+  font-family: 'Share Tech Mono', monospace !important;
+  text-transform: uppercase !important;
+}
+
+html[data-theme="retro"] input:focus,
+html[data-theme="retro"] textarea:focus {
+  outline: 2px solid #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+/* Buttons styling overrides */
+html[data-theme="retro"] button,
+html[data-theme="retro"] .connect-submit,
+html[data-theme="retro"] .hero-badge,
+html[data-theme="retro"] #magneticCta a {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 3px solid #000000 !important;
+  box-shadow: 4px 4px 0px 0px #ffffff !important;
+  border-radius: 0px !important;
+  font-family: 'Share Tech Mono', monospace !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+}
+
+html[data-theme="retro"] button:hover,
+html[data-theme="retro"] .connect-submit:hover,
+html[data-theme="retro"] #magneticCta a:hover {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  box-shadow: 6px 6px 0px 0px #ffffff !important;
+}
+
+html[data-theme="retro"] .hero-badge {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  box-shadow: 3px 3px 0px 0px #ffffff !important;
+}
+
+/* Headers & Navigation overrides */
+html[data-theme="retro"] .site-header.scrolled nav,
+html[data-theme="retro"] .site-header nav {
+  background: #000000 !important;
+  border: 3px solid #ffffff !important;
+  border-radius: 0px !important;
+  box-shadow: 4px 4px 0px 0px #ffffff !important;
+}
+
+html[data-theme="retro"] .site-header a,
+html[data-theme="retro"] .mobile-nav {
+  font-family: 'Share Tech Mono', monospace !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+}
+
+html[data-theme="retro"] .site-header a:hover {
+  color: #a3a3a3 !important;
+  text-decoration: underline !important;
+}
+
+/* Custom list bullet decoration overrides */
+html[data-theme="retro"] .project-list-dot,
+html[data-theme="retro"] .journey-node {
+  background: #ffffff !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0px !important;
+}
+
+html[data-theme="retro"] .journey-timeline::before {
+  background: #ffffff !important;
+}
+
+/* CPU Architecture section overrides */
+html[data-theme="retro"] .cpu-architecture {
+  filter: grayscale(100%) !important;
+}
+
+html[data-theme="retro"] #cpu-text-gradient stop {
+  stop-color: #ffffff !important;
+}
+
+/* Hide spline-viewer inside about section and replace with an 8bit styling placeholder */
+html[data-theme="retro"] spline-viewer {
+  filter: grayscale(100%) brightness(0.6) contrast(1.6) !important;
+}
+
+/* Scrollbar retro styling */
+html[data-theme="retro"] ::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+html[data-theme="retro"] ::-webkit-scrollbar-track {
+  background: #000000 !important;
+  border-left: 2px solid #ffffff !important;
+}
+
+html[data-theme="retro"] ::-webkit-scrollbar-thumb {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+}

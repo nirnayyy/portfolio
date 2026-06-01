@@ -1,11 +1,9 @@
-"use client";
+import FAQ2 from "@/components/ui/8bit-faq2";
 
-import { CpuArchitecture } from "@/components/ui/cpu-architecture"
-
-export const Page = () => {
+export default function Demo() {
   return (
-    <div className="p-4 rounded-xl bg-accent/20">
-      <CpuArchitecture />
+    <div className="retro flex min-h-screen w-full items-center justify-center p-6 bg-zinc-950">
+      <FAQ2 />
     </div>
   );
-};
+}
