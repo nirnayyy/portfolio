@@ -11,6 +11,10 @@
   <meta property="og:image" content="./myself1.png" />
   <title>Nirnay Pratap Singh — Software Engineer</title>
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <!-- Three.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -2495,17 +2499,22 @@
     <!-- Hero typography -->
     <section id="hero-section"
       class="relative z-10 viewport-min flex flex-col justify-between pt-24 sm:pt-28 pb-8 sm:pb-10 px-5 md:px-10 lg:px-14 max-w-[1440px] mx-auto">
+      <canvas id="hero-webgl-canvas" class="absolute inset-0 z-0 pointer-events-none opacity-30"></canvas>
       <!-- Main Content Block (Centered Vertically) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center my-auto w-full relative z-10">
         <div class="lg:col-span-8 flex flex-col items-start gap-6 sm:gap-8">
-          <div class="reveal">
+          <div class="reveal flex flex-wrap gap-2">
             <span class="hero-badge">
               <span class="status-dot" aria-hidden="true"></span>
               Open to Internships · 2026
             </span>
+            <span class="hero-badge border-blue-500/25">
+              <span class="status-dot bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.5)]" aria-hidden="true"></span>
+              GREATER NOIDA, NCR · 28.6°N
+            </span>
           </div>
           <h1
-            class="hero-title reveal text-[var(--text)] uppercase font-display font-bold leading-[0.88] sm:leading-[0.85]">
+            class="hero-title reveal split-reveal-title text-[var(--text)] uppercase font-display font-bold leading-[0.88] sm:leading-[0.85]">
             Software<br class="hidden sm:block" /><span class="hero-title-accent">Engineer</span>
           </h1>
           <div class="reveal reveal-d1 hero-stats">
@@ -2668,7 +2677,7 @@
     <!-- Projects -->
     <section id="projects"
       class="relative z-10 px-5 md:px-10 lg:px-14 py-24 md:py-32 max-w-[1440px] mx-auto border-t border-white/5">
-      <div class="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
         <div>
           <p class="section-eyebrow">Work</p>
           <div class="flex items-end gap-4">
@@ -2678,8 +2687,16 @@
         </div>
         <p class="text-sm text-neutral-500 max-w-xs leading-relaxed">Selected builds spanning AI, full-stack, and data systems.</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        <article class="project-card project-card-featured group flex flex-col md:col-span-2">
+
+      <!-- Projects Category Filters -->
+      <div class="flex flex-wrap gap-2.5 mb-12 text-[10px] font-bold tracking-[0.2em] uppercase" id="projectFilters">
+        <button class="px-5 py-3 rounded-full border border-white/10 bg-white/[0.02] text-white transition-all duration-300 cursor-pointer filter-btn active" data-filter="all">ALL SHIPS</button>
+        <button class="px-5 py-3 rounded-full border border-white/10 bg-white/[0.02] text-neutral-400 hover:text-white transition-all duration-300 cursor-pointer filter-btn" data-filter="ai">AI &amp; INTELLIGENCE</button>
+        <button class="px-5 py-3 rounded-full border border-white/10 bg-white/[0.02] text-neutral-400 hover:text-white transition-all duration-300 cursor-pointer filter-btn" data-filter="fullstack">FULL STACK DIGITAL</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8" id="projectsGrid">
+        <article class="project-card project-card-featured glow-border-card group flex flex-col md:col-span-2" data-category="ai">
           <div class="project-card-glow" aria-hidden="true"></div>
           <span class="project-index" aria-hidden="true">01</span>
           <div class="project-img-wrap">
@@ -2731,7 +2748,7 @@
           </div>
         </article>
 
-        <article class="project-card group flex flex-col">
+        <article class="project-card glow-border-card group flex flex-col" data-category="fullstack">
           <div class="project-card-glow" aria-hidden="true"></div>
           <span class="project-index" aria-hidden="true">02</span>
           <div class="project-img-wrap">
@@ -2783,7 +2800,7 @@
           </div>
         </article>
 
-        <article class="project-card group flex flex-col">
+        <article class="project-card glow-border-card group flex flex-col" data-category="ai">
           <div class="project-card-glow" aria-hidden="true"></div>
           <span class="project-index" aria-hidden="true">03</span>
           <div class="project-img-wrap">
@@ -2855,12 +2872,84 @@
         <div>
           <h3 class="skill-category-title"><span>💻</span> Languages</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="assets/skills/javascript.png" alt="JavaScript" width="36" height="36" loading="lazy" /><span class="skill-item-name">JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
-            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="logos/python.svg" alt="Python" width="36" height="36" loading="lazy" /><span class="skill-item-name">Python</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
-            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="logos/java.png" alt="Java" width="36" height="36" loading="lazy" /><span class="skill-item-name">Java</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
-            <div class="skill-item" style="--skill-level:90%"><img class="skill-icon" src="assets/skills/html5.png" alt="HTML5" width="36" height="36" loading="lazy" /><span class="skill-item-name">HTML5</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">90%</span></div>
-            <div class="skill-item" style="--skill-level:88%"><img class="skill-icon" src="assets/skills/css3.png" alt="CSS3" width="36" height="36" loading="lazy" /><span class="skill-item-name">CSS3</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">88%</span></div>
-            <div class="skill-item" style="--skill-level:75%"><img class="skill-icon" src="assets/skills/sql.png" alt="SQL" width="36" height="36" loading="lazy" /><span class="skill-item-name">SQL</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">75%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:85%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/javascript.png" alt="JavaScript" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">JavaScript</span>
+              <span class="skill-level-label">85%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:85%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/python.svg" alt="Python" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Python</span>
+              <span class="skill-level-label">85%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:72%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/java.png" alt="Java" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Java</span>
+              <span class="skill-level-label">72%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:90%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/html5.png" alt="HTML5" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">HTML5</span>
+              <span class="skill-level-label">90%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:88%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/css3.png" alt="CSS3" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">CSS3</span>
+              <span class="skill-level-label">88%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:75%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/sql.png" alt="SQL" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">SQL</span>
+              <span class="skill-level-label">75%</span>
+            </div>
           </div>
         </div>
 
@@ -2868,10 +2957,58 @@
         <div>
           <h3 class="skill-category-title"><span>🎨</span> Frontend</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:82%"><img class="skill-icon" src="logos/react.svg" alt="React.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">React.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">82%</span></div>
-            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="logos/tailwind.png" alt="Tailwind CSS" width="36" height="36" loading="lazy" /><span class="skill-item-name">Tailwind CSS</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
-            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="logos/bootstrap.png" alt="Bootstrap" width="36" height="36" loading="lazy" /><span class="skill-item-name">Bootstrap</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
-            <div class="skill-item" style="--skill-level:65%"><img class="skill-icon" src="logos/figma.png" alt="Figma" width="36" height="36" loading="lazy" /><span class="skill-item-name">Figma</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">65%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:82%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/react.svg" alt="React.js" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">React.js</span>
+              <span class="skill-level-label">82%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:85%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/tailwind.png" alt="Tailwind CSS" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Tailwind CSS</span>
+              <span class="skill-level-label">85%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:70%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/bootstrap.png" alt="Bootstrap" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Bootstrap</span>
+              <span class="skill-level-label">70%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:65%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/figma.png" alt="Figma" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Figma</span>
+              <span class="skill-level-label">65%</span>
+            </div>
           </div>
         </div>
 
@@ -2879,11 +3016,71 @@
         <div>
           <h3 class="skill-category-title"><span>⚙️</span> Backend</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:78%"><img class="skill-icon" src="assets/skills/nodejs.png" alt="Node.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">Node.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">78%</span></div>
-            <div class="skill-item" style="--skill-level:75%"><img class="skill-icon" src="logos/express/icons8-express-js-50.png" alt="Express.js" width="36" height="36" loading="lazy" /><span class="skill-item-name">Express.js</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">75%</span></div>
-            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="logos/python.svg" alt="FastAPI" width="36" height="36" loading="lazy" /><span class="skill-item-name">FastAPI</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
-            <div class="skill-item" style="--skill-level:80%"><img class="skill-icon" src="logos/rest.png" alt="REST APIs" width="36" height="36" loading="lazy" /><span class="skill-item-name">REST APIs</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">80%</span></div>
-            <div class="skill-item" style="--skill-level:68%"><img class="skill-icon" src="assets/skills/jwt.png" alt="JWT Auth" width="36" height="36" loading="lazy" /><span class="skill-item-name">JWT Auth</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">68%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:78%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/nodejs.png" alt="Node.js" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Node.js</span>
+              <span class="skill-level-label">78%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:75%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/express/icons8-express-js-50.png" alt="Express.js" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Express.js</span>
+              <span class="skill-level-label">75%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:72%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/python.svg" alt="FastAPI" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">FastAPI</span>
+              <span class="skill-level-label">72%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:80%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/rest.png" alt="REST APIs" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">REST APIs</span>
+              <span class="skill-level-label">80%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:68%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/jwt.png" alt="JWT Auth" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">JWT Auth</span>
+              <span class="skill-level-label">68%</span>
+            </div>
           </div>
         </div>
 
@@ -2891,8 +3088,32 @@
         <div>
           <h3 class="skill-category-title"><span>🗄️</span> Databases</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:80%"><img class="skill-icon" src="logos/mongodb.svg" alt="MongoDB" width="36" height="36" loading="lazy" /><span class="skill-item-name">MongoDB</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">80%</span></div>
-            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="logos/mysql.svg" alt="MySQL" width="36" height="36" loading="lazy" /><span class="skill-item-name">MySQL</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:80%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/mongodb.svg" alt="MongoDB" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">MongoDB</span>
+              <span class="skill-level-label">80%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:72%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/mysql.svg" alt="MySQL" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">MySQL</span>
+              <span class="skill-level-label">72%</span>
+            </div>
           </div>
         </div>
 
@@ -2900,10 +3121,58 @@
         <div>
           <h3 class="skill-category-title"><span>☁️</span> Cloud &amp; DevOps</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="logos/aws.png" alt="AWS" width="36" height="36" loading="lazy" /><span class="skill-item-name">AWS</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
-            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="assets/skills/docker.png" alt="Docker" width="36" height="36" loading="lazy" /><span class="skill-item-name">Docker</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
-            <div class="skill-item" style="--skill-level:85%"><img class="skill-icon" src="logos/git.svg" alt="Git" width="36" height="36" loading="lazy" /><span class="skill-item-name">Git</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">85%</span></div>
-            <div class="skill-item" style="--skill-level:82%"><img class="skill-icon" src="assets/skills/github.png" alt="GitHub" width="36" height="36" loading="lazy" /><span class="skill-item-name">GitHub</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">82%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:70%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/aws.png" alt="AWS" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">AWS</span>
+              <span class="skill-level-label">70%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:72%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/docker.png" alt="Docker" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Docker</span>
+              <span class="skill-level-label">72%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:85%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/git.svg" alt="Git" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Git</span>
+              <span class="skill-level-label">85%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:82%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/github.png" alt="GitHub" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">GitHub</span>
+              <span class="skill-level-label">82%</span>
+            </div>
           </div>
         </div>
 
@@ -2911,11 +3180,71 @@
         <div>
           <h3 class="skill-category-title"><span>🧠</span> AI / Data</h3>
           <div class="skill-grid">
-            <div class="skill-item" style="--skill-level:78%"><img class="skill-icon" src="logos/pandas.png" alt="pandas" width="36" height="36" loading="lazy" /><span class="skill-item-name">pandas</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">78%</span></div>
-            <div class="skill-item" style="--skill-level:72%"><img class="skill-icon" src="assets/skills/sklearn.png" alt="scikit-learn" width="36" height="36" loading="lazy" /><span class="skill-item-name">scikit-learn</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">72%</span></div>
-            <div class="skill-item" style="--skill-level:70%"><img class="skill-icon" src="logos/pytorch.png" alt="PyTorch" width="36" height="36" loading="lazy" /><span class="skill-item-name">PyTorch</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">70%</span></div>
-            <div class="skill-item" style="--skill-level:60%"><img class="skill-icon" src="logos/hugging face.png" alt="HuggingFace" width="36" height="36" loading="lazy" /><span class="skill-item-name">HuggingFace</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">60%</span></div>
-            <div class="skill-item" style="--skill-level:68%"><img class="skill-icon" src="logos/power bi.png" alt="Power BI" width="36" height="36" loading="lazy" /><span class="skill-item-name">Power BI</span><div class="skill-bar-wrap"><div class="skill-bar-fill"></div></div><span class="skill-level-label">68%</span></div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:78%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/pandas.png" alt="pandas" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">pandas</span>
+              <span class="skill-level-label">78%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:72%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="assets/skills/sklearn.png" alt="scikit-learn" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">scikit-learn</span>
+              <span class="skill-level-label">72%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:70%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/pytorch.png" alt="PyTorch" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">PyTorch</span>
+              <span class="skill-level-label">70%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:60%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/hugging face.png" alt="HuggingFace" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">HuggingFace</span>
+              <span class="skill-level-label">60%</span>
+            </div>
+            <div class="skill-item relative flex flex-col items-center gap-3 p-4 border border-white/5 bg-white/[0.01] rounded-2xl glow-border-card" style="--skill-level:68%">
+              <div class="skill-circle-wrap">
+                <svg class="w-full h-full rotate-[-90deg]" viewBox="0 0 72 72">
+                  <circle class="skill-circle-bg" cx="36" cy="36" r="32" />
+                  <circle class="skill-circle-fill" cx="36" cy="36" r="32" />
+                </svg>
+                <div class="skill-circle-val">
+                  <img class="skill-icon" src="logos/power bi.png" alt="Power BI" width="28" height="28" loading="lazy" />
+                </div>
+              </div>
+              <span class="skill-item-name">Power BI</span>
+              <span class="skill-level-label">68%</span>
+            </div>
           </div>
         </div>
       </div>
@@ -3262,7 +3591,7 @@
           </div>
 
           <div class="space-y-3">
-            <a href="mailto:nirnaysingh7@gmail.com" class="connect-info-card w-full">
+            <a href="mailto:nirnaysingh7@gmail.com" class="connect-info-card glow-border-card w-full">
               <span class="connect-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -3275,7 +3604,7 @@
               </div>
             </a>
 
-            <a href="tel:+9178000XXXXX" class="connect-info-card w-full">
+            <a href="tel:+9178000XXXXX" class="connect-info-card glow-border-card w-full">
               <span class="connect-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                   <path
@@ -3288,7 +3617,7 @@
               </div>
             </a>
 
-            <div class="connect-info-card w-full">
+            <div class="connect-info-card glow-border-card w-full">
               <span class="connect-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -3298,6 +3627,15 @@
               <div>
                 <p class="connect-label">Location</p>
                 <p class="connect-value">Greater Noida, Delhi NCR</p>
+              </div>
+            </div>
+
+            <!-- Location Globe Canvas Widget -->
+            <div class="relative w-full h-[220px] rounded-2xl border border-white/5 bg-white/[0.01] overflow-hidden mt-6 shadow-inner glow-border-card" id="globeContainer">
+              <canvas id="location-globe-canvas" class="w-full h-full"></canvas>
+              <div class="absolute bottom-3 left-4 pointer-events-none flex items-center gap-1.5 z-10">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping"></span>
+                <span class="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-400">LIVE MARKER: GREATER NOIDA, IN</span>
               </div>
             </div>
           </div>
@@ -3314,7 +3652,7 @@
         </div>
 
         <!-- Right: form -->
-        <div class="connect-form-panel journey-reveal">
+        <div class="connect-form-panel glow-border-card journey-reveal">
           <form id="contactForm" class="connect-form space-y-5"
             action="https://formsubmit.co/ajax/nirnaysingh7@gmail.com" method="POST" novalidate>
             <input type="hidden" name="_captcha" value="false">
@@ -3762,6 +4100,341 @@
           });
         });
       }
+
+      // ==========================================
+      // MODERN UPGRADE JAVASCRIPT INITIALIZATIONS
+      // ==========================================
+
+      // 1. Lenis Smooth Scroll
+      let lenis = null;
+      if (typeof Lenis !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          mouseMultiplier: 1,
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      // 2. Active Border Laser-Glow Tracker
+      document.querySelectorAll('.glow-border-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+
+      // 3. Project Category Filter Controls
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const projectCards = document.querySelectorAll('.project-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('active', 'border-white', 'text-white');
+            b.classList.add('border-white/10', 'text-neutral-400');
+          });
+          btn.classList.add('active', 'border-white', 'text-white');
+          btn.classList.remove('border-white/10', 'text-neutral-400');
+
+          const filter = btn.dataset.filter;
+          projectCards.forEach(card => {
+            const cat = card.dataset.category;
+            if (filter === 'all' || cat === filter) {
+              card.style.display = '';
+              card.style.opacity = '0';
+              setTimeout(() => {
+                card.style.transition = 'opacity 0.4s ease';
+                card.style.opacity = '1';
+              }, 40);
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          if (lenis) lenis.resize();
+        });
+      });
+
+      // 4. Draggable Stickers Physics
+      const stickers = document.querySelectorAll('.sticker');
+      stickers.forEach(sticker => {
+        sticker.classList.add('interactive-sticker');
+        sticker.style.cursor = 'grab';
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+
+        sticker.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          sticker.style.cursor = 'grabbing';
+          startX = e.clientX;
+          startY = e.clientY;
+          const style = window.getComputedStyle(sticker);
+          initialLeft = parseInt(style.left) || 0;
+          initialTop = parseInt(style.top) || 0;
+          sticker.style.zIndex = '100';
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+          sticker.style.left = `${initialLeft + dx}px`;
+          sticker.style.top = `${initialTop + dy}px`;
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            sticker.style.cursor = 'grab';
+            sticker.style.zIndex = '20';
+          }
+        });
+
+        // Touch support
+        sticker.addEventListener('touchstart', (e) => {
+          isDragging = true;
+          const touch = e.touches[0];
+          startX = touch.clientX;
+          startY = touch.clientY;
+          const style = window.getComputedStyle(sticker);
+          initialLeft = parseInt(style.left) || 0;
+          initialTop = parseInt(style.top) || 0;
+          sticker.style.zIndex = '100';
+        });
+
+        sticker.addEventListener('touchmove', (e) => {
+          if (!isDragging) return;
+          const touch = e.touches[0];
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          sticker.style.left = `${initialLeft + dx}px`;
+          sticker.style.top = `${initialTop + dy}px`;
+        });
+
+        sticker.addEventListener('touchend', () => {
+          isDragging = false;
+          sticker.style.zIndex = '20';
+        });
+      });
+
+      // 5. Three.js Hero Background Particles
+      const initHeroCanvas = () => {
+        const canvas = document.getElementById('hero-webgl-canvas');
+        if (!canvas || typeof THREE === 'undefined') return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const particlesCount = 80;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+          positions[i] = (Math.random() - 0.5) * 8;
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const material = new THREE.PointsMaterial({
+          size: 0.04,
+          color: 0x8888aa,
+          transparent: true,
+          opacity: 0.45,
+          blending: THREE.AdditiveBlending
+        });
+
+        const points = new THREE.Points(geometry, material);
+        scene.add(points);
+
+        camera.position.z = 3;
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+          mouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
+          mouseY = -(e.clientY / window.innerHeight - 0.5) * 1.5;
+        });
+
+        const animate = () => {
+          requestAnimationFrame(animate);
+          points.rotation.y += 0.0015;
+          points.rotation.x += 0.0008;
+
+          points.position.x += (mouseX - points.position.x) * 0.04;
+          points.position.y += (mouseY - points.position.y) * 0.04;
+
+          renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+          camera.aspect = canvas.clientWidth / canvas.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        });
+      };
+      initHeroCanvas();
+
+      // 6. Three.js Location Globe inside Contact Section
+      const initGlobeCanvas = () => {
+        const canvas = document.getElementById('location-globe-canvas');
+        if (!canvas || typeof THREE === 'undefined') return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const geometry = new THREE.SphereGeometry(1.6, 24, 24);
+        const material = new THREE.MeshBasicMaterial({
+          color: 0xa3a3a3,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.2
+        });
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+
+        const markerGeom = new THREE.SphereGeometry(0.09, 16, 16);
+        const markerMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.85 });
+        const marker = new THREE.Mesh(markerGeom, markerMat);
+
+        const phi = (90 - 28.6) * (Math.PI / 180);
+        const theta = (360 - 77.2) * (Math.PI / 180);
+
+        marker.position.x = 1.6 * Math.sin(phi) * Math.cos(theta);
+        marker.position.y = 1.6 * Math.cos(phi);
+        marker.position.z = 1.6 * Math.sin(phi) * Math.sin(theta);
+        globe.add(marker);
+
+        camera.position.z = 4.5;
+
+        const animate = () => {
+          requestAnimationFrame(animate);
+          globe.rotation.y += 0.0025;
+          globe.rotation.x = 0.05;
+          renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+          camera.aspect = canvas.clientWidth / canvas.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        });
+      };
+      initGlobeCanvas();
+
+      // 7. Stat Counter Rollup Animations
+      const initCounterRollups = () => {
+        const stats = document.querySelectorAll('.hero-stat-value');
+        stats.forEach(stat => {
+          const text = stat.innerText;
+          const match = text.match(/([0-9.]+)(%|\+)?/);
+          if (!match) return;
+          const target = parseFloat(match[1]);
+          const suffix = match[2] || '';
+          let current = 0;
+          const duration = 1200;
+          const stepTime = 16;
+          const steps = duration / stepTime;
+          const increment = target / steps;
+
+          const updateCounter = () => {
+            current += increment;
+            if (current >= target) {
+              stat.innerText = text;
+            } else {
+              stat.innerText = Math.round(current) + suffix;
+              setTimeout(updateCounter, stepTime);
+            }
+          };
+          updateCounter();
+        });
+      };
+      setTimeout(initCounterRollups, 1200); // Delayed slightly to align with preloader exit
+
+      // 8. Skill Circular Gauges Progress Draw
+      const initSkillCircles = () => {
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach(item => {
+          const fill = item.querySelector('.skill-circle-fill');
+          if (!fill) return;
+          const styleVal = item.style.getPropertyValue('--skill-level');
+          const percent = parseFloat(styleVal) || 0;
+
+          const r = 32;
+          const c = 2 * Math.PI * r;
+          fill.style.strokeDasharray = `${c} ${c}`;
+          fill.style.strokeDashoffset = c;
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                fill.style.strokeDashoffset = c - (percent / 100) * c;
+                observer.unobserve(item);
+              }
+            });
+          }, { threshold: 0.05 });
+          observer.observe(item);
+        });
+      };
+      initSkillCircles();
+
+      // 9. CPU Text cycles
+      const initCpuTextCycles = () => {
+        const cpuText = document.querySelector('text[fill="url(#cpu-text-gradient)"]');
+        if (!cpuText) return;
+        const words = ["NIRNAY", "CORE", "CPU", "RL", "DATA", "FastAPI", "AWS"];
+        let idx = 0;
+        cpuText.textContent = words[idx];
+        setInterval(() => {
+          idx = (idx + 1) % words.length;
+          cpuText.textContent = words[idx];
+        }, 1600);
+      };
+      initCpuTextCycles();
+
+      // 10. Split text letter reveal logic
+      const initTextSplits = () => {
+        const titleEl = document.getElementById('introTitle');
+        if (!titleEl) return;
+        const rawText = "Portfolio.";
+        titleEl.innerHTML = '';
+        [...rawText].forEach((char, idx) => {
+          const span = document.createElement('span');
+          span.className = 'char-reveal';
+          span.style.transitionDelay = `${idx * 45}ms`;
+          span.innerText = char;
+          if (idx < rawText.length - 1) {
+            span.classList.add('hero-title-accent');
+          }
+          titleEl.appendChild(span);
+        });
+        setTimeout(() => {
+          titleEl.classList.add('is-visible');
+        }, 150);
+      };
+      initTextSplits();
 
       // Hide Spline watermark logo from shadow DOM
       const removeSplineLogo = () => {
