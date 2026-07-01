@@ -2387,8 +2387,8 @@
       .loader-monogram { animation: none !important; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/index-Iu8fm6wO.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-B2EBKFty.css">
+  <script type="module" crossorigin src="/assets/main-Ctr0Cn42.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-B2EBKFty.css">
 </head>
 
 <body class="preload">
@@ -4041,6 +4041,13 @@
           };
 
           const submitNativeFallback = () => {
+            if (window.location.protocol === "file:") {
+              setFormStatus("Local file system detected. Simulating delivery...", "success");
+              setTimeout(() => {
+                window.location.href = "thankyou.html";
+              }, 800);
+              return;
+            }
             useNativeSubmit = true;
             contactForm.action = "https://formsubmit.co/nirnaysingh7@gmail.com";
             contactForm.method = "POST";

@@ -4027,6 +4027,13 @@
           };
 
           const submitNativeFallback = () => {
+            if (window.location.protocol === "file:") {
+              setFormStatus("Local file system detected. Simulating delivery...", "success");
+              setTimeout(() => {
+                window.location.href = "thankyou.html";
+              }, 800);
+              return;
+            }
             useNativeSubmit = true;
             contactForm.action = "https://formsubmit.co/nirnaysingh7@gmail.com";
             contactForm.method = "POST";

@@ -10,4 +10,12 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./"),
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        thankyou: path.resolve(__dirname, 'thankyou.html'),
+      },
+    },
+  },
 })
