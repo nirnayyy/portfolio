@@ -2387,8 +2387,8 @@
       .loader-monogram { animation: none !important; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/index-CEpLZ4Fc.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DlTL8cJp.css">
+  <script type="module" crossorigin src="/assets/index-Ct2i3RAD.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CWWb0Udi.css">
 </head>
 
 <body class="preload">
@@ -2661,11 +2661,25 @@
           </div>
           <div class="relative group lg:mt-auto about-spline-wrap">
             <!-- Grey-to-white radial glow behind the image -->
-            <div class="absolute inset-0 rounded-2xl"
+            <div class="absolute inset-0 rounded-2xl modern-only"
               style="background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.07) 50%, transparent 80%); filter: blur(25px); transform: scale(1.15);">
             </div>
-            <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              class="relative rounded-2xl w-full h-full block" loading="lazy"></spline-viewer>
+            <div class="modern-only w-full h-full">
+              <spline-viewer url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                class="relative rounded-2xl w-full h-full block" loading="lazy"></spline-viewer>
+            </div>
+            <!-- Retro ASCII Globe Fallback -->
+            <div class="retro-only font-mono text-[9px] text-[#00ff00] leading-none whitespace-pre select-none text-left p-6 border border-[#00ff00]/30 w-full aspect-square flex flex-col items-center justify-center bg-black rounded-none">
+     _.-'''''''-._
+   .'  ________  '.
+  /  /   ____   \  \
+ |  |   /    \   |  |
+ |  |  |* Noida|  |  |
+ |  |   \____/   |  |
+  \  \          /  /
+   '.  '''''''  .'
+     '-.......-'
+            </div>
           </div>
         </div>
         <!-- Right column: Bio Text -->
@@ -3718,12 +3732,21 @@
             </div>
 
             <!-- Location Globe Canvas Widget -->
-            <div class="relative w-full h-[220px] rounded-2xl border border-white/5 bg-white/[0.01] overflow-hidden mt-6 shadow-inner glow-border-card" id="globeContainer">
+            <div class="relative w-full h-[220px] rounded-2xl border border-white/5 bg-white/[0.01] overflow-hidden mt-6 shadow-inner glow-border-card modern-only" id="globeContainer">
               <canvas id="location-globe-canvas" class="w-full h-full"></canvas>
               <div class="absolute bottom-3 left-4 pointer-events-none flex items-center gap-1.5 z-10">
                 <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping"></span>
                 <span class="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-400">LIVE MARKER: GREATER NOIDA, IN</span>
               </div>
+            </div>
+            <!-- Retro Location Fallback -->
+            <div class="retro-only font-mono text-[9px] text-[#00ff00] leading-relaxed p-6 border border-[#00ff00]/30 w-full mt-6 bg-black rounded-none">
+================ RETRO LOCATOR ================
+[+] REGION: DELHI NCR, INDIA
+[+] COORDS: 28.6252° N, 77.3758° E
+[+] WEATHER: 31°C · SYSTEM ONLINE
+[+] STATUS: AVAILABLE FOR INTERNSHIPS
+===============================================
             </div>
           </div>
 
@@ -3746,23 +3769,21 @@
             <input type="hidden" name="_template" value="table">
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
 
-            <div class="connect-field">
+            <div class="connect-field glow-border-card">
+              <input type="text" id="contactName" name="name" required placeholder=" " autocomplete="name" />
               <label for="contactName">Full Name</label>
-              <input type="text" id="contactName" name="name" required placeholder="John Doe" autocomplete="name" />
             </div>
-            <div class="connect-field">
+            <div class="connect-field glow-border-card">
+              <input type="email" id="contactEmail" name="email" required placeholder=" " autocomplete="email" />
               <label for="contactEmail">Email Address</label>
-              <input type="email" id="contactEmail" name="email" required placeholder="john@example.com"
-                autocomplete="email" />
             </div>
-            <div class="connect-field">
+            <div class="connect-field glow-border-card">
+              <input type="text" id="contactSubject" name="subject" required placeholder=" " />
               <label for="contactSubject">Subject</label>
-              <input type="text" id="contactSubject" name="subject" required placeholder="Internship Opportunity" />
             </div>
-            <div class="connect-field">
+            <div class="connect-field glow-border-card">
+              <textarea id="contactMessage" name="message" required placeholder=" "></textarea>
               <label for="contactMessage">Message</label>
-              <textarea id="contactMessage" name="message" required
-                placeholder="Tell me about the opportunity or project..."></textarea>
             </div>
             <button type="submit" class="connect-submit magnetic-wrap" id="contactSubmit">SEND MESSAGE</button>
             <p id="contactFormStatus" class="connect-form-status" role="status" aria-live="polite"></p>
@@ -4340,13 +4361,15 @@
 
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
+        const isLightMode = document.documentElement.getAttribute('data-theme') === 'light';
         const material = new THREE.PointsMaterial({
           size: 0.04,
-          color: 0x8888aa,
+          color: isLightMode ? 0x222222 : 0x8888aa,
           transparent: true,
-          opacity: 0.45,
+          opacity: isLightMode ? 0.22 : 0.45,
           blending: THREE.AdditiveBlending
         });
+        window.heroPointsMaterial = material;
 
         const points = new THREE.Points(geometry, material);
         scene.add(points);
@@ -4521,6 +4544,99 @@
         }, 150);
       };
       initTextSplits();
+
+      // ==========================================
+      // ROUND 2 ADDITIONAL MOTION & COMPONENT JS
+      // ==========================================
+
+      // 1. Dynamic Scroll Velocity Skew for Marquees
+      let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      let skewTimeout = null;
+      const marqueeWraps = document.querySelectorAll('.marquee-wrap');
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const delta = scrollTop - lastScrollTop;
+        lastScrollTop = scrollTop;
+
+        // Calculate skew angle based on scroll speed (capped between -12 and 12 deg)
+        const velocity = Math.min(Math.max(delta * 0.05, -12), 12);
+
+        marqueeWraps.forEach(w => {
+          w.style.transform = `skewX(${velocity}deg)`;
+          w.style.transition = 'transform 0.08s ease';
+        });
+
+        clearTimeout(skewTimeout);
+        skewTimeout = setTimeout(() => {
+          marqueeWraps.forEach(w => {
+            w.style.transform = 'skewX(0deg)';
+            w.style.transition = 'transform 0.35s ease';
+          });
+        }, 120);
+      }, { passive: true });
+
+      // 2. Cursor VIEW Badge on Hovering Project Cards
+      const cursorRingEl = document.getElementById('cursorRing');
+      if (cursorRingEl) {
+        document.querySelectorAll('.project-card').forEach(card => {
+          card.addEventListener('mouseenter', () => cursorRingEl.classList.add('cursor-view'));
+          card.addEventListener('mouseleave', () => cursorRingEl.classList.remove('cursor-view'));
+        });
+      }
+
+      // 3. CRT Scanlines Glitch Trigger on Retro Switch
+      const triggerCrtGlitch = () => {
+        document.querySelectorAll('.crt-flicker').forEach(el => el.remove());
+        const crt = document.createElement('div');
+        crt.className = 'crt-flicker';
+        document.body.appendChild(crt);
+        setTimeout(() => {
+          crt.style.opacity = '0.4';
+          crt.style.transition = 'opacity 1s ease';
+        }, 1800);
+      };
+
+      window.addEventListener('trigger-retro-loading', triggerCrtGlitch);
+
+      if (document.documentElement.getAttribute('data-theme') === 'retro') {
+        triggerCrtGlitch();
+      }
+
+      // 4. Retro Monospace Bracket Skill Indicators
+      const updateRetroSkillGauges = () => {
+        document.querySelectorAll('.skill-item').forEach(item => {
+          let retroBar = item.querySelector('[data-retro-progress]');
+          if (!retroBar) {
+            retroBar = document.createElement('span');
+            retroBar.className = 'retro-only font-mono text-[9px] text-[#00ff00] tracking-widest mt-2';
+            retroBar.setAttribute('data-retro-progress', '');
+            item.appendChild(retroBar);
+          }
+          const level = parseInt(item.style.getPropertyValue('--skill-level')) || 0;
+          const filled = Math.round(level / 10);
+          const empty = 10 - filled;
+          retroBar.textContent = '[' + '█'.repeat(filled) + '░'.repeat(empty) + '] ' + level + '%';
+        });
+      };
+      updateRetroSkillGauges();
+
+      // Listen to theme switches to reload retro indicators
+      const themeToggleBtn = document.getElementById('themeToggle');
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          setTimeout(() => {
+            updateRetroSkillGauges();
+            const canvas = document.getElementById('hero-webgl-canvas');
+            if (canvas && typeof THREE !== 'undefined' && window.heroPointsMaterial) {
+              const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+              window.heroPointsMaterial.color.setHex(isLight ? 0x222222 : 0x8888aa);
+              window.heroPointsMaterial.opacity = isLight ? 0.22 : 0.45;
+              window.heroPointsMaterial.needsUpdate = true;
+            }
+          }, 100);
+        });
+      }
 
       // Hide Spline watermark logo from shadow DOM
       const removeSplineLogo = () => {
