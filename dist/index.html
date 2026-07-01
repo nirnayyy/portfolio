@@ -2387,8 +2387,8 @@
       .loader-monogram { animation: none !important; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/main-Ctr0Cn42.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/main-B2EBKFty.css">
+  <script type="module" crossorigin src="/assets/main-OUnjpkYk.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-B1M63UD1.css">
 </head>
 
 <body class="preload">
@@ -2481,18 +2481,21 @@
           <li><a href="#toolbox" class="nav-link">Toolbox</a></li>
           <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-        <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            aria-hidden="true">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            aria-hidden="true">
-            <circle cx="12" cy="12" r="5" />
-            <path
-              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-          </svg>
-        </button>
+        <!-- Theme Select Dropdown -->
+        <div class="relative inline-block text-left" id="themeSelectorContainer">
+          <button type="button" class="theme-select-btn flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/10 bg-white/[0.02] text-[10px] font-bold tracking-[0.2em] uppercase hover:bg-white/10 transition-colors" id="themeDropdownBtn">
+            <span id="activeThemeLabel">Dark</span>
+            <svg class="w-3 h-3 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+          
+          <div class="absolute right-0 mt-2 w-28 origin-top-right rounded-xl border border-white/10 bg-[#070708]/90 backdrop-blur-xl shadow-2xl py-1 text-[9px] font-bold tracking-widest uppercase hidden z-50" id="themeDropdownMenu">
+            <button class="w-full text-left px-4 py-2.5 text-neutral-400 hover:text-white hover:bg-white/[0.05] transition-colors" data-theme-opt="light">Light</button>
+            <button class="w-full text-left px-4 py-2.5 text-neutral-400 hover:text-white hover:bg-white/[0.05] transition-colors" data-theme-opt="dark">Dark</button>
+            <button class="w-full text-left px-4 py-2.5 text-neutral-400 hover:text-white hover:bg-white/[0.05] transition-colors" data-theme-opt="retro">Retro</button>
+          </div>
+        </div>
         <button type="button" id="menuBtn" class="md:hidden p-2" aria-label="Toggle menu" aria-expanded="false">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M4 6h16M4 12h16M4 18h16" />
@@ -3783,43 +3786,62 @@
       // Year
       document.getElementById("year").textContent = new Date().getFullYear();
 
-      // Theme toggle with Easter Egg detection
+      // Theme Selector Dropdown Controller
       const html = document.documentElement;
-      const themeToggle = document.getElementById("themeToggle");
-      const savedTheme = localStorage.getItem("portfolio-theme");
-      if (savedTheme === "light" || savedTheme === "dark" || savedTheme === "retro") {
-        html.setAttribute("data-theme", savedTheme);
-      }
-      if (themeToggle) {
-        let clickCount = 0;
-        let clickTimer = null;
+      const themeDropdownBtn = document.getElementById("themeDropdownBtn");
+      const themeDropdownMenu = document.getElementById("themeDropdownMenu");
+      const activeThemeLabel = document.getElementById("activeThemeLabel");
+      const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
 
-        themeToggle.addEventListener("click", () => {
-          clickCount++;
-          
-          if (clickTimer) {
-            clearTimeout(clickTimer);
-          }
-          
-          clickTimer = setTimeout(() => {
-            clickCount = 0;
-          }, 1500); // Reset click count if no click within 1.5 seconds
+      const applyTheme = (themeName) => {
+        html.setAttribute("data-theme", themeName);
+        localStorage.setItem("portfolio-theme", themeName);
+        if (activeThemeLabel) {
+          activeThemeLabel.textContent = themeName;
+        }
 
-          if (clickCount >= 3) {
-            clickCount = 0;
-            clearTimeout(clickTimer);
-            
-            // Dispatch Easter Egg loader event
-            const event = new CustomEvent("trigger-retro-loading");
-            window.dispatchEvent(event);
-            return;
-          }
+        // Trigger retro loading sequences if retro theme is selected
+        if (themeName === "retro") {
+          const event = new CustomEvent("trigger-retro-loading");
+          window.dispatchEvent(event);
+        } else {
+          // Remove CRT elements if any other theme is selected
+          document.querySelectorAll('.crt-flicker').forEach(el => el.remove());
+        }
 
-          // Normal single/double click: Toggle light and dark theme
-          const currentTheme = html.getAttribute("data-theme");
-          const next = currentTheme === "light" ? "dark" : "light";
-          html.setAttribute("data-theme", next);
-          localStorage.setItem("portfolio-theme", next);
+        // Trigger skill bars monospace indicators redraw if registered
+        if (window.updateRetroSkillGauges) {
+          window.updateRetroSkillGauges();
+        }
+
+        // Shift WebGL particles colors if initialized
+        const canvas = document.getElementById('hero-webgl-canvas');
+        if (canvas && typeof THREE !== 'undefined' && window.heroPointsMaterial) {
+          const isLight = themeName === 'light';
+          window.heroPointsMaterial.color.setHex(isLight ? 0x222222 : 0x8888aa);
+          window.heroPointsMaterial.opacity = isLight ? 0.22 : 0.45;
+          window.heroPointsMaterial.needsUpdate = true;
+        }
+      };
+
+      // Set initial theme
+      applyTheme(savedTheme);
+
+      if (themeDropdownBtn && themeDropdownMenu) {
+        themeDropdownBtn.addEventListener("click", (e) => {
+          themeDropdownMenu.classList.toggle("hidden");
+          e.stopPropagation();
+        });
+
+        document.addEventListener("click", () => {
+          themeDropdownMenu.classList.add("hidden");
+        });
+
+        themeDropdownMenu.querySelectorAll("[data-theme-opt]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const chosenTheme = btn.dataset.themeOpt;
+            applyTheme(chosenTheme);
+          });
         });
       }
 
@@ -4539,7 +4561,7 @@
       }
 
       // 4. Retro Monospace Bracket Skill Indicators
-      const updateRetroSkillGauges = () => {
+      window.updateRetroSkillGauges = () => {
         document.querySelectorAll('.skill-item').forEach(item => {
           let retroBar = item.querySelector('[data-retro-progress]');
           if (!retroBar) {
@@ -4554,24 +4576,7 @@
           retroBar.textContent = '[' + '█'.repeat(filled) + '░'.repeat(empty) + '] ' + level + '%';
         });
       };
-      updateRetroSkillGauges();
-
-      // Listen to theme switches to reload retro indicators
-      const themeToggleBtn = document.getElementById('themeToggle');
-      if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-          setTimeout(() => {
-            updateRetroSkillGauges();
-            const canvas = document.getElementById('hero-webgl-canvas');
-            if (canvas && typeof THREE !== 'undefined' && window.heroPointsMaterial) {
-              const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-              window.heroPointsMaterial.color.setHex(isLight ? 0x222222 : 0x8888aa);
-              window.heroPointsMaterial.opacity = isLight ? 0.22 : 0.45;
-              window.heroPointsMaterial.needsUpdate = true;
-            }
-          }, 100);
-        });
-      }
+      window.updateRetroSkillGauges();
 
       // Hide Spline watermark logo from shadow DOM
       const removeSplineLogo = () => {

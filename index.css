@@ -615,5 +615,43 @@ html[data-theme="retro"] .skill-circle-wrap {
   opacity: 1;
 }
 
+/* Theme Dropdown Selector Styling */
+.theme-select-btn {
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--card-bg);
+}
+
+#themeDropdownMenu {
+  background: rgba(7, 7, 8, 0.95);
+  border: 1px solid var(--border);
+}
+
+html[data-theme="light"] #themeDropdownMenu {
+  background: rgba(245, 245, 244, 0.95) !important;
+}
+
+html[data-theme="retro"] #themeDropdownMenu {
+  background: #000000 !important;
+  border: 1px solid #00ff00 !important;
+  border-radius: 0px !important;
+}
+
+html[data-theme="retro"] #themeDropdownMenu button {
+  color: #00ff00 !important;
+}
+
+html[data-theme="retro"] #themeDropdownMenu button:hover {
+  background: rgba(0, 255, 0, 0.15) !important;
+}
+
+html[data-theme="retro"] .theme-select-btn {
+  border: 1px solid #00ff00 !important;
+  color: #00ff00 !important;
+  border-radius: 0px !important;
+  background: none !important;
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
 
 
