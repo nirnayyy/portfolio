@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const handleTriggerRetro = () => {
+    const handleTriggerRetro = (e: any) => {
       setIsLoading(true);
 
       // Disable scrolling during load
@@ -29,17 +29,19 @@ function App() {
         document.body.style.overflow = '';
         
         const html = document.documentElement;
-        const currentTheme = html.getAttribute("data-theme");
+        const targetTheme = e.detail?.targetTheme;
+        let nextTheme = targetTheme;
         
-        if (currentTheme === "retro") {
-          // Toggle back to dark mode
-          html.setAttribute("data-theme", "dark");
-          localStorage.setItem("portfolio-theme", "dark");
-        } else {
-          // Toggle into 8-bit retro theme
-          html.setAttribute("data-theme", "retro");
-          localStorage.setItem("portfolio-theme", "retro");
+        if (!nextTheme) {
+          const currentTheme = html.getAttribute("data-theme");
+          nextTheme = currentTheme === "retro" ? "dark" : "retro";
         }
+
+        html.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("portfolio-theme", nextTheme);
+
+        // Notify index.html that theme change completed
+        window.dispatchEvent(new CustomEvent("portfolio-theme-changed", { detail: { theme: nextTheme } }));
       }, 3800);
     };
 

@@ -2387,7 +2387,7 @@
       .loader-monogram { animation: none !important; }
     }
   </style>
-  <script type="module" crossorigin src="/assets/main-aHlBLcj5.js"></script>
+  <script type="module" crossorigin src="/assets/main-Rll79MTj.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/main-CuzfY9Om.css">
 </head>
 
@@ -3880,19 +3880,29 @@
       const activeThemeLabel = document.getElementById("activeThemeLabel");
       const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
 
-      const applyTheme = (themeName) => {
-        html.setAttribute("data-theme", themeName);
-        localStorage.setItem("portfolio-theme", themeName);
+      const applyTheme = (themeName, triggerLoading = false) => {
         if (activeThemeLabel) {
           activeThemeLabel.textContent = themeName;
         }
 
         // Trigger retro loading sequences if retro theme is selected
         if (themeName === "retro") {
-          const event = new CustomEvent("trigger-retro-loading");
-          window.dispatchEvent(event);
+          if (triggerLoading) {
+            const event = new CustomEvent("trigger-retro-loading", { detail: { targetTheme: "retro" } });
+            window.dispatchEvent(event);
+            return;
+          } else {
+            html.setAttribute("data-theme", "retro");
+            localStorage.setItem("portfolio-theme", "retro");
+            if (!document.querySelector('.crt-flicker')) {
+              const crt = document.createElement('div');
+              crt.className = 'crt-flicker';
+              document.body.appendChild(crt);
+            }
+          }
         } else {
-          // Remove CRT elements if any other theme is selected
+          html.setAttribute("data-theme", themeName);
+          localStorage.setItem("portfolio-theme", themeName);
           document.querySelectorAll('.crt-flicker').forEach(el => el.remove());
         }
 
@@ -3912,7 +3922,15 @@
       };
 
       // Set initial theme
-      applyTheme(savedTheme);
+      applyTheme(savedTheme, false);
+
+      // Listen for loading screen completion event to apply theme labels and values
+      window.addEventListener("portfolio-theme-changed", (e) => {
+        const theme = e.detail?.theme;
+        if (theme) {
+          applyTheme(theme, false);
+        }
+      });
 
       if (themeDropdownBtn && themeDropdownMenu) {
         themeDropdownBtn.addEventListener("click", (e) => {
@@ -3927,7 +3945,7 @@
         themeDropdownMenu.querySelectorAll("[data-theme-opt]").forEach(btn => {
           btn.addEventListener("click", () => {
             const chosenTheme = btn.dataset.themeOpt;
-            applyTheme(chosenTheme);
+            applyTheme(chosenTheme, true);
           });
         });
       }
