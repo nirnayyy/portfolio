@@ -13,7 +13,7 @@
 
 ## 🌍 Live Demonstration
 
-* **Production URL:** [portfolio-eight-phi-11kqxzic8l.vercel.app](https://portfolio-eight-phi-11kqxzic8l.vercel.app)
+* **Production URL:** [nirnayyy-portfolio.vercel.app](https://nirnayyy-portfolio.vercel.app)
 
 ---
 
