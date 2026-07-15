@@ -15,6 +15,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         thankyou: path.resolve(__dirname, 'thankyou.html'),
+        myworks: path.resolve(__dirname, 'myworks.html'),
       },
     },
   },
