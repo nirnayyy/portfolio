@@ -204,6 +204,50 @@
     [data-theme="retro"] .font-mono-retro {
       font-family: 'Share Tech Mono', monospace !important;
     }
+
+    /* Project Card Images & Mock Browser */
+    .project-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.01);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .project-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: grayscale(100%) brightness(0.85) contrast(1.05);
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+    }
+
+    .glow-border-card:hover .project-card-img {
+      filter: none;
+      transform: scale(1.05);
+    }
+
+    [data-theme="light"] .project-card-img {
+      filter: grayscale(100%) brightness(0.7) contrast(1.1);
+    }
+
+    [data-theme="light"] .glow-border-card:hover .project-card-img {
+      filter: none;
+    }
+
+    [data-theme="retro"] .project-img-wrap {
+      border: 2px solid #ffffff !important;
+      border-radius: 0px !important;
+    }
+
+    [data-theme="retro"] .project-card-img {
+      filter: none !important;
+      border-radius: 0px !important;
+    }
   </style>
 </head>
 
@@ -240,7 +284,7 @@
       
       <!-- Card 1: VeriPolicy -->
       <article class="glow-border-card p-6 md:p-8 rounded-3xl flex flex-col justify-between" data-theme-retro="border-[#00ff00]">
-        <div>
+        <div class="flex flex-col flex-1">
           <div class="flex justify-between items-start mb-6">
             <span class="text-3xl font-display text-neutral-600">01</span>
             <div class="flex gap-2">
@@ -260,12 +304,26 @@
               </a>
             </div>
           </div>
+          <!-- Mock Browser Screenshot -->
+          <div class="project-img-wrap">
+            <div class="h-6 bg-[#121214] border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0 select-none">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+              <div class="ml-4 px-2 py-0.5 rounded-t bg-neutral-800/80 text-[8px] text-neutral-400 font-mono flex items-center gap-1">
+                <span>https://veri-policy.vercel.app/</span>
+              </div>
+            </div>
+            <div class="aspect-[16/10] overflow-hidden w-full relative">
+              <img src="veripolicy.webp" alt="VeriPolicy Mockup" class="project-card-img" loading="lazy" />
+            </div>
+          </div>
           <h2 class="text-2xl font-semibold mb-3">VeriPolicy</h2>
           <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">AI & Strategic Analytics</p>
           <p class="text-sm text-neutral-400 leading-relaxed mb-6">
             AI-powered strategic policy simulator and tracker built to help analysts evaluate cross-domain impacts of defence, climate, and strategic technology policies. Uses anomaly detection and RAG pipelines over global datasets to write structured briefs automatically.
           </p>
-          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8">
+          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
               <span>Local RAG: sentence-transformers embedded index inside CPU ChromaDB.</span>
@@ -280,7 +338,7 @@
             </li>
           </ul>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5">
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5 mt-auto">
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Python</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Streamlit</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">ChromaDB</span>
@@ -291,7 +349,7 @@
 
       <!-- Card 2: OpenEnv -->
       <article class="glow-border-card p-6 md:p-8 rounded-3xl flex flex-col justify-between" data-theme-retro="border-[#00ff00]">
-        <div>
+        <div class="flex flex-col flex-1">
           <div class="flex justify-between items-start mb-6">
             <span class="text-3xl font-display text-neutral-600">02</span>
             <div class="flex gap-2">
@@ -303,12 +361,26 @@
               </a>
             </div>
           </div>
+          <!-- Mock Browser Screenshot -->
+          <div class="project-img-wrap">
+            <div class="h-6 bg-[#121214] border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0 select-none">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+              <div class="ml-4 px-2 py-0.5 rounded-t bg-neutral-800/80 text-[8px] text-neutral-400 font-mono flex items-center gap-1">
+                <span>https://github.com/nirnayyy/openenv-code-review</span>
+              </div>
+            </div>
+            <div class="aspect-[16/10] overflow-hidden w-full relative">
+              <img src="openenv.webp" alt="OpenEnv Mockup" class="project-card-img" loading="lazy" />
+            </div>
+          </div>
           <h2 class="text-2xl font-semibold mb-3">OpenEnv Code Review Agent</h2>
           <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">AI & Reinforcement Learning</p>
           <p class="text-sm text-neutral-400 leading-relaxed mb-6">
             An interactive environment designed for the Meta PyTorch OpenEnv Hackathon where autonomous AI agents tackle code-review challenges. Provides a complete testing benchmark and custom APIs.
           </p>
-          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8">
+          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
               <span>Benchmark levels covering bug detection, logical errors, and SQL injections.</span>
@@ -323,7 +395,7 @@
             </li>
           </ul>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5">
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5 mt-auto">
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Python</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">FastAPI</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Docker</span>
@@ -334,7 +406,7 @@
 
       <!-- Card 3: Elevare -->
       <article class="glow-border-card p-6 md:p-8 rounded-3xl flex flex-col justify-between" data-theme-retro="border-[#00ff00]">
-        <div>
+        <div class="flex flex-col flex-1">
           <div class="flex justify-between items-start mb-6">
             <span class="text-3xl font-display text-neutral-600">03</span>
             <div class="flex gap-2">
@@ -354,12 +426,26 @@
               </a>
             </div>
           </div>
+          <!-- Mock Browser Screenshot -->
+          <div class="project-img-wrap">
+            <div class="h-6 bg-[#121214] border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0 select-none">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+              <div class="ml-4 px-2 py-0.5 rounded-t bg-neutral-800/80 text-[8px] text-neutral-400 font-mono flex items-center gap-1">
+                <span>https://elevare-healthcare.vercel.app/</span>
+              </div>
+            </div>
+            <div class="aspect-[16/10] overflow-hidden w-full relative">
+              <img src="elevare.webp" alt="Elevare Mockup" class="project-card-img" loading="lazy" />
+            </div>
+          </div>
           <h2 class="text-2xl font-semibold mb-3">Elevare — Student Mental Health</h2>
           <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">Full Stack Web App</p>
           <p class="text-sm text-neutral-400 leading-relaxed mb-6">
             A comprehensive mental health support network targeting isolated university students across India. Integrates online therapy booking, volunteer peer chat spaces, and subscription gateways.
           </p>
-          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8">
+          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
               <span>12+ custom API endpoints with secure, robust MongoDB schema models.</span>
@@ -374,7 +460,7 @@
             </li>
           </ul>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5">
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5 mt-auto">
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">React</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Node.js</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Express</span>
@@ -385,7 +471,7 @@
 
       <!-- Card 4: Air Sentinel -->
       <article class="glow-border-card p-6 md:p-8 rounded-3xl flex flex-col justify-between" data-theme-retro="border-[#00ff00]">
-        <div>
+        <div class="flex flex-col flex-1">
           <div class="flex justify-between items-start mb-6">
             <span class="text-3xl font-display text-neutral-600">04</span>
             <div class="flex gap-2">
@@ -397,12 +483,26 @@
               </a>
             </div>
           </div>
+          <!-- Mock Browser Screenshot -->
+          <div class="project-img-wrap">
+            <div class="h-6 bg-[#121214] border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0 select-none">
+              <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+              <div class="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+              <div class="ml-4 px-2 py-0.5 rounded-t bg-neutral-800/80 text-[8px] text-neutral-400 font-mono flex items-center gap-1">
+                <span>https://github.com/nirnayyy/air-sentinel</span>
+              </div>
+            </div>
+            <div class="aspect-[16/10] overflow-hidden w-full relative">
+              <img src="airsentinel.webp" alt="Air Sentinel Mockup" class="project-card-img" loading="lazy" />
+            </div>
+          </div>
           <h2 class="text-2xl font-semibold mb-3">Air Sentinel AI</h2>
           <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">AI & Sensor Dashboard</p>
           <p class="text-sm text-neutral-400 leading-relaxed mb-6">
             Air quality tracking platform leveraging historical AQI datasets to forecast regional contamination indices. Deploys real-time sensor integration alongside a React dashboard.
           </p>
-          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8">
+          <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
               <span>Scikit-learn regression model trained on 2+ years of AQI datasets hitting 87% accuracy.</span>
@@ -417,7 +517,7 @@
             </li>
           </ul>
         </div>
-        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5">
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5 mt-auto">
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">React</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Python</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">scikit-learn</span>
