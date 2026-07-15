@@ -27,7 +27,7 @@ const customQuickAnswers: FAQItem[] = [
   },
   {
     question: "What projects did he build?",
-    answer: "1. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 2. Elevare (Full-stack mental health React app with Stripe), 3. Air Sentinel AI (AQI Monitor achieving 87% prediction accuracy).",
+    answer: "1. VeriPolicy (AI-Powered Strategic Policy Simulator), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Elevare (Full-stack mental health React app with Stripe), 4. Air Sentinel AI (AQI Monitor achieving 87% prediction accuracy).",
   },
   {
     question: "How do I contact him?",
@@ -78,6 +78,16 @@ const getAIResponse = (query: string): string => {
       "- AI / DATA: pandas (78%), scikit-learn (72%), PyTorch (70%), Power BI (68%), HuggingFace (60%).";
   }
   
+  if (q.includes("veripolicy") || q.includes("policy") || q.includes("simulator") || q.includes("veripolicy-lovable")) {
+    return "MEM-BANK[0x0b]: PROJECT [VERIPOLICY - AI POLICY SIMULATOR]\n" +
+      "AI-powered strategic policy simulator and tracker built to help analysts evaluate cross-domain impacts of defence, climate, and strategic technology policies using RAG over SIPRI & OWID datasets.\n" +
+      "FEATURES:\n" +
+      "  - RAG pipeline with sentence-transformers and local ChromaDB.\n" +
+      "  - Llama 3.3 70B generating structured 4-section Foresight Memos.\n" +
+      "  - Real-time RSS news fetcher and interactive Streamlit frontend.\n" +
+      "TECH: Python, Streamlit, Llama 3.3, ChromaDB, Plotly, sentence-transformers.";
+  }
+
   if (q.includes("openenv") || q.includes("review") || q.includes("agent") || q.includes("llama")) {
     return "MEM-BANK[0x05]: PROJECT [OPENENV CODE REVIEW AGENT]\n" +
       "Built an RL environment for the Meta PyTorch OpenEnv Hackathon where AI agents tackle automated code review tasks. Llama 3.3-70B hit a 93.3% average baseline.\n" +
@@ -110,9 +120,10 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("project") || q.includes("build") || q.includes("portfolio")) {
     return "MEM-BANK[0x08]: PORTFOLIO PROJECTS\n" +
-      "1. OPENENV CODE REVIEW AGENT: RL env for Meta PyTorch OpenEnv Hackathon. Tech: Python, FastAPI, Docker, RL, PyTorch.\n\n" +
-      "2. ELEVARE - MENTAL HEALTH PLATFORM: Full-stack mental health app with peer support & booking. Tech: React, Node.js, Express, MongoDB, Stripe, JWT.\n\n" +
-      "3. AIR SENTINEL AI - AQI MONITOR: AQI regression model achieving 87% accuracy + live React dashboard. Tech: React, Python, scikit-learn, MongoDB, REST APIs.";
+      "1. VERIPOLICY: AI-Powered Strategic Policy Simulator. Tech: Python, Streamlit, Llama 3.3, ChromaDB, Plotly, sentence-transformers.\n\n" +
+      "2. OPENENV CODE REVIEW AGENT: RL env for Meta PyTorch OpenEnv Hackathon. Tech: Python, FastAPI, Docker, RL, PyTorch.\n\n" +
+      "3. ELEVARE - MENTAL HEALTH PLATFORM: Full-stack mental health app with peer support & booking. Tech: React, Node.js, Express, MongoDB, Stripe, JWT.\n\n" +
+      "4. AIR SENTINEL AI - AQI MONITOR: AQI regression model achieving 87% accuracy + live React dashboard. Tech: React, Python, scikit-learn, MongoDB, REST APIs.";
   }
   
   if (q.includes("hackathon") || q.includes("sih") || q.includes("achievement") || q.includes("win") || q.includes("pytorch")) {
@@ -131,12 +142,12 @@ const getAIResponse = (query: string): string => {
   }
   
   if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("mail") || q.includes("linkedin") || q.includes("github")) {
-    return "MEM-BANK[0x0b]: CONTACT DETAILS\n" +
+    return "MEM-BANK[0x0c]: CONTACT DETAILS\n" +
       "- EMAIL: nirnaysingh7@gmail.com\n" +
       "- PHONE: +91 78000XXXXX\n" +
       "- LOCATION: Greater Noida, Delhi NCR\n" +
       "- GITHUB: github.com/nirnayyy\n" +
-      "- LINKEDIN: linkedin.com/in/nirnay-pratap-singh-9231a5212\n" +
+      "- LINKEDIN: linkedin.com/in/nirnay-pratap-singh\n" +
       "- RESUME: Available for download on the bottom left of this page.";
   }
   
