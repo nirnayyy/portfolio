@@ -321,31 +321,34 @@
             </div>
           </div>
           <h2 class="text-2xl font-semibold mb-3">VeriPolicy</h2>
-          <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">AI & Strategic Analytics</p>
+          <p class="text-xs uppercase tracking-wider text-neutral-500 font-bold mb-4 font-mono-retro">AI Policy Intelligence Platform</p>
           <p class="text-sm text-neutral-400 leading-relaxed mb-6">
-            AI-powered strategic policy simulator and tracker built to help analysts evaluate cross-domain impacts of defence, climate, and strategic technology policies. Uses anomaly detection and RAG pipelines over global datasets to write structured briefs automatically.
+            Full-stack policy intelligence platform indexing 2M+ records across 47 jurisdictions to produce referenced foresight briefs in under two seconds. Deployed on Vercel.
           </p>
           <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
-              <span>Local RAG: sentence-transformers embedded index inside CPU ChromaDB.</span>
+              <span>RAG & Grounding: Engineered RAG pipeline on Llama 3.3-70B grounding claims in primary-source SIPRI & OWID data.</span>
             </li>
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
-              <span>LLM Generator: Llama 3.3 70B via Groq generates structured 4-section Foresight Memos.</span>
+              <span>Database & Security: Normalized PostgreSQL schema with RLS and vector search for multi-tenant isolation.</span>
             </li>
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
-              <span>News Fetcher: RSS parser pulls real policy briefs from AP & Reuters RSS feeds.</span>
+              <span>Ingestion & Deployment: Ingests data via live NewsData pipeline, deployed on Vercel with environment secrets.</span>
             </li>
           </ul>
         </div>
         <div class="flex flex-wrap gap-2 pt-4 border-t border-[var(--text)]/5 mt-auto">
-          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Python</span>
-          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Streamlit</span>
-          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">ChromaDB</span>
-          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Plotly</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">React</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">TypeScript</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">PostgreSQL</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Supabase</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">RAG</span>
           <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Llama 3.3</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Vector Embeddings</span>
+          <span class="px-2.5 py-1 rounded-lg text-[10px] font-semibold tracking-wider border border-[var(--text)]/10 bg-[var(--text)]/[0.02] text-neutral-300 font-mono-retro">Vercel</span>
         </div>
       </article>
 
@@ -507,7 +510,7 @@
           <ul class="space-y-2.5 text-xs text-neutral-400 mb-8 flex-1">
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>
-              <span>Scikit-learn regression model trained on 2+ years of AQI datasets hitting 87% accuracy.</span>
+              <span>Scikit-learn regression model trained on 2+ years of AQI datasets hitting 93% accuracy.</span>
             </li>
             <li class="flex gap-2">
               <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 mt-1.5 shrink-0"></span>

@@ -15,7 +15,7 @@ const customQuickAnswers: FAQItem[] = [
   },
   {
     question: "What is his work experience?",
-    answer: "Data Analyst Intern at Lysandra Group (Jan 2025 – Present) weekly processing 50k+ row datasets, building SQL dashboards, and saving 40% time. Former Bennett Alt Reality Club Management Head.",
+    answer: "Data Analyst Intern at Lysandra Group (Jun 2025 – Present) weekly processing 50k+ row datasets, building SQL dashboards, and saving 40% time. Former Bennett Alt Reality Club Management Head.",
   },
   {
     question: "What are his achievements?",
@@ -27,7 +27,7 @@ const customQuickAnswers: FAQItem[] = [
   },
   {
     question: "What projects did he build?",
-    answer: "1. VeriPolicy (AI-Powered Strategic Policy Simulator), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Elevare (Full-stack mental health React app with Stripe), 4. Air Sentinel AI (AQI Monitor achieving 87% prediction accuracy).",
+    answer: "1. VeriPolicy (AI Policy Intelligence Platform), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Elevare (Full-stack mental health React app with Stripe), 4. Air Sentinel AI (AQI Monitor achieving 93% accuracy on held-out test sets).",
   },
   {
     question: "How do I contact him?",
@@ -46,24 +46,21 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("lysandra") || q.includes("intern") || q.includes("experience") || q.includes("work") || q.includes("job") || q.includes("reality") || q.includes("club") || q.includes("leader")) {
     return "MEM-BANK[0x02]: EXPERIENCE DATA\n" +
-      "1. DATA ANALYST INTERN AT LYSANDRA GROUP (JAN 2025 - PRESENT):\n" +
-      "   - Work with 50,000+ row business datasets weekly — cleaning, querying, and extracting insights.\n" +
-      "   - Built and maintain 5+ dashboards in SQL and data visualization tools.\n" +
-      "   - Reduced manual reporting time by ~40%.\n" +
-      "   - Automated repetitive data-cleaning workflows using Python/pandas.\n" +
-      "   - Collaborated across cross-functional teams for weekly performance reporting.\n\n" +
+      "1. DATA ANALYST INTERN AT LYSANDRA GROUP (JUN 2025 - PRESENT):\n" +
+      "   - Cleaned and queried 50,000+ row business datasets weekly, surfacing insights that informed stakeholder decisions on resource allocation and campaign spend.\n" +
+      "   - Built and maintained 5+ SQL dashboards tracking sales and operations KPIs, reducing manual reporting effort by around 40% and freeing roughly 6 hours a week for deeper analysis.\n" +
+      "   - Automated recurring data-cleaning workflows in Python (pandas), cutting multi-hour processes down to minutes with no manual steps.\n" +
+      "   - Partnered with 3 cross-functional teams, translating vague data requests into structured, reusable weekly reports used in leadership reviews.\n\n" +
       "2. MANAGEMENT HEAD AT ALT REALITY CLUB, BENNETT UNIVERSITY (AUG 2024 - MAY 2025):\n" +
-      "   - Led a 12-person team through tech events and workshops.\n" +
-      "   - Coordinated SIH qualification pushes in 2024 and 2025.\n" +
-      "   - Managed logistics for events with 200+ participants.\n" +
-      "   - Handled vendor coordination and volunteer onboarding.";
+      "   - Led a 12-person core team to deliver 8+ technical events and workshops, growing club membership 35% to 150+ active students over the academic year.";
   }
   
   if (q.includes("education") || q.includes("college") || q.includes("university") || q.includes("school") || q.includes("cgpa") || q.includes("bennett")) {
     return "MEM-BANK[0x03]: EDUCATION ARCHIVE\n" +
-      "1. B.TECH — COMPUTER SCIENCE ENGINEERING, BENNETT UNIVERSITY (AUG 2023 - MAY 2027)\n" +
-      "   - CGPA: 7.78\n" +
-      "   - Active member of tech clubs and hackathon communities.\n\n" +
+      "1. B.TECH — COMPUTER SCIENCE ENGINEERING, BENNETT UNIVERSITY (AUG 2024 - MAY 2028)\n" +
+      "   - 3RD YEAR, 5TH SEMESTER | CGPA: 7.64 / 10\n" +
+      "   - CLOUD COMPUTING COURSE GRADE: 9 / 10\n" +
+      "   - RELEVANT COURSEWORK: CLOUD COMPUTING, DATA STRUCTURES & ALGORITHMS, DESIGN & ANALYSIS OF ALGORITHMS, DBMS, OS, COMPUTER NETWORKS, OOP.\n\n" +
       "2. XII — CBSE (1ST DIVISION), SUNBEAM INTERNATIONAL (MAR 2022)\n\n" +
       "3. X — CBSE (1ST DIVISION), TINY TOTS SR. SEC. SCHOOL (MAR 2020)";
   }
@@ -79,13 +76,13 @@ const getAIResponse = (query: string): string => {
   }
   
   if (q.includes("veripolicy") || q.includes("policy") || q.includes("simulator") || q.includes("veripolicy-lovable")) {
-    return "MEM-BANK[0x0b]: PROJECT [VERIPOLICY - AI POLICY SIMULATOR]\n" +
-      "AI-powered strategic policy simulator and tracker built to help analysts evaluate cross-domain impacts of defence, climate, and strategic technology policies using RAG over SIPRI & OWID datasets.\n" +
+    return "MEM-BANK[0x0b]: PROJECT [VERIPOLICY - AI POLICY INTELLIGENCE PLATFORM]\n" +
+      "FULL-STACK POLICY INTELLIGENCE PLATFORM INDEXING 2M+ RECORDS ACROSS 47 JURISDICTIONS TO PRODUCE REFERENCED FORESIGHT BRIEFS IN UNDER TWO SECONDS.\n" +
       "FEATURES:\n" +
-      "  - RAG pipeline with sentence-transformers and local ChromaDB.\n" +
-      "  - Llama 3.3 70B generating structured 4-section Foresight Memos.\n" +
-      "  - Real-time RSS news fetcher and interactive Streamlit frontend.\n" +
-      "TECH: Python, Streamlit, Llama 3.3, ChromaDB, Plotly, sentence-transformers.";
+      "  - ENGINEERED RAG PIPELINE ON LLAMA 3.3-70B GROUNDING CLAIMS IN PRIMARY-SOURCE SIPRI & OWID DATA.\n" +
+      "  - NORMALIZED POSTGRESQL SCHEMA WITH RLS AND VECTOR SEARCH FOR MULTI-TENANT ISOLATION.\n" +
+      "  - INGESTS DATA VIA LIVE NEWSDATA PIPELINE, DEPLOYED ON VERCEL WITH ENVIRONMENT SECRETS.\n" +
+      "TECH: REACT, TYPESCRIPT, POSTGRESQL, SUPABASE, RAG, LLAMA 3.3, VECTOR EMBEDDINGS, VERCEL.";
   }
 
   if (q.includes("openenv") || q.includes("review") || q.includes("agent") || q.includes("llama")) {
@@ -110,20 +107,20 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("airsentinel") || q.includes("air sentinel") || q.includes("aqi") || q.includes("sentinel") || q.includes("sensor")) {
     return "MEM-BANK[0x07]: PROJECT [AIR SENTINEL AI - AQI MONITOR]\n" +
-      "Air quality monitoring system with a regression model trained on 2+ years of AQI data achieving 87% prediction accuracy, with real-time sensor readings piped into a React dashboard.\n" +
+      "AIR QUALITY MONITORING SYSTEM WITH A REGRESSION MODEL TRAINED ON 2+ YEARS OF AQI DATA ACHIEVING 93% ACCURACY ON HELD-OUT TEST SETS, WITH REAL-TIME SENSOR READINGS PIPED INTO A REACT DASHBOARD.\n" +
       "FEATURES:\n" +
-      "  - Real-time sensor data every 5 min with live charts.\n" +
-      "  - MongoDB backend handles 10,000+ time-series records.\n" +
-      "  - Self-contained: ingestion, inference & frontend in one package.\n" +
-      "TECH: React, Python, scikit-learn, MongoDB, REST APIs.";
+      "  - REAL-TIME SENSOR DATA EVERY 5 MIN WITH LIVE CHARTS.\n" +
+      "  - MONGODB BACKEND HANDLES 10,000+ TIME-SERIES RECORDS.\n" +
+      "  - SELF-CONTAINED: INGESTION, INFERENCE & FRONTEND IN ONE PACKAGE.\n" +
+      "TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.";
   }
   
   if (q.includes("project") || q.includes("build") || q.includes("portfolio")) {
     return "MEM-BANK[0x08]: PORTFOLIO PROJECTS\n" +
-      "1. VERIPOLICY: AI-Powered Strategic Policy Simulator. Tech: Python, Streamlit, Llama 3.3, ChromaDB, Plotly, sentence-transformers.\n\n" +
-      "2. OPENENV CODE REVIEW AGENT: RL env for Meta PyTorch OpenEnv Hackathon. Tech: Python, FastAPI, Docker, RL, PyTorch.\n\n" +
-      "3. ELEVARE - MENTAL HEALTH PLATFORM: Full-stack mental health app with peer support & booking. Tech: React, Node.js, Express, MongoDB, Stripe, JWT.\n\n" +
-      "4. AIR SENTINEL AI - AQI MONITOR: AQI regression model achieving 87% accuracy + live React dashboard. Tech: React, Python, scikit-learn, MongoDB, REST APIs.";
+      "1. VERIPOLICY: AI POLICY INTELLIGENCE PLATFORM. TECH: REACT, TYPESCRIPT, POSTGRESQL, SUPABASE, RAG, LLAMA 3.3, VECTOR EMBEDDINGS, VERCEL.\n\n" +
+      "2. OPENENV CODE REVIEW AGENT: RL ENV FOR META PYTORCH OPENENV HACKATHON. TECH: PYTHON, FASTAPI, DOCKER, RL, PYTORCH.\n\n" +
+      "3. ELEVARE - MENTAL HEALTH PLATFORM: FULL-STACK MENTAL HEALTH APP WITH PEER SUPPORT & BOOKING. TECH: REACT, NODE.JS, EXPRESS, MONGODB, STRIPE, JWT.\n\n" +
+      "4. AIR SENTINEL AI - AQI MONITOR: AQI REGRESSION MODEL ACHIEVING 93% ACCURACY + LIVE REACT DASHBOARD. TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.";
   }
   
   if (q.includes("hackathon") || q.includes("sih") || q.includes("achievement") || q.includes("win") || q.includes("pytorch")) {
