@@ -1,0 +1,12 @@
+# Dependencies & caches
+node_modules/.vite/
+
+# Archives & Backups
+*.zip
+
+# Reference & temporary files
+*_ref.*
+
+# System files
+.DS_Store
+Thumbs.db

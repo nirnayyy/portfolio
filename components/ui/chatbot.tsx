@@ -11,27 +11,27 @@ interface Message {
 const customQuickAnswers: FAQItem[] = [
   {
     question: "Who is Nirnay?",
-    answer: "Nirnay Pratap Singh is a Computer Science Engineering student at Bennett University. He enjoys full-stack development, cloud computing, AI/ML, and data analytics. Currently seeking software engineering internships!",
+    answer: "Nirnay Pratap Singh is a B.Tech CSE undergrad (3rd year) at Bennett University focused on cloud infrastructure and applied GenAI, with a full-stack foundation across databases, REST APIs, and production deployment. Currently seeking SWE / cloud / applied AI internships!",
   },
   {
     question: "What is his work experience?",
-    answer: "Data Analyst Intern at Lysandra Group (Jun 2025 – Present) weekly processing 50k+ row datasets, building SQL dashboards, and saving 40% time. Former Bennett Alt Reality Club Management Head.",
+    answer: "Data Analyst Intern at Lysandra Group (Jun 2025 – Present): 50k+ row datasets weekly, 5+ SQL dashboards (~40% less manual reporting), pandas automation (~6 hrs/week saved). Former Management Head, Alt Reality Club, Bennett University.",
   },
   {
     question: "What are his achievements?",
-    answer: "Competed in Meta PyTorch OpenEnv Hackathon 2026 (93.3% agent baseline), qualified for Smart India Hackathon (SIH) national finals in 2024 & 2025, and expanded Bennett's Alt Reality Club to 150+ members.",
+    answer: "Meta PyTorch OpenEnv Hackathon × SST 2026 (93.3% Llama 3.3 baseline), Smart India Hackathon national rounds 2024 & 2025, and grew Alt Reality Club to 150+ members (+35%).",
   },
   {
     question: "What is his tech stack?",
-    answer: "Languages: JS, Python, Java, HTML5/CSS3, SQL. Frontend: React, Tailwind. Backend: Node, Express, FastAPI, REST, JWT. Databases: MongoDB, MySQL. DevOps/AI: Git/GitHub, Docker, AWS, pandas, scikit-learn, PyTorch.",
+    answer: "Cloud & DevOps: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD. AI & GenAI: RAG, vector embeddings, Llama 3.3, pandas, scikit-learn. Languages: C++, Java, Python, SQL, JavaScript, TypeScript. Backend: Node.js, Express, FastAPI, JWT. Databases: PostgreSQL, MySQL, MongoDB. Frontend: React, TypeScript, Tailwind.",
   },
   {
     question: "What projects did he build?",
-    answer: "1. VeriPolicy (AI Policy Intelligence Platform), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Elevare (Full-stack mental health React app with Stripe), 4. Air Sentinel AI (AQI Monitor achieving 93% accuracy on held-out test sets).",
+    answer: "1. VeriPolicy (AI Policy Intelligence — RAG + PostgreSQL + Llama 3.3), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Air Sentinel AI (AQI monitor, 93% accuracy), 4. Elevare (mental health platform with Stripe + JWT).",
   },
   {
     question: "How do I contact him?",
-    answer: "Email: nirnaysingh7@gmail.com | Phone: +91 78000XXXXX | Location: Greater Noida, Delhi NCR | Links: GitHub (github.com/nirnayyy), LinkedIn. Resume download is in page footer.",
+    answer: "Email: nirnaysingh7@gmail.com | Phone: +91 7800029036 | Location: Greater Noida, Delhi NCR | GitHub: github.com/nirnayyy | LinkedIn: linkedin.com/in/nirnay-pratap-singh. Resume download is on the page.",
   },
 ];
 
@@ -41,7 +41,7 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("who") || q.includes("profile") || q.includes("about") || q.includes("nirnay")) {
     return "MEM-BANK[0x01]: ABOUT NIRNAY\n" +
-      "I'm Nirnay Pratap Singh, a Computer Science Engineering student at Bennett University passionate about building impactful digital products and solving real-world problems through technology. I enjoy working across full-stack development, cloud computing, AI/ML, and data analytics, constantly exploring new tools and pushing myself beyond the classroom. Currently, I'm focused on expanding my expertise in software engineering, cloud technologies, and intelligent systems while looking for opportunities where I can learn fast, build meaningful products, and contribute to innovative teams.";
+      "I'm Nirnay Pratap Singh, a Computer Science undergraduate (B.Tech, 3rd year) at Bennett University focused on cloud infrastructure and applied GenAI, with a full-stack engineering foundation spanning database design, REST APIs, and production deployment. I've shipped RAG pipelines, vector search, and multi-tenant PostgreSQL systems on AWS and Vercel. Comfortable owning a feature end to end and turning ambiguous requirements into reliable, secure software. Currently seeking SWE, cloud, or applied AI internships.";
   }
   
   if (q.includes("lysandra") || q.includes("intern") || q.includes("experience") || q.includes("work") || q.includes("job") || q.includes("reality") || q.includes("club") || q.includes("leader")) {
@@ -67,12 +67,13 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("tool") || q.includes("languages") || q.includes("python") || q.includes("react")) {
     return "MEM-BANK[0x04]: STACK & TOOLBOX\n" +
-      "- LANGUAGES: HTML5 (90%), CSS3 (88%), JavaScript (85%), Python (85%), Java (72%), SQL (75%).\n" +
-      "- FRONTEND: Tailwind CSS (85%), React.js (82%), Bootstrap (70%), Figma (65%).\n" +
-      "- BACKEND: REST APIs (80%), Node.js (78%), Express.js (75%), FastAPI (72%), JWT Auth (68%).\n" +
-      "- DATABASES: MongoDB (80%), MySQL (72%).\n" +
-      "- CLOUD & DEVOPS: Git (85%), GitHub (82%), Docker (72%), AWS (70%).\n" +
-      "- AI / DATA: pandas (78%), scikit-learn (72%), PyTorch (70%), Power BI (68%), HuggingFace (60%).";
+      "- CLOUD & DEVOPS: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD.\n" +
+      "- AI & GENAI: RAG, vector embeddings, LLM integration (Llama 3.3), pandas, scikit-learn, SQL analytics.\n" +
+      "- LANGUAGES: C++, Java, Python, SQL, JavaScript (ES6+), TypeScript.\n" +
+      "- BACKEND & APIS: Node.js, Express.js, FastAPI, JWT auth.\n" +
+      "- DATABASES: PostgreSQL, MySQL, MongoDB.\n" +
+      "- FRONTEND: React.js, TypeScript, Tailwind CSS, responsive design.\n" +
+      "- CS FUNDAMENTALS: DSA, OOP, DBMS, OS, Computer Networks, SDLC.";
   }
   
   if (q.includes("veripolicy") || q.includes("policy") || q.includes("simulator") || q.includes("veripolicy-lovable")) {
@@ -119,8 +120,8 @@ const getAIResponse = (query: string): string => {
     return "MEM-BANK[0x08]: PORTFOLIO PROJECTS\n" +
       "1. VERIPOLICY: AI POLICY INTELLIGENCE PLATFORM. TECH: REACT, TYPESCRIPT, POSTGRESQL, SUPABASE, RAG, LLAMA 3.3, VECTOR EMBEDDINGS, VERCEL.\n\n" +
       "2. OPENENV CODE REVIEW AGENT: RL ENV FOR META PYTORCH OPENENV HACKATHON. TECH: PYTHON, FASTAPI, DOCKER, RL, PYTORCH.\n\n" +
-      "3. ELEVARE - MENTAL HEALTH PLATFORM: FULL-STACK MENTAL HEALTH APP WITH PEER SUPPORT & BOOKING. TECH: REACT, NODE.JS, EXPRESS, MONGODB, STRIPE, JWT.\n\n" +
-      "4. AIR SENTINEL AI - AQI MONITOR: AQI REGRESSION MODEL ACHIEVING 93% ACCURACY + LIVE REACT DASHBOARD. TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.";
+      "3. AIR SENTINEL AI - AQI MONITOR: AQI REGRESSION MODEL ACHIEVING 93% ACCURACY + LIVE REACT DASHBOARD. TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.\n\n" +
+      "4. ELEVARE - MENTAL HEALTH PLATFORM: FULL-STACK MENTAL HEALTH APP WITH PEER SUPPORT & BOOKING. TECH: REACT, NODE.JS, EXPRESS, MONGODB, STRIPE, JWT.";
   }
   
   if (q.includes("hackathon") || q.includes("sih") || q.includes("achievement") || q.includes("win") || q.includes("pytorch")) {
@@ -141,11 +142,12 @@ const getAIResponse = (query: string): string => {
   if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("mail") || q.includes("linkedin") || q.includes("github")) {
     return "MEM-BANK[0x0c]: CONTACT DETAILS\n" +
       "- EMAIL: nirnaysingh7@gmail.com\n" +
-      "- PHONE: +91 78000XXXXX\n" +
+      "- PHONE: +91 7800029036\n" +
       "- LOCATION: Greater Noida, Delhi NCR\n" +
       "- GITHUB: github.com/nirnayyy\n" +
       "- LINKEDIN: linkedin.com/in/nirnay-pratap-singh\n" +
-      "- RESUME: Available for download on the bottom left of this page.";
+      "- PORTFOLIO: https://nirnayyy-portfolio.vercel.app\n" +
+      "- RESUME: Available for download on this page.";
   }
   
   if (q.includes("hello") || q.includes("hi") || q.includes("hey") || q.includes("greet")) {
@@ -203,42 +205,45 @@ export function Chatbot() {
 
   return (
     <>
-      {/* Floating 8-Bit Pixel Trigger Icon */}
+      {/* Floating Minimal Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "fixed bottom-6 right-6 z-[99999] w-14 h-14 bg-black text-white border-4 border-white outline outline-2 outline-black -outline-offset-[6px] shadow-[4px_4px_0px_0px_#ffffff] flex items-center justify-center font-bold text-lg cursor-pointer transition-transform hover:-translate-y-1 hover:scale-105 active:translate-y-0 active:scale-100 select-none animate-bounce"
+          "fixed bottom-6 right-6 z-[99999] px-3.5 py-2.5 bg-[#0B0B0C] text-[#F0F1F2] border border-white/20 hover:border-white/50 rounded-[3px] shadow-lg flex items-center gap-2 cursor-pointer transition-colors select-none font-mono text-xs tracking-wider uppercase group"
         )}
-        aria-label="Open 8-bit AI Chatbot"
-        style={{ animationDuration: "2.5s" }}
+        aria-label="Open AI Assistant"
       >
-        <span className="retro-title text-xs">AI</span>
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 group-hover:scale-125 transition-transform"></span>
+        <span className="font-semibold">AI Assistant</span>
       </button>
 
-      {/* Retro 8-Bit Chat Box */}
+      {/* Editorial Chat Box */}
       {isOpen && (
         <div
           className={cn(
-            "fixed bottom-24 right-6 w-[400px] h-[520px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-8rem)] z-[99999] flex flex-col bg-black text-white border-4 border-white outline outline-2 outline-black -outline-offset-[6px] shadow-[8px_8px_0px_0px_#ffffff] font-mono select-none overflow-hidden animate-in fade-in slide-in-from-bottom-5 duration-200"
+            "fixed bottom-20 right-6 w-[400px] h-[520px] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] z-[99999] flex flex-col bg-[#0B0B0C] text-white border border-white/20 rounded-[4px] shadow-2xl font-mono select-none overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-200"
           )}
         >
           {/* Header Panel */}
-          <div className="flex items-center justify-between p-3 border-b-4 border-white bg-white text-black font-bold">
-            <span className="retro-title text-[8px] md:text-[9px] uppercase tracking-tighter">
-              NIRNAY-BOT.EXE v1.0
-            </span>
+          <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/10 bg-[#121214] text-white font-mono">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span className="text-[11px] font-semibold tracking-wider uppercase">
+                NIRNAY-BOT · MEM-BANK
+              </span>
+            </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="px-1 border-2 border-black font-bold text-[9px] retro hover:bg-black hover:text-white cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
+              className="px-2 py-0.5 border border-white/20 font-mono text-[10px] text-neutral-400 hover:text-white hover:border-white/50 rounded-[2px] transition-colors cursor-pointer"
             >
-              [X]
+              ✕
             </button>
           </div>
 
           {/* Chat Body */}
           <div 
             className={cn(
-              "flex-1 overflow-y-auto p-4 space-y-4 bg-zinc-950 font-mono retro-scrollbar-dark",
+              "flex-1 overflow-y-auto p-4 space-y-4 bg-[#0B0B0C] font-mono retro-scrollbar-dark",
               messages.length === 0 ? "flex flex-col justify-center" : ""
             )}
           >
@@ -246,14 +251,14 @@ export function Chatbot() {
               /* Initial State: Render Quick Answers */
               <div className="w-full">
                 <div className="text-center mb-3">
-                  <div className="inline-block border border-dashed border-zinc-700 bg-zinc-900 px-2 py-1 text-[8px] text-zinc-400 uppercase tracking-widest mb-2 font-mono">
+                  <div className="inline-block border border-[var(--border)] bg-[#121214] px-2 py-1 text-[9px] text-neutral-400 uppercase tracking-widest mb-2 font-mono">
                     ONLINE: AI PROTOCOL v1.0
                   </div>
-                  <h3 className="retro-title text-[9px] font-bold text-white uppercase mb-1">
-                    Ask me anything about Nirnay!
+                  <h3 className="text-xs font-semibold text-white uppercase mb-1">
+                    Ask anything about Nirnay
                   </h3>
-                  <p className="retro text-[8px] text-zinc-500 uppercase tracking-wider">
-                    Select a quick query below or type your custom message
+                  <p className="text-[10px] text-neutral-400 tracking-wider">
+                    Select a query below or type your custom message
                   </p>
                 </div>
                 <FAQ2
@@ -268,8 +273,8 @@ export function Chatbot() {
               /* Conversation Messages list */
               <div className="space-y-4 font-mono">
                 <div className="text-center">
-                  <span className="text-[7px] text-zinc-600 tracking-[0.25em] uppercase font-mono border-b border-zinc-900 pb-1">
-                    --- DIALOG TRANSMISSION STARTED ---
+                  <span className="text-[8px] text-neutral-500 tracking-[0.2em] uppercase font-mono border-b border-white/5 pb-1">
+                    DIALOG ACTIVE
                   </span>
                 </div>
                 
@@ -283,14 +288,14 @@ export function Chatbot() {
                   >
                     <div
                       className={cn(
-                        "max-w-[85%] p-3 text-[10px] leading-relaxed relative",
+                        "max-w-[85%] p-3 text-[11px] leading-relaxed relative rounded-[2px]",
                         msg.sender === "user"
-                          ? "bg-white text-black border-2 border-white font-semibold"
-                          : "bg-zinc-900 text-white border-2 border-zinc-700 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.4)]"
+                          ? "bg-white text-black font-medium border border-white"
+                          : "bg-[#17171A] text-neutral-200 border border-white/10"
                       )}
                     >
-                      <div className="text-[7px] text-zinc-500 uppercase mb-1 font-mono tracking-wider">
-                        {msg.sender === "user" ? "[USER_QUERY]" : "[AI_TRANSMIT]"}
+                      <div className="text-[8px] text-neutral-400 uppercase mb-1 font-mono tracking-wider">
+                        {msg.sender === "user" ? "[USER]" : "[AI_TRANSMIT]"}
                       </div>
                       <p className="whitespace-pre-wrap font-mono uppercase">
                         {msg.text}
@@ -302,8 +307,8 @@ export function Chatbot() {
                 {/* AI Typing Indicator */}
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-zinc-900 text-zinc-400 border border-dashed border-zinc-700 p-2 text-[9px] font-mono flex items-center gap-2">
-                      <span className="retro uppercase">AI IS RETRIEVING DATA BLOCKS</span>
+                    <div className="bg-[#17171A] text-neutral-400 border border-white/10 px-3 py-1.5 text-[10px] font-mono flex items-center gap-2 rounded-[2px]">
+                      <span className="uppercase">RETRIEVING DATA BLOCKS</span>
                       <span className="terminal-blink font-bold">_</span>
                     </div>
                   </div>
@@ -315,15 +320,15 @@ export function Chatbot() {
 
           {/* Quick Answers Floating Back Button (If converation is active) */}
           {messages.length > 0 && (
-            <div className="px-3 py-1 bg-zinc-900 border-t border-zinc-800 flex justify-between items-center">
-              <span className="text-[7px] text-zinc-500 uppercase tracking-widest font-mono">
-                ACTIVE DATA FEED
+            <div className="px-3 py-1.5 bg-[#121214] border-t border-white/10 flex justify-between items-center">
+              <span className="text-[8px] text-neutral-500 uppercase tracking-widest font-mono">
+                DATA FEED CONNECTED
               </span>
               <button
                 onClick={() => setMessages([])}
-                className="text-[8px] retro font-bold text-zinc-400 hover:text-white uppercase font-mono cursor-pointer border border-zinc-800 px-1 hover:border-zinc-500 active:translate-x-0.5 active:translate-y-0.5"
+                className="text-[9px] font-medium text-neutral-400 hover:text-white uppercase font-mono cursor-pointer border border-white/10 px-2 py-0.5 rounded-[2px] hover:border-white/30"
               >
-                [ RESET DIALOG ]
+                RESET DIALOG
               </button>
             </div>
           )}
@@ -331,18 +336,18 @@ export function Chatbot() {
           {/* Footer Input Area */}
           <form
             onSubmit={handleSend}
-            className="p-3 border-t-4 border-white bg-black flex gap-2"
+            className="p-3 border-t border-white/10 bg-[#121214] flex gap-2"
           >
             <input
               type="text"
               value={inputVal}
               onChange={(e) => setInputVal(e.target.value)}
-              placeholder="> TYPE QUESTION (e.g. experience, skills)..."
-              className="flex-1 bg-zinc-950 text-white border-2 border-zinc-700 outline-none p-2 text-[10px] uppercase font-mono focus:border-white transition-colors"
+              placeholder="> Ask about projects, experience, skills..."
+              className="flex-1 bg-black text-white border border-white/15 outline-none px-3 py-2 text-[11px] font-mono focus:border-white/50 rounded-[2px] transition-colors"
             />
             <button
               type="submit"
-              className="px-3 bg-white text-black border-2 border-white hover:bg-black hover:text-white hover:border-white transition-colors cursor-pointer text-[10px] font-bold retro active:translate-x-0.5 active:translate-y-0.5"
+              className="px-3.5 bg-white text-black font-mono text-[11px] font-semibold tracking-wider uppercase rounded-[2px] hover:bg-neutral-200 transition-colors cursor-pointer"
             >
               SEND
             </button>

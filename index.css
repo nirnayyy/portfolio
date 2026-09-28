@@ -752,124 +752,93 @@ html[data-theme="retro"] .touch-btn:active {
   }
 }
 
+/* Projects Horizontal Scroll Styles */
 .work-flex-wrapper {
-  mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
-}
-
-/* Tech Stack Pyramid */
-.techstack-pyramid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-.techstack-row {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.techstack-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 90px;
-  height: 100px;
-  padding: 12px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  text-decoration: none;
-  cursor: pointer;
+  overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
-.techstack-item:hover {
-  transform: translateY(-6px) scale(1.05);
-  background: rgba(var(--glow-color, 255, 255, 255), 0.08);
-  border-color: rgba(var(--glow-color, 255, 255, 255), 0.6);
-  box-shadow: 0 12px 30px rgba(var(--glow-color, 255, 255, 255), 0.2),
-              0 0 15px rgba(var(--glow-color, 255, 255, 255), 0.1);
+/* Categorized Toolbox */
+.toolbox-card {
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  border-radius: 4px;
+  transition: border-color 0.25s ease;
 }
 
-.techstack-item img {
-  width: 36px;
-  height: 36px;
+.toolbox-card:hover {
+  border-color: var(--border-hover);
+}
+
+.toolbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: transparent;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.toolbox-item:hover {
+  border-color: var(--accent);
+  background: var(--card-bg-hover);
+}
+
+.toolbox-item img {
+  width: 16px;
+  height: 16px;
   object-fit: contain;
-  filter: grayscale(100%) contrast(1.2) brightness(1.3);
-  opacity: 0.75;
-  transition: all 0.3s ease;
+  filter: grayscale(100%) opacity(0.7);
+  transition: all 0.2s ease;
 }
 
-.techstack-item:hover img {
-  filter: none;
-  opacity: 1;
-  transform: scale(1.1);
+.toolbox-item:hover img {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
 }
 
-.techstack-item span {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 8px;
-  font-weight: 500;
-  text-align: center;
+.toolbox-item span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80px;
-  transition: color 0.3s ease;
 }
 
-.techstack-item:hover span {
-  color: #fff;
+.toolbox-item:hover span {
+  color: var(--text);
 }
 
-/* Light theme overrides for pyramid */
-[data-theme="light"] .techstack-item {
-  background: rgba(0, 0, 0, 0.02);
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-[data-theme="light"] .techstack-item span {
-  color: rgba(0, 0, 0, 0.6);
-}
-
-[data-theme="light"] .techstack-item:hover {
-  background: rgba(var(--glow-color, 0, 0, 0), 0.06);
-  border-color: rgba(var(--glow-color, 0, 0, 0), 0.5);
-  box-shadow: 0 12px 30px rgba(var(--glow-color, 0, 0, 0), 0.15);
-}
-
-[data-theme="light"] .techstack-item:hover span {
-  color: #000;
-}
-
-/* Retro theme overrides for pyramid */
-[data-theme="retro"] .techstack-item {
+/* Retro theme overrides for toolbox */
+[data-theme="retro"] .toolbox-card {
+  border-color: rgba(0, 255, 0, 0.35);
+  border-radius: 0;
   background: #000000;
-  border-color: rgba(0, 255, 0, 0.3);
-  border-radius: 0px;
-  font-family: 'Share Tech Mono', monospace !important;
 }
 
-[data-theme="retro"] .techstack-item span {
+[data-theme="retro"] .toolbox-item {
+  border-color: rgba(0, 255, 0, 0.25);
+  border-radius: 0;
+  background: #000000;
+}
+
+[data-theme="retro"] .toolbox-item span {
+  font-family: 'Share Tech Mono', monospace !important;
   color: #00ff00;
 }
 
-[data-theme="retro"] .techstack-item:hover {
-  background: rgba(0, 255, 0, 0.1);
+[data-theme="retro"] .toolbox-item:hover {
   border-color: #00ff00;
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  background: rgba(0, 255, 0, 0.1);
 }
 
-[data-theme="retro"] .techstack-item:hover span {
+[data-theme="retro"] .toolbox-item:hover span {
   color: #00ff00;
 }
 
