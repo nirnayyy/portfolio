@@ -11,27 +11,27 @@ interface Message {
 const customQuickAnswers: FAQItem[] = [
   {
     question: "Who is Nirnay?",
-    answer: "Nirnay Pratap Singh is a B.Tech CSE undergrad (3rd year) at Bennett University focused on cloud infrastructure and applied GenAI, with a full-stack foundation across databases, REST APIs, and production deployment. Currently seeking SWE / cloud / applied AI internships!",
+    answer: "Nirnay Pratap Singh is a 3rd-year Computer Science undergrad and AWS Certified AI Practitioner at Bennett University building full-stack applications, retrieval-augmented generation (RAG) pipelines, and cloud-deployed systems on AWS & Docker. Currently seeking SWE / cloud / GenAI internships!",
   },
   {
     question: "What is his work experience?",
-    answer: "Data Analyst Intern at Lysandra Group (Jun 2025 – Present): 50k+ row datasets weekly, 5+ SQL dashboards (~40% less manual reporting), pandas automation (~6 hrs/week saved). Former Management Head, Alt Reality Club, Bennett University.",
+    answer: "Data Analyst Intern (Automation & Analytics) at Lysandra Group (Jun 2026 – Aug 2026): Automated Python/pandas pipelines for 50k+ weekly rows; built 5+ SQL-backed KPI dashboards cutting reporting effort by ~40% and saving ~6 hrs/week. Former Management Head, Alt Reality Club (Aug 2024 – May 2025).",
   },
   {
-    question: "What are his achievements?",
-    answer: "Meta PyTorch OpenEnv Hackathon × SST 2026 (93.3% Llama 3.3 baseline), Smart India Hackathon national rounds 2024 & 2025, and grew Alt Reality Club to 150+ members (+35%).",
+    question: "What are his certifications?",
+    answer: "AWS Certified AI Practitioner (AIF-C01), Oracle Agentic AI Certified Foundations Associate, Career Essentials in Generative AI by Microsoft & LinkedIn, AWS Academy Graduate (Cloud & Security Foundations), Anthropic AI Fluency, and Coursera ML Capstone.",
   },
   {
     question: "What is his tech stack?",
-    answer: "Cloud & DevOps: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD. AI & GenAI: RAG, vector embeddings, Llama 3.3, pandas, scikit-learn. Languages: C++, Java, Python, SQL, JavaScript, TypeScript. Backend: Node.js, Express, FastAPI, JWT. Databases: PostgreSQL, MySQL, MongoDB. Frontend: React, TypeScript, Tailwind.",
+    answer: "Cloud & DevOps: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD. GenAI & ML: Agentic AI, RAG, LangChain, LangGraph, MCP Protocol, Amazon Bedrock, PyTorch, scikit-learn, pandas. Languages: Python, C++, Java, JavaScript, TypeScript, SQL. Databases: PostgreSQL, Supabase, MySQL, MongoDB.",
   },
   {
     question: "What projects did he build?",
-    answer: "1. VeriPolicy (AI Policy Intelligence — RAG + PostgreSQL + Llama 3.3), 2. OpenEnv Code Review Agent (Meta PyTorch Hackathon, 93.3% baseline), 3. Air Sentinel AI (AQI monitor, 93% accuracy), 4. Elevare (mental health platform with Stripe + JWT).",
+    answer: "1. VeriPolicy (AI Policy Intelligence — RAG + PostgreSQL + Supabase + Llama 3.3, sub-2s briefs), 2. OpenEnv Code Review Agent (Meta PyTorch OpenEnv Hackathon, 93.3% baseline), 3. Air Sentinel AI (AQI regression system, 93% accuracy), 4. Elevare (mental health platform with Stripe + JWT).",
   },
   {
     question: "How do I contact him?",
-    answer: "Email: nirnaysingh7@gmail.com | Phone: +91 7800029036 | Location: Greater Noida, Delhi NCR | GitHub: github.com/nirnayyy | LinkedIn: linkedin.com/in/nirnay-pratap-singh. Resume download is on the page.",
+    answer: "Email: nirnaysingh7@gmail.com | Phone: +91 7800029036 | Location: Greater Noida, Delhi NCR | GitHub: github.com/nirnayyy | LinkedIn: linkedin.com/in/nirnay-pratap-singh | LeetCode: leetcode.com/u/Nirnaysingh. Resume download available on page.",
   },
 ];
 
@@ -41,39 +41,36 @@ const getAIResponse = (query: string): string => {
   
   if (q.includes("who") || q.includes("profile") || q.includes("about") || q.includes("nirnay")) {
     return "MEM-BANK[0x01]: ABOUT NIRNAY\n" +
-      "I'm Nirnay Pratap Singh, a Computer Science undergraduate (B.Tech, 3rd year) at Bennett University focused on cloud infrastructure and applied GenAI, with a full-stack engineering foundation spanning database design, REST APIs, and production deployment. I've shipped RAG pipelines, vector search, and multi-tenant PostgreSQL systems on AWS and Vercel. Comfortable owning a feature end to end and turning ambiguous requirements into reliable, secure software. Currently seeking SWE, cloud, or applied AI internships.";
+      "I'm Nirnay Pratap Singh, a 3rd-year Computer Science undergraduate and AWS Certified AI Practitioner at Bennett University focused on cloud infrastructure, applied GenAI, and full-stack systems engineering. My foundation spans Python, REST APIs, PostgreSQL, AWS, and Docker. I have shipped production systems including VeriPolicy (indexing 2M+ records across 47 jurisdictions) and an RL code-review benchmark for the Meta PyTorch OpenEnv Hackathon scoring 93.3%. Currently seeking software engineering internships focused on GenAI and cloud.";
   }
   
   if (q.includes("lysandra") || q.includes("intern") || q.includes("experience") || q.includes("work") || q.includes("job") || q.includes("reality") || q.includes("club") || q.includes("leader")) {
     return "MEM-BANK[0x02]: EXPERIENCE DATA\n" +
-      "1. DATA ANALYST INTERN AT LYSANDRA GROUP (JUN 2025 - PRESENT):\n" +
-      "   - Cleaned and queried 50,000+ row business datasets weekly, surfacing insights that informed stakeholder decisions on resource allocation and campaign spend.\n" +
-      "   - Built and maintained 5+ SQL dashboards tracking sales and operations KPIs, reducing manual reporting effort by around 40% and freeing roughly 6 hours a week for deeper analysis.\n" +
-      "   - Automated recurring data-cleaning workflows in Python (pandas), cutting multi-hour processes down to minutes with no manual steps.\n" +
-      "   - Partnered with 3 cross-functional teams, translating vague data requests into structured, reusable weekly reports used in leadership reviews.\n\n" +
+      "1. DATA ANALYST INTERN (AUTOMATION & ANALYTICS) AT LYSANDRA GROUP (JUN 2026 - AUG 2026):\n" +
+      "   - Engineer automated Python/pandas data pipelines, reducing multi-hour cleaning tasks to minutes; process and query business datasets of 50,000+ rows weekly.\n" +
+      "   - Architect 5+ SQL-backed dashboards for sales and operations KPIs, cutting manual reporting effort by approximately 40% and saving about 6 hours weekly; ship reusable reporting tools for 3 cross-functional teams.\n\n" +
       "2. MANAGEMENT HEAD AT ALT REALITY CLUB, BENNETT UNIVERSITY (AUG 2024 - MAY 2025):\n" +
-      "   - Led a 12-person core team to deliver 8+ technical events and workshops, growing club membership 35% to 150+ active students over the academic year.";
+      "   - Led a 12-person team to deliver 8+ technical events and workshops; grew membership 35% to 150+ students.";
   }
   
   if (q.includes("education") || q.includes("college") || q.includes("university") || q.includes("school") || q.includes("cgpa") || q.includes("bennett")) {
     return "MEM-BANK[0x03]: EDUCATION ARCHIVE\n" +
-      "1. B.TECH — COMPUTER SCIENCE ENGINEERING, BENNETT UNIVERSITY (AUG 2024 - MAY 2028)\n" +
-      "   - 3RD YEAR, 5TH SEMESTER | CGPA: 7.64 / 10\n" +
-      "   - CLOUD COMPUTING COURSE GRADE: 9 / 10\n" +
-      "   - RELEVANT COURSEWORK: CLOUD COMPUTING, DATA STRUCTURES & ALGORITHMS, DESIGN & ANALYSIS OF ALGORITHMS, DBMS, OS, COMPUTER NETWORKS, OOP.\n\n" +
+      "1. B.TECH IN COMPUTER SCIENCE ENGINEERING, BENNETT UNIVERSITY (AUG 2024 - MAY 2028)\n" +
+      "   - 3RD YEAR, 5TH SEMESTER | CLOUD COMPUTING COURSE GRADE: 9 / 10\n" +
+      "   - CS FUNDAMENTALS: DATA STRUCTURES & ALGORITHMS, OOP, DBMS, OPERATING SYSTEMS, COMPUTER NETWORKS, SDLC.\n\n" +
       "2. XII — CBSE (1ST DIVISION), SUNBEAM INTERNATIONAL (MAR 2022)\n\n" +
       "3. X — CBSE (1ST DIVISION), TINY TOTS SR. SEC. SCHOOL (MAR 2020)";
   }
   
   if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("tool") || q.includes("languages") || q.includes("python") || q.includes("react")) {
     return "MEM-BANK[0x04]: STACK & TOOLBOX\n" +
-      "- CLOUD & DEVOPS: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD.\n" +
-      "- AI & GENAI: RAG, vector embeddings, LLM integration (Llama 3.3), pandas, scikit-learn, SQL analytics.\n" +
-      "- LANGUAGES: C++, Java, Python, SQL, JavaScript (ES6+), TypeScript.\n" +
-      "- BACKEND & APIS: Node.js, Express.js, FastAPI, JWT auth.\n" +
-      "- DATABASES: PostgreSQL, MySQL, MongoDB.\n" +
-      "- FRONTEND: React.js, TypeScript, Tailwind CSS, responsive design.\n" +
-      "- CS FUNDAMENTALS: DSA, OOP, DBMS, OS, Computer Networks, SDLC.";
+      "- CLOUD & DEVOPS: AWS (EC2, S3, IAM, Lambda), Docker, Git/GitHub, Vercel, CI/CD, Oracle Cloud (OCI).\n" +
+      "- GENAI & ML: Machine Learning, Agentic AI, RAG, LangChain, LangGraph, Model Context Protocol (MCP), Large Language Models (LLMs), Amazon Bedrock, Amazon SageMaker, PyTorch, scikit-learn, pandas.\n" +
+      "- LANGUAGES: Python, C++, Java, JavaScript (ES6+), TypeScript, SQL.\n" +
+      "- BACKEND & APIS: FastAPI, Node.js, Express.js, REST APIs, JWT auth.\n" +
+      "- DATABASES: PostgreSQL, Supabase (with RLS), MySQL, MongoDB.\n" +
+      "- CS FUNDAMENTALS: DSA, OOP, DBMS, Operating Systems, Computer Networks, SDLC.\n" +
+      "- FRONTEND: React.js, Tailwind CSS.";
   }
   
   if (q.includes("veripolicy") || q.includes("policy") || q.includes("simulator") || q.includes("veripolicy-lovable")) {
@@ -88,66 +85,63 @@ const getAIResponse = (query: string): string => {
 
   if (q.includes("openenv") || q.includes("review") || q.includes("agent") || q.includes("llama")) {
     return "MEM-BANK[0x05]: PROJECT [OPENENV CODE REVIEW AGENT]\n" +
-      "Built an RL environment for the Meta PyTorch OpenEnv Hackathon where AI agents tackle automated code review tasks. Llama 3.3-70B hit a 93.3% average baseline.\n" +
+      "Built an RL environment for the Meta PyTorch OpenEnv Hackathon x SST where AI agents tackle automated code review tasks. Llama 3.3-70B hit a 93.3% average baseline.\n" +
       "FEATURES:\n" +
-      "  - 3-tier benchmark covering bug detection, logic errors & SQL injection.\n" +
-      "  - Partial-credit reward shaping for nuanced agent training.\n" +
-      "  - Dockerized with clean REST API (FastAPI) endpoints.\n" +
-      "TECH: Python, FastAPI, Docker, RL, PyTorch.";
+      "  - 3-tier benchmark covering bug detection, logic errors & SQL injection with partial-credit reward shaping.\n" +
+      "  - Dockerized with clean REST API (FastAPI) endpoints (/reset, /step, /state).\n" +
+      "TECH: Python, FastAPI, Docker, Reinforcement Learning, Meta PyTorch OpenEnv.";
   }
   
   if (q.includes("elevare") || q.includes("mental") || q.includes("health") || q.includes("stripe")) {
     return "MEM-BANK[0x06]: PROJECT [ELEVARE - MENTAL HEALTH PLATFORM]\n" +
-      "Full-stack mental health app for isolated students across India with peer support, professional booking, and self-help resources. Stripe-integrated premium subscriptions.\n" +
+      "Full-stack mental health app for students with peer support, appointment booking, and Stripe subscription gateways.\n" +
       "FEATURES:\n" +
       "  - JWT-based auth with role-based access control.\n" +
       "  - 12+ RESTful endpoints with optimized MongoDB schemas.\n" +
-      "  - Fully responsive React frontend — zero layout breakage.\n" +
       "TECH: React, Node.js, Express, MongoDB, Stripe, JWT.";
   }
   
   if (q.includes("airsentinel") || q.includes("air sentinel") || q.includes("aqi") || q.includes("sentinel") || q.includes("sensor")) {
     return "MEM-BANK[0x07]: PROJECT [AIR SENTINEL AI - AQI MONITOR]\n" +
-      "AIR QUALITY MONITORING SYSTEM WITH A REGRESSION MODEL TRAINED ON 2+ YEARS OF AQI DATA ACHIEVING 93% ACCURACY ON HELD-OUT TEST SETS, WITH REAL-TIME SENSOR READINGS PIPED INTO A REACT DASHBOARD.\n" +
-      "FEATURES:\n" +
-      "  - REAL-TIME SENSOR DATA EVERY 5 MIN WITH LIVE CHARTS.\n" +
-      "  - MONGODB BACKEND HANDLES 10,000+ TIME-SERIES RECORDS.\n" +
-      "  - SELF-CONTAINED: INGESTION, INFERENCE & FRONTEND IN ONE PACKAGE.\n" +
+      "AIR QUALITY INGESTION, REGRESSION, AND LIVE-DASHBOARD SYSTEM USING 2+ YEARS OF HISTORICAL DATA, INFERENCE EVERY 5 MINUTES, AND INDEXED MONGODB STORAGE FOR 10,000+ TIME-SERIES RECORDS.\n" +
       "TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.";
   }
   
   if (q.includes("project") || q.includes("build") || q.includes("portfolio")) {
     return "MEM-BANK[0x08]: PORTFOLIO PROJECTS\n" +
-      "1. VERIPOLICY: AI POLICY INTELLIGENCE PLATFORM. TECH: REACT, TYPESCRIPT, POSTGRESQL, SUPABASE, RAG, LLAMA 3.3, VECTOR EMBEDDINGS, VERCEL.\n\n" +
-      "2. OPENENV CODE REVIEW AGENT: RL ENV FOR META PYTORCH OPENENV HACKATHON. TECH: PYTHON, FASTAPI, DOCKER, RL, PYTORCH.\n\n" +
-      "3. AIR SENTINEL AI - AQI MONITOR: AQI REGRESSION MODEL ACHIEVING 93% ACCURACY + LIVE REACT DASHBOARD. TECH: REACT, PYTHON, SCIKIT-LEARN, MONGODB, REST APIS.\n\n" +
-      "4. ELEVARE - MENTAL HEALTH PLATFORM: FULL-STACK MENTAL HEALTH APP WITH PEER SUPPORT & BOOKING. TECH: REACT, NODE.JS, EXPRESS, MONGODB, STRIPE, JWT.";
+      "1. VERIPOLICY: AI Policy Intelligence Platform (React, TypeScript, PostgreSQL, Supabase, RAG, Llama 3.3, Vercel).\n" +
+      "2. OPENENV CODE REVIEW AGENT: RL Benchmark for Meta PyTorch OpenEnv Hackathon x SST (Python, FastAPI, Docker, PyTorch).\n" +
+      "3. AIR SENTINEL AI: AQI Monitor & Regression (React, Python, scikit-learn, MongoDB, REST APIs).\n" +
+      "4. ELEVARE: Mental Health Platform (React, Node.js, Express, MongoDB, Stripe, JWT).";
   }
   
   if (q.includes("hackathon") || q.includes("sih") || q.includes("achievement") || q.includes("win") || q.includes("pytorch")) {
     return "MEM-BANK[0x09]: VERIFIED ACHIEVEMENTS\n" +
-      "- META PYTORCH OPENENV HACKATHON × SST 2026: AI code-review agent hit a 93.3% average baseline.\n" +
-      "- SMART INDIA HACKATHON (SIH): Qualified and competed in the national finals in both 2024 and 2025 rounds.\n" +
-      "- ALT REALITY CLUB: Grew membership to 150+ active students as Management Head.";
+      "- SMART INDIA HACKATHON: Qualified for and competed in the national rounds in 2024 and 2025.\n" +
+      "- META PYTORCH OPENENV HACKATHON × SST 2026: Designed code-review benchmark; baseline agent scored 93.3%.\n" +
+      "- ALT REALITY CLUB: Scaled membership 35% to 150+ students across 8+ technical events as Management Head.";
   }
   
-  if (q.includes("certification") || q.includes("aws") || q.includes("certified") || q.includes("anthropic")) {
+  if (q.includes("certification") || q.includes("aws") || q.includes("certified") || q.includes("anthropic") || q.includes("oracle")) {
     return "MEM-BANK[0x0a]: CERTIFICATIONS\n" +
-      "- AWS ACADEMY GRADUATE — CLOUD FOUNDATIONS\n" +
-      "- AWS ACADEMY GRADUATE — CLOUD SECURITY FOUNDATIONS\n" +
+      "- AWS CERTIFIED AI PRACTITIONER: Amazon Web Services (AIF-C01) · Credly\n" +
+      "- ORACLE AGENTIC AI CERTIFIED FOUNDATIONS ASSOCIATE · Oracle CertView\n" +
+      "- CAREER ESSENTIALS IN GENERATIVE AI BY MICROSOFT & LINKEDIN\n" +
+      "- AWS ACADEMY GRADUATE: Cloud Foundations & Cloud Security Foundations\n" +
       "- ANTHROPIC AI FLUENCY: FRAMEWORK AND FOUNDATIONS\n" +
       "- MACHINE LEARNING CAPSTONE — COURSERA";
   }
   
-  if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("mail") || q.includes("linkedin") || q.includes("github")) {
+  if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("mail") || q.includes("linkedin") || q.includes("github") || q.includes("leetcode")) {
     return "MEM-BANK[0x0c]: CONTACT DETAILS\n" +
       "- EMAIL: nirnaysingh7@gmail.com\n" +
       "- PHONE: +91 7800029036\n" +
       "- LOCATION: Greater Noida, Delhi NCR\n" +
-      "- GITHUB: github.com/nirnayyy\n" +
       "- LINKEDIN: linkedin.com/in/nirnay-pratap-singh\n" +
+      "- LEETCODE: leetcode.com/u/Nirnaysingh\n" +
+      "- GITHUB: github.com/nirnayyy\n" +
       "- PORTFOLIO: https://nirnayyy-portfolio.vercel.app\n" +
-      "- RESUME: Available for download on this page.";
+      "- RESUME: Nirnay_Pratap_Singh_Resume_final.pdf (Available for direct download).";
   }
   
   if (q.includes("hello") || q.includes("hi") || q.includes("hey") || q.includes("greet")) {
